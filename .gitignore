@@ -1,0 +1,21 @@
+# 저작권 — 논문 원문 PDF는 절대 커밋하지 않는다
+papers/*.pdf
+papers/**/*.pdf
+
+# 비밀 키
+secrets/api-keys.json
+
+# 파이썬
+__pycache__/
+*.pyc
+
+# OS / 에디터
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.obsidian/
+
+# AI 에이전트 로컬 상태
+.bkit/
+.claude/
