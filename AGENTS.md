@@ -39,7 +39,7 @@ my-wiki/                           ← 위키 루트
 │   ├── methods/                   ← 분야 횡단 방법론 노트
 │   └── overviews/                 ← 카테고리 종합 허브 (백링크 모음)
 │
-├── scripts/                       ← 자동화 (fetch_paper 등)
+├── scripts/                       ← 수집 자동화 (search · fetch_paper · fetch_ieee · _wiki)
 └── secrets/                       ← API 키 (gitignore. example만 커밋)
 ```
 
@@ -48,8 +48,27 @@ my-wiki/                           ← 위키 루트
 
 ---
 
-## 3. 노트 인제스트(ingest) 워크플로
+## 3. 논문 수집 → 인제스트 워크플로
 
+논문은 **(A) 수집(PDF 확보) → (B) 인제스트(요약·구조화)** 두 단계로 들어온다.
+
+### A. 수집 (collection) — PDF 입구
+식별자나 주제를 PDF로 바꾼다. 받은 PDF는 모두 `papers/`에 stem 이름으로 저장된다. 어느 출처·스크립트를 쓸지 판단, 실패 처리, 중복 확인은 에이전트가 한다.
+
+- **주제/키워드로 찾기** — `python scripts/search.py "<영어 키워드>"`
+  → arXiv·OpenAlex 후보 목록(무료본 여부 포함). 받을 것을 골라 식별자를 아래로 넘긴다.
+- **식별자로 받기** — `python scripts/fetch_paper.py <DOI 또는 arXiv id> [...]`
+  - DOI: **무료 공개본(OA) 우선** → 없으면 출판사 API(Elsevier·Wiley·Springer, `secrets/api-keys.json` 키, 보통 KAIST 망 필요).
+  - arXiv id: 키 없이 바로.
+- **IEEE 등 키 없는 곳** — `python scripts/fetch_ieee.py fetch <DOI>`
+  (브라우저. Playwright 선택 설치 필요. 캠퍼스망/KAIST VPN이면 로그인 없이도 받힘.)
+
+**수집 규칙:**
+- PDF를 즉흥 `curl`로 받지 말고 **반드시 위 스크립트**를 쓴다 (재현성 + 키 보안).
+- 키가 없거나 못 받으면 추측하지 말고 사용자에게 *"이 PDF를 직접 `papers/`에 넣어주세요"* 라고 요청한다(§5 룰4). 사람이 해줘야 풀리는 막힘은 먼저 알려준다.
+- 받은 PDF는 곧장 아래 **B. 인제스트**로 이어진다.
+
+### B. 인제스트 (ingest)
 **"이 PDF ingest해줘"** 한 마디에:
 1. PDF를 `papers/`로 옮기고 **stem 규칙**으로 이름 변경: `<firstauthor><year>-<핵심키워드>.pdf` (예: `park2026-micromobility-overtaking.pdf`). 중복 stem 금지.
 2. `sources/<stem>.md`에 요약 마크다운 1편 생성.

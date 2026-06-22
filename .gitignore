@@ -5,6 +5,9 @@ papers/**/*.pdf
 # 비밀 키
 secrets/api-keys.json
 
+# IEEE 브라우저 로그인 세션 (쿠키 포함, 사람마다 다름 — 절대 커밋 금지)
+.browser/
+
 # 파이썬
 __pycache__/
 *.pyc

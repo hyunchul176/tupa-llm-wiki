@@ -32,24 +32,33 @@ cd my-wiki
 - 에이전트는 세션 시작 시 `AGENTS.md`(룰)와 `CLAUDE.md`(진입점)를 읽는다.
 
 ### 3. (선택) 논문 자동 수집 키 설정
-DOI로 전문 PDF를 자동으로 받고 싶으면:
+유료 출판사(Elsevier / Wiley / Springer) 본문을 DOI로 받고 싶으면:
 ```bash
 cp secrets/api-keys.example.json secrets/api-keys.json
-# 파일을 열어 본인 키 입력 (Elsevier / Wiley 등). 이 파일은 git에 안 올라간다.
+# 파일을 열어 본인 키 입력. 이 파일은 git에 안 올라간다.
 ```
-> 키가 없어도 PDF를 직접 `papers/`에 넣으면 ingest는 똑같이 된다.
+> **키가 없어도** arXiv 논문과 무료 공개본(OA)은 받힌다. 그래도 안 되는 PDF는 직접 `papers/`에 넣으면 ingest는 똑같이 된다.
 
-### 4. 첫 논문 넣기
+### 4. 첫 논문 넣기 — 먼저 PDF를 구한다
 ```bash
-# 방법 A — DOI로 자동 수집 (KAIST 망에서)
-python scripts/fetch_paper.py 10.1016/j.trf.2025.103482
+# 방법 A — 주제/키워드로 찾기 (arXiv + OpenAlex 후보 목록 → 받을 것 고르기)
+python scripts/search.py "vision language action humanoid"
 
-# 방법 B — PDF를 직접 papers/ 에 복사
+# 방법 B — 식별자로 바로 받기 (DOI는 무료 공개본 우선 → 없으면 출판사 API)
+python scripts/fetch_paper.py 10.1016/j.trf.2025.103482   # DOI
+python scripts/fetch_paper.py 2406.09246                  # arXiv id
+
+# 방법 C — IEEE 등 키 없는 곳 (브라우저. Playwright 선택 설치, 캠퍼스망/VPN 권장)
+python scripts/fetch_ieee.py fetch 10.1109/JSEN.2022.3156971
+
+# 방법 D — PDF를 직접 papers/ 에 복사 (키 없어도 됨)
 ```
 그다음 에이전트에게 한 마디:
 > **"이 PDF ingest해줘"**
 
 → 에이전트가 stem 규칙으로 이름 정리 → `sources/` 요약 → `wiki/` 구조화 노트 → `overviews/` 종합까지 만든다.
+
+> 수집 스크립트는 **표준 라이브러리만** 쓴다(설치 불필요). IEEE(`fetch_ieee.py`)만 예외로 `pip install playwright && python -m playwright install chromium` 가 필요하다.
 
 ---
 
@@ -69,8 +78,11 @@ my-wiki/
 │   ├── methods/       ← 분야 횡단 방법론 노트
 │   └── overviews/     ← 카테고리 종합 허브 (백링크 모음)
 │
-├── scripts/
-│   └── fetch_paper.py ← DOI → 전문 PDF 자동 수집
+├── scripts/             ← PDF 수집 (표준 라이브러리만, IEEE만 Playwright)
+│   ├── search.py        ← 주제/키워드 → arXiv·OpenAlex 후보 검색
+│   ├── fetch_paper.py   ← DOI·arXiv id → 전문 PDF (OA 우선 → 출판사 API)
+│   ├── fetch_ieee.py    ← IEEE 등 키 없는 곳 (브라우저, 선택)
+│   └── _wiki.py         ← 공용 헬퍼 (키 로드·Crossref·stem)
 └── secrets/
     └── api-keys.example.json  ← 키 템플릿 (실제 키는 api-keys.json, gitignore)
 ```
