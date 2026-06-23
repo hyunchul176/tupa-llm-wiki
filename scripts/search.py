@@ -44,9 +44,22 @@ def search_arxiv(query: str, limit: int):
             "title": " ".join((e.findtext(f"{ATOM}title", "") or "").split()),
             "authors": [a.findtext(f"{ATOM}name", "") for a in e.findall(f"{ATOM}author")],
             "year": (e.findtext(f"{ATOM}published", "") or "")[:4],
+            "abstract": " ".join((e.findtext(f"{ATOM}summary", "") or "").split()),
             "id": sid, "id_kind": "arXiv", "oa": True,
         })
     return out
+
+
+def _oa_abstract(w):
+    """OpenAlex abstract_inverted_index → 평문 초록. 없으면 ''."""
+    inv = w.get("abstract_inverted_index")
+    if not inv:
+        return ""
+    pos = {}
+    for word, idxs in inv.items():
+        for i in idxs:
+            pos[i] = word
+    return " ".join(pos[k] for k in sorted(pos))
 
 
 def search_openalex(query: str, limit: int):
@@ -61,6 +74,7 @@ def search_openalex(query: str, limit: int):
             "title": w.get("display_name", "(제목 없음)"),
             "authors": names,
             "year": str(w.get("publication_year") or "?"),
+            "abstract": _oa_abstract(w),
             "id": doi, "id_kind": "DOI",
             "oa": bool((w.get("open_access") or {}).get("is_oa")),
             "venue": ((w.get("primary_location") or {}).get("source") or {}).get("display_name") or "",
@@ -77,6 +91,10 @@ def _print(section, items):
         print(f"    {_authors_str(it['authors'])} · {it['year']}"
               + (f" · {it.get('venue')}" if it.get("venue") else "")
               + (f" · 인용 {it.get('cited')}" if it.get("cited") is not None and it.get("venue") else ""))
+        ab = (it.get("abstract") or "").strip()
+        if ab:
+            ab = ab[:240].rsplit(" ", 1)[0] + "…" if len(ab) > 240 else ab
+            print(f"    초록: {ab}")
         if it["id"]:
             print(f"    {it['id_kind']}: {it['id']}   ({oa})")
             print(f"    받기 →  python scripts/fetch_paper.py {it['id']}")
