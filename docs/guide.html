@@ -68,6 +68,33 @@
   .chain .step .d{font-size:.82rem;color:var(--muted);line-height:1.5}
   .chain .step.end .k,.chain .step.end .t{color:var(--accent-2)}
 
+  /* hero — 한 논문의 세 가지 모습 */
+  .forms{
+    margin-top:42px;border:1px solid var(--line);border-radius:14px;background:var(--surface);
+    overflow:hidden;position:relative;
+  }
+  .forms::after{
+    content:"";position:absolute;left:0;top:0;height:3px;width:100%;
+    background:var(--accent);transform:scaleX(0);transform-origin:left;
+    animation:draw 1.25s cubic-bezier(.4,0,.1,1) .25s forwards;
+  }
+  .forms-head{padding:18px 22px 0;font-size:1rem;color:var(--muted)}
+  .forms-head b{color:var(--text);font-weight:700}
+  .forms-grid{display:flex;flex-wrap:wrap;gap:0;margin-top:16px}
+  .form{flex:1 1 0;min-width:160px;padding:16px 22px 20px;display:flex;flex-direction:column;gap:5px}
+  .form + .form{border-left:1px solid var(--line)}
+  .form .f-dir{font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.04em}
+  .form .f-name{font-weight:800;font-size:1.12rem}
+  .form .f-use{font-size:.88rem;color:var(--muted)}
+  .forms-foot{
+    padding:13px 22px;border-top:1px solid var(--line);font-size:.86rem;color:var(--muted);
+    display:flex;align-items:center;gap:11px;flex-wrap:wrap;
+  }
+  .forms-foot .stem{
+    font-family:var(--mono);font-size:.8rem;color:var(--text);background:var(--ground);
+    border:1px solid var(--line);border-radius:6px;padding:3px 9px;
+  }
+
   /* ---------- SECTIONS ---------- */
   .sec{padding:60px 0;border-top:1px solid var(--line)}
   .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:30px}
@@ -180,6 +207,8 @@
     body{font-size:16px}
     .hero{padding:60px 0 40px}
     .chain .step{flex-basis:50%}
+    .form{flex-basis:100%}
+    .form + .form{border-left:0;border-top:1px solid var(--line)}
     .g3,.rules{grid-template-columns:1fr}
     .layer{grid-template-columns:1fr;gap:8px}
     .row{grid-template-columns:1fr;gap:10px}
@@ -197,14 +226,16 @@
   <div class="wrap">
     <p class="eyebrow">TUPA LLM-Wiki · 개인 논문 지식베이스</p>
     <h1 class="display">웹이 아니라,<br><span class="hl">내가 쌓은 위키</span>를<br>근거로 답한다.</h1>
-    <p class="lead">읽은 논문을 <b>PDF → 요약 → 구조화 노트 → 종합</b>으로 쌓아, 흩어진 지식을 검색·연결 가능한 한 덩어리로 만드는 개인 지식 시스템. Claude Code 또는 Codex CLI를 이 폴더에서 열어 굴린다.</p>
+    <p class="lead">읽은 논문을 흘려보내지 않고 <b>내 지식베이스</b>로 쌓는다. 나중에 질문하면 웹이 아니라 이 더미가 답한다. Claude Code 또는 Codex CLI를 이 폴더에서 열어 굴린다.</p>
 
-    <div class="chain" aria-label="지식 사슬">
-      <div class="step"><span class="k">papers/</span><span class="t">PDF</span><span class="d">원본 논문</span></div>
-      <div class="step"><span class="k">sources/</span><span class="t">요약</span><span class="d">논문 1편 = .md 1개</span></div>
-      <div class="step"><span class="k">wiki/</span><span class="t">구조화 노트</span><span class="d">주제 분류·백링크</span></div>
-      <div class="step"><span class="k">overviews/</span><span class="t">종합</span><span class="d">카테고리 허브</span></div>
-      <div class="step end"><span class="k">→</span><span class="t">내 연구</span><span class="d">분석·발표·코드</span></div>
+    <div class="forms" aria-label="한 논문이 남는 세 가지 모습">
+      <div class="forms-head">읽은 논문 한 편이 <b>세 가지 모습</b>으로 남아, 주제로 이어져 쌓인다</div>
+      <div class="forms-grid">
+        <div class="form"><span class="f-dir">papers/</span><span class="f-name">원본 PDF</span><span class="f-use">정확히 인용할 때</span></div>
+        <div class="form"><span class="f-dir">sources/</span><span class="f-name">요약</span><span class="f-use">빠르게 훑을 때</span></div>
+        <div class="form"><span class="f-dir">wiki/</span><span class="f-name">연결된 노트</span><span class="f-use">다른 논문과 잇고 종합할 때</span></div>
+      </div>
+      <div class="forms-foot"><span class="stem">park2026-overtaking</span><span>— 세 곳이 같은 이름으로 묶여 한 편으로 추적된다</span></div>
     </div>
   </div>
 </header>
@@ -216,9 +247,9 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="sec-num">01</span>
-      <h2>이게 뭔가</h2>
+      <h2>LLM Wiki란?</h2>
     </div>
-    <p class="sub">새로운 앱이 아니라, <b>Claude Code/Codex 위에서 도는 운영 방식</b>이다. 핵심은 한 가지 약속 — 질문에 답할 때 웹을 뒤지지 않고, 내가 직접 쌓아 검증한 위키를 근거로 삼는다. 그래서 매일 조금씩 쌓는 누적이 곧 가치다.</p>
+    <p class="sub">논문은 읽고 나면 흩어진다 — 몇 달 뒤엔 뭘 읽었는지도 가물가물하다. <b>LLM Wiki</b>는 읽은 논문 하나를 위에서 본 <b>세 가지 모습(원본·요약·연결된 노트)</b>으로 남기고, 주제별로 이어 붙여 점점 커지는 한 덩어리로 쌓는 방식이다. 그래서 나중에 질문하면 웹이 아니라 <b>내가 쌓은 이 덩어리</b>가 답한다. — 연구 아이디어를 대신 내주거나 버튼 한 번에 문헌조사를 끝내주는 도구가 아니라, <b>읽은 걸 잊지 않게 쌓는 방식</b>이다.</p>
     <div class="grid g3">
       <div class="card">
         <h3>내 근거로 답한다</h3>
