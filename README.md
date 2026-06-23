@@ -37,9 +37,9 @@ pip install -r requirements.txt && python -m playwright install chromium
 ```
 > 폴더 이름은 자유. 검색·arXiv/OA·Elsevier/Wiley/Springer 수집은 **표준 라이브러리만**이라 위 설치 없이도 되고, 위 설치는 **IEEE 본문**용이다(미리 깔아두면 데모 중 끊김이 없다). IEEE 스크립트는 `uv run python scripts/fetch_ieee.py …`, 나머지는 그냥 `python scripts/…`로 실행하면 된다.
 
-### 2. AI 에이전트 준비
+### 2. AI 에이전트 준비 (Claude Code · Codex 둘 다 지원)
 - **Claude Code** 또는 **Codex CLI** 중 하나를 이 폴더에서 연다.
-- 에이전트는 세션 시작 시 `AGENTS.md`(룰)와 `CLAUDE.md`(진입점)를 읽는다.
+- 규칙은 `AGENTS.md` **한 곳**에 있다. **Codex**는 `AGENTS.md`를, **Claude Code**는 `CLAUDE.md`(→ `AGENTS.md`로 안내)를 세션 시작 시 자동으로 읽는다 — 둘 다 **동일하게 동작**한다.
 
 ### 3. (선택) 논문 자동 수집 키 설정
 유료 출판사(Elsevier / Wiley / Springer) 본문을 DOI로 받고 싶으면:
