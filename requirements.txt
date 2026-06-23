@@ -1,0 +1,8 @@
+# TUPA LLM-Wiki 의존성 / dependencies
+#
+# 핵심 기능(검색 · arXiv/OA · Elsevier·Wiley·Springer 수집 · 선별)은
+# 파이썬 표준 라이브러리만으로 동작한다 — 아래는 IEEE 전용이다.
+#
+# Playwright: IEEE 본문을 브라우저로 받을 때만 필요.
+#   설치 후 한 번:  python -m playwright install chromium
+playwright>=1.40
