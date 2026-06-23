@@ -77,17 +77,17 @@
   }
   .sec h2{font-size:clamp(1.55rem,3.4vw,2.25rem)}
   .sec .sub{color:var(--muted);max-width:64ch;margin-top:12px;font-size:1.05rem}
+  .sec .sub b{color:var(--text);font-weight:600}
 
   /* generic grid of cards */
   .grid{display:grid;gap:16px;margin-top:26px}
   .g3{grid-template-columns:repeat(3,1fr)}
-  .g2{grid-template-columns:repeat(2,1fr)}
   .card{
     background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 22px 24px;
   }
   .card h3{font-size:1.08rem;margin-bottom:8px}
   .card p{color:var(--muted);font-size:.95rem;line-height:1.65}
-  .card .mono{font-family:var(--mono);font-size:.82rem;color:var(--text)}
+  .card p b{color:var(--text);font-weight:600}
 
   /* knowledge chain (detailed, vertical strata) */
   .strata{margin-top:30px;display:flex;flex-direction:column;gap:0}
@@ -104,8 +104,13 @@
   .layer .body b{color:var(--text);font-weight:600}
   .layer.final .lab .step-k,.layer.final .lab .step-t{color:var(--accent-2)}
 
-  /* channels table */
-  .chan{margin-top:26px;display:flex;flex-direction:column;gap:14px}
+  /* discovery/fetch group label */
+  .group-label{font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;color:var(--accent);margin:34px 0 0;font-weight:600}
+  .group-label.you{color:var(--accent-2)}
+
+  /* channels rows */
+  .chan{margin-top:14px;display:flex;flex-direction:column;gap:14px}
+  .group-label + .chan{margin-top:12px}
   .row{
     display:grid;grid-template-columns:max-content 1fr max-content;gap:20px;align-items:center;
     background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:16px 20px;
@@ -130,6 +135,7 @@
   }
   .step-row .c h3{font-size:1.12rem;margin-bottom:6px}
   .step-row .c p{color:var(--muted);font-size:.96rem;margin-bottom:10px}
+  .step-row .c p b{color:var(--text);font-weight:600}
 
   /* command block + copy */
   .cmd{
@@ -160,8 +166,9 @@
 
   .note{
     margin-top:22px;font-size:.92rem;color:var(--muted);background:var(--surface);
-    border:1px solid var(--line);border-radius:11px;padding:14px 18px;
+    border:1px solid var(--line);border-radius:11px;padding:14px 18px;line-height:1.6;
   }
+  .note b{color:var(--text);font-weight:600}
   .note .mono{font-family:var(--mono);font-size:.84rem;color:var(--text)}
 
   /* footer */
@@ -173,7 +180,7 @@
     body{font-size:16px}
     .hero{padding:60px 0 40px}
     .chain .step{flex-basis:50%}
-    .g3,.g2,.rules{grid-template-columns:1fr}
+    .g3,.rules{grid-template-columns:1fr}
     .layer{grid-template-columns:1fr;gap:8px}
     .row{grid-template-columns:1fr;gap:10px}
     .row .badge{justify-self:start}
@@ -229,19 +236,77 @@
   </div>
 </section>
 
-<!-- 2. 지식 사슬 -->
+<!-- 2. 문헌 수집 -->
 <section class="sec">
   <div class="wrap">
     <div class="sec-head">
       <span class="sec-num">02</span>
-      <h2>지식 사슬 — 논문 한 편이 지나는 길</h2>
+      <h2>문헌 수집 — 주제를 주면 논문을 모은다</h2>
     </div>
-    <p class="sub">아래 단계는 순서가 있다. 각 단계는 윗 단계 없이 존재할 수 없다. 같은 논문은 <b>papers·sources·wiki 세 곳에서 같은 파일명(stem)</b>을 써서 추적·중복방지한다.</p>
+    <p class="sub">연구 아이디어는 <b>네가 들고 온다.</b> 이 에이전트엔 <b>주제로 lit review를 시킨다</b> — “X에 대해 리뷰해줘.” 그러면 에이전트가 ① <b>찾고</b>(어떤 논문이 있나) ② <b>받고</b>(그 PDF를) ③ 위키에 넣는다. ‘찾기’와 ‘받기’는 다른 일이라는 게 핵심이다.</p>
+
+    <div class="chain" aria-label="수집 흐름">
+      <div class="step"><span class="k">YOU</span><span class="t">주제</span><span class="d">"X 리뷰해줘"</span></div>
+      <div class="step"><span class="k">discovery</span><span class="t">찾기</span><span class="d">어떤 논문이 있나</span></div>
+      <div class="step"><span class="k">fetch</span><span class="t">받기</span><span class="d">그 PDF 다운로드</span></div>
+      <div class="step end"><span class="k">→</span><span class="t">ingest</span><span class="d">위키에 쌓기 (03)</span></div>
+    </div>
+
+    <p class="group-label">① 찾기 (discovery) — 어떤 논문이 있나</p>
+    <div class="chan">
+      <div class="row">
+        <span class="cmd-name">arXiv · OpenAlex</span>
+        <span class="desc"><b>search.py</b> 한 번이면 둘 다 검색한다. OpenAlex는 거의 전 출판사 메타데이터 + 인용 그래프를 무료로 훑는다.</span>
+        <span class="badge free">자동·키 불필요</span>
+      </div>
+      <div class="row">
+        <span class="cmd-name">LeapSpace</span>
+        <span class="desc"><b>선택 채널 — OpenAlex로 부족할 때만.</b> ScienceDirect 본문 기반 의미검색. 에이전트가 ≤500자 영어 질문을 만들어 주면, 네가 <a href="https://www.sciencedirect.com/leapspace">LeapSpace</a>에서 돌려 답(DOI 포함)을 붙여넣는다.</span>
+        <span class="badge you">선택·사람 손</span>
+      </div>
+    </div>
+
+    <p class="group-label you">② 받기 (fetch) — 그 PDF를 다운로드</p>
+    <div class="chan">
+      <div class="row">
+        <span class="cmd-name">arXiv · OA</span>
+        <span class="desc"><b>fetch_paper.py</b> — arXiv와 무료 공개본(OA)은 키 없이 바로. DOI는 OA를 먼저 시도한다.</span>
+        <span class="badge free">키 불필요</span>
+      </div>
+      <div class="row">
+        <span class="cmd-name">Elsevier · Wiley · Springer</span>
+        <span class="desc"><b>fetch_paper.py</b> — OA가 없으면 출판사 API로. <b>LeapSpace가 찾아준 Elsevier DOI도 여기서 받는다.</b></span>
+        <span class="badge key">키+KAIST망</span>
+      </div>
+      <div class="row">
+        <span class="cmd-name">IEEE</span>
+        <span class="desc"><b>fetch_ieee.py</b> — 브라우저로 받는다. 캠퍼스망/KAIST VPN이면 로그인 없이도 받힌다.</span>
+        <span class="badge you">브라우저·Playwright</span>
+      </div>
+      <div class="row">
+        <span class="cmd-name">직접 넣기</span>
+        <span class="desc">못 받는 논문은 <b>PDF를 papers/에 복사</b>만 해도 된다. 그다음 ingest는 똑같이 동작한다.</span>
+        <span class="badge free">키 불필요</span>
+      </div>
+    </div>
+
+    <div class="note"><b>“Elsevier API가 있으면 LeapSpace는 필요 없나?”</b> — 아니다. LeapSpace는 <b>찾기</b>, Elsevier API는 <b>받기</b>다. LeapSpace가 DOI를 찾아주면 그 DOI를 API로 받는, 앞뒤 단계라 오히려 같이 쓰면 시너지다. 다만 ‘찾기’는 OpenAlex도 무료·자동으로 하므로 LeapSpace는 선택이다.</div>
+  </div>
+</section>
+
+<!-- 3. 지식 사슬 -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2>지식 사슬 — 받은 논문이 위키가 되는 길</h2>
+    </div>
+    <p class="sub">받은 PDF에 <b>“이 PDF ingest해줘”</b> 한 마디면 아래가 한 번에 진행된다. 단계는 순서가 있고, 각 단계는 윗 단계 없이 존재할 수 없다. 같은 논문은 <b>papers·sources·wiki 세 곳에서 같은 파일명(stem)</b>을 써서 추적·중복방지한다.</p>
 
     <div class="strata">
       <div class="layer">
         <div class="lab"><span class="step-k">STEP 1</span><span class="step-t">PDF</span><span class="path">papers/</span></div>
-        <div class="body">원본 논문 PDF. 직접 넣거나 <b>수집 스크립트</b>(03 참고)로 받는다. 파일명은 <b>&lt;첫저자&gt;&lt;연도&gt;-&lt;키워드&gt;.pdf</b>.</div>
+        <div class="body">원본 논문 PDF (섹션 02에서 수집). 파일명은 <b>&lt;첫저자&gt;&lt;연도&gt;-&lt;키워드&gt;.pdf</b>.</div>
       </div>
       <div class="layer">
         <div class="lab"><span class="step-k">STEP 2</span><span class="step-t">요약</span><span class="path">sources/&lt;stem&gt;.md</span></div>
@@ -261,43 +326,7 @@
       </div>
     </div>
 
-    <div class="note">에이전트에게 PDF를 주고 <span class="mono">“이 PDF ingest해줘”</span> 한 마디면 STEP 1→4가 한 번에 진행된다. 생성 순서는 항상 <span class="mono">PDF → sources → wiki</span>.</div>
-  </div>
-</section>
-
-<!-- 3. 수집 계층 -->
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="sec-num">03</span>
-      <h2>수집 계층 — PDF를 구하는 길</h2>
-    </div>
-    <p class="sub">사슬의 입구는 PDF다. 그 PDF를 구하는 4가지 길. <b style="color:var(--accent)">녹색</b>은 키 없이 바로 되는 것, <b style="color:var(--accent-2)">흙갈색</b>은 당신이 직접 해줘야 하는 곳(키·로그인). 받은 PDF는 모두 <b>papers/</b>에 stem 이름으로 저장된다 → 곧장 “ingest해줘”.</p>
-
-    <div class="chan">
-      <div class="row">
-        <span class="cmd-name">search.py</span>
-        <span class="desc"><b>주제·키워드로 찾기.</b> arXiv·OpenAlex 후보 목록을 보여준다(무료본 여부 포함). 받을 것을 골라 식별자를 아래로 넘긴다.</span>
-        <span class="badge free">키 불필요</span>
-      </div>
-      <div class="row">
-        <span class="cmd-name">fetch_paper.py</span>
-        <span class="desc"><b>식별자(DOI·arXiv id)로 받기.</b> DOI는 <b>무료 공개본(OA) 우선</b> → 없으면 출판사 API(Elsevier·Wiley·Springer). arXiv는 키 없이 바로.</span>
-        <span class="badge key">출판사=키+KAIST망</span>
-      </div>
-      <div class="row">
-        <span class="cmd-name">fetch_ieee.py</span>
-        <span class="desc"><b>IEEE 등 키 없는 곳.</b> 브라우저로 받는다. 캠퍼스망/KAIST VPN이면 로그인 없이도 받힌다.</span>
-        <span class="badge you">브라우저·Playwright</span>
-      </div>
-      <div class="row">
-        <span class="cmd-name">직접 넣기</span>
-        <span class="desc">받기 어려운 논문은 <b>PDF를 papers/에 복사</b>만 해도 된다. 그다음 ingest는 똑같이 동작한다.</span>
-        <span class="badge free">키 불필요</span>
-      </div>
-    </div>
-
-    <div class="note">수집 스크립트는 <b>표준 라이브러리만</b> 쓴다(설치 불필요). <span class="mono">fetch_ieee.py</span>만 예외로 <span class="mono">pip install playwright &amp;&amp; python -m playwright install chromium</span> 가 필요하다.</div>
+    <div class="note">생성 순서는 항상 <span class="mono">PDF → sources → wiki</span>. 리뷰 한 편이 아니라 <b>지식이 누적되는 한 덩어리</b>를 만드는 게 목표다.</div>
   </div>
 </section>
 
@@ -308,7 +337,7 @@
       <span class="sec-num">04</span>
       <h2>시작하기</h2>
     </div>
-    <p class="sub">클론 → 에이전트 열기 → (선택) 키 → 첫 논문. 여기까지면 위키가 돈다.</p>
+    <p class="sub">클론 → 에이전트 열기 → (선택) 키 → 첫 주제. 여기까지면 위키가 돈다.</p>
 
     <div class="steps">
       <div class="step-row">
@@ -341,10 +370,10 @@
       <div class="step-row">
         <div class="n">4</div>
         <div class="c">
-          <h3>첫 논문 넣기</h3>
-          <p>주제로 찾거나 식별자로 바로 받은 뒤, 에이전트에게 <b>“이 PDF ingest해줘”</b> 한 마디.</p>
-          <div class="cmd"><button class="copy" type="button">복사</button><div class="c-line"><span class="pr">$ </span>python scripts/search.py "vision language action humanoid"   <span class="cm"># 후보 찾기</span>
-<span class="pr">$ </span>python scripts/fetch_paper.py 2406.09246                      <span class="cm"># arXiv id / DOI</span>
+          <h3>첫 주제로 lit review</h3>
+          <p>에이전트에게 <b>“OOO 주제로 lit review 해줘”</b> 하면 찾기→받기까지 알아서 진행한다. 직접 식별자로 받아도 된다. 받은 PDF는 <b>“이 PDF ingest해줘”</b>로 위키에 쌓는다.</p>
+          <div class="cmd"><button class="copy" type="button">복사</button><div class="c-line"><span class="pr">$ </span>python scripts/search.py "vision language action humanoid"   <span class="cm"># 찾기</span>
+<span class="pr">$ </span>python scripts/fetch_paper.py 2406.09246                      <span class="cm"># 받기 (arXiv id / DOI)</span>
 <span class="pr">$ </span>python scripts/fetch_ieee.py fetch 10.1109/JSEN.2022.3156971  <span class="cm"># IEEE (브라우저)</span></div></div>
         </div>
       </div>
@@ -392,8 +421,6 @@
     btn.addEventListener("click", function(){
       var block = btn.parentElement.querySelector(".c-line");
       // 프롬프트($)와 주석을 뺀 실제 명령만 복사
-      var lines = [];
-      block.querySelectorAll(".c-line, *").length; // noop guard
       var text = block.innerText.split("\n").map(function(l){
         return l.replace(/^\s*\$\s/, "").replace(/\s*#.*$/, "").trimEnd();
       }).filter(function(l){return l.length;}).join("\n");

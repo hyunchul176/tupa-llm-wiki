@@ -52,16 +52,21 @@ my-wiki/                           ← 위키 루트
 
 논문은 **(A) 수집(PDF 확보) → (B) 인제스트(요약·구조화)** 두 단계로 들어온다.
 
-### A. 수집 (collection) — PDF 입구
-식별자나 주제를 PDF로 바꾼다. 받은 PDF는 모두 `papers/`에 stem 이름으로 저장된다. 어느 출처·스크립트를 쓸지 판단, 실패 처리, 중복 확인은 에이전트가 한다.
+### A. 수집 (collection) — 주제로 lit review
 
-- **주제/키워드로 찾기** — `python scripts/search.py "<영어 키워드>"`
-  → arXiv·OpenAlex 후보 목록(무료본 여부 포함). 받을 것을 골라 식별자를 아래로 넘긴다.
-- **식별자로 받기** — `python scripts/fetch_paper.py <DOI 또는 arXiv id> [...]`
-  - DOI: **무료 공개본(OA) 우선** → 없으면 출판사 API(Elsevier·Wiley·Springer, `secrets/api-keys.json` 키, 보통 KAIST 망 필요).
+> **연구 아이디어는 사용자가 들고 온다.** 에이전트는 아이디어를 만들지 않는다. 사용자가 *"X에 대해 lit review 해줘"* 라고 주제를 주면, 그 주제의 문헌을 **① 찾고(discovery) → ② 받는다(fetch).** 둘은 다른 일이다. 받은 PDF는 모두 `papers/`에 stem 이름으로 저장된다. 어느 출처·스크립트를 쓸지 판단, 실패 처리, 중복 확인은 에이전트가 한다.
+
+**① 찾기 (discovery) — 어떤 논문이 있나**
+- **arXiv · OpenAlex** — `python scripts/search.py "<영어 키워드>"` (기본). 무료·자동. OpenAlex는 거의 전 출판사 메타데이터 + 인용 그래프를 훑는다.
+- **LeapSpace (선택, 사람 손 필요)** — OpenAlex/arXiv로 부족할 때만. ScienceDirect 본문 기반 의미검색. 에이전트가 **≤500자 영어 질문**을 만들어 주면, 사용자가 https://www.sciencedirect.com/leapspace 에서 돌려 답(인용·DOI 포함)을 붙여넣는다 → 거기서 **DOI를 추출**해 ②로 넘긴다. (LeapSpace도 LLM이므로 답은 '검증할 단서'로 다룬다.)
+
+**② 받기 (fetch) — 그 PDF를 다운로드**
+- `python scripts/fetch_paper.py <DOI 또는 arXiv id> [...]`
+  - DOI: **무료 공개본(OA) 우선** → 없으면 출판사 API(Elsevier·Wiley·Springer, `secrets/api-keys.json` 키, 보통 KAIST 망 필요). *LeapSpace가 찾아준 Elsevier DOI도 여기서 받는다.*
   - arXiv id: 키 없이 바로.
-- **IEEE 등 키 없는 곳** — `python scripts/fetch_ieee.py fetch <DOI>`
-  (브라우저. Playwright 선택 설치 필요. 캠퍼스망/KAIST VPN이면 로그인 없이도 받힘.)
+- **IEEE 등 키 없는 곳** — `python scripts/fetch_ieee.py fetch <DOI>` (브라우저. Playwright 선택 설치. 캠퍼스망/KAIST VPN이면 로그인 없이도 받힘.)
+
+> 헷갈리지 말 것: **LeapSpace=찾기, 출판사 API=받기.** Elsevier 키가 있어도 LeapSpace가 불필요해지는 게 아니라(서로 다른 단계), 다만 '찾기'는 OpenAlex가 무료·자동으로 하므로 LeapSpace는 선택이다.
 
 **수집 규칙:**
 - PDF를 즉흥 `curl`로 받지 말고 **반드시 위 스크립트**를 쓴다 (재현성 + 키 보안).
