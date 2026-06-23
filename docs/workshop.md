@@ -35,13 +35,16 @@ Open **Claude Code** or **Codex CLI** in this folder. Even without keys, arXiv a
 
 ## 2. 핵심 논문 추리기 (Shortlist)
 
-**하는 일 / Goal:** 받을 논문을 좁힌다 — 최종 확인은 사람이. / Narrow down what to fetch — you make the final call.
+**하는 일 / Goal:** 후보를 클릭형 체크리스트(아티팩트)로 만들어 고른다. / Turn candidates into a clickable checklist (artifact) and pick.
 
 **KO**
-> 위 후보 중에서 내 주제에 가장 관련 깊은 핵심 논문 5~8편을 골라줘. 각각 왜 골랐는지 한 줄 이유를 달고, 빼는 게 나은 건 그 이유도 같이.
+> 위 후보로 선별 체크리스트를 만들어 아티팩트로 띄워줘. 각 논문에 초록 기반 한 줄 요약을 달고, 관련 낮은 건 '제외 추천'으로 빼줘.
 
 **EN**
-> From those candidates, pick the 5–8 most relevant core papers for my topic. Give a one-line reason for each, and note which to drop and why.
+> Build a selection checklist from those candidates and open it as an artifact. Add a one-line abstract-based summary to each, and mark the less relevant ones as "exclude".
+
+→ 아티팩트 링크에서 받을 것만 체크 → **“선택 복사”** → 채팅에 붙여넣으면 그 논문만 받는다. (Codex·오프라인은 로컬 `shortlist.html`로 열림.)
+→ In the artifact, check what you want → **“선택 복사”** → paste back in chat. (Codex/offline opens a local `shortlist.html`.)
 
 ---
 

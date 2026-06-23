@@ -8,6 +8,10 @@ secrets/api-keys.json
 # IEEE 브라우저 로그인 세션 (쿠키 포함, 사람마다 다름 — 절대 커밋 금지)
 .browser/
 
+# 세션 산출물 (선별 체크리스트 — 아티팩트로 발행하거나 로컬에서 열고 버림)
+shortlist.html
+shortlist.json
+
 # 파이썬
 __pycache__/
 *.pyc

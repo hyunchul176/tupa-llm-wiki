@@ -42,6 +42,12 @@ cp secrets/api-keys.example.json secrets/api-keys.json
 ```
 > **키가 없어도** arXiv 논문과 무료 공개본(OA)은 받힌다. 그래도 안 되는 PDF는 직접 `papers/`에 넣으면 ingest는 똑같이 된다.
 
+> **(선택) IEEE 본문**을 브라우저로 받으려면 Playwright가 필요하다(이때만):
+> ```bash
+> pip install playwright && python -m playwright install chromium
+> ```
+> 캠퍼스망/KAIST VPN이면 로그인 없이도 받힌다. 그 외에는 `python scripts/fetch_ieee.py login` 으로 1회 로그인.
+
 ### 4. 첫 논문 넣기 — 먼저 PDF를 구한다
 ```bash
 # 방법 A — 주제/키워드로 찾기 (arXiv + OpenAlex 후보 목록 → 받을 것 고르기)
