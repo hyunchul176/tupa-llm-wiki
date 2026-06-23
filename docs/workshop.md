@@ -10,16 +10,14 @@ Everyone uses the **same prompts — only the research topic differs**. Just rep
 
 ## 0. 준비 / Setup
 
-```bash
-git clone https://github.com/hyunchul176/tupa-llm-wiki.git my-wiki
-cd my-wiki
-pip install -r requirements.txt          # IEEE용 Playwright / for IEEE
-python -m playwright install chromium     # IEEE용 브라우저 / browser for IEEE
-# (선택 / optional) 유료 출판사 키: cp secrets/api-keys.example.json secrets/api-keys.json
-```
+빈 폴더에서 **Claude Code**를 열고(Codex도 동작), 깃헙 링크를 주며 설치를 맡긴다 — 클론·의존성(IEEE용 Playwright 포함)까지 알아서 한다.
+Open **Claude Code** in an empty folder (Codex works too) and hand it the link — it clones and installs deps (incl. Playwright for IEEE).
 
-이 폴더에서 **Claude Code** 또는 **Codex CLI**를 실행한다. 키가 없어도 arXiv·무료 공개본(OA)은 받힌다. (검색·OA·Elsevier/Wiley/Springer는 설치 없이도 되고, 위 두 줄은 IEEE 본문용.)
-Open **Claude Code** or **Codex CLI** in this folder. Even without keys, arXiv and open-access papers download fine. (Search/OA/Elsevier/Wiley/Springer need no install; the two lines above are for IEEE.)
+> 이 깃헙 받아서 설치까지 해줘: https://github.com/hyunchul176/tupa-llm-wiki
+> Clone and set this up for me: https://github.com/hyunchul176/tupa-llm-wiki
+
+유료 출판사(Elsevier·Wiley·Springer) 본문이 필요하면 `secrets/api-keys.json`에 키를 입력한다. **키 없어도 arXiv·무료 공개본(OA)은 받힌다.**
+For paywalled full text, add keys to `secrets/api-keys.json`. **Without keys, arXiv & open access still work.**
 
 ---
 

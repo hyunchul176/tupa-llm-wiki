@@ -388,20 +388,11 @@
 
       <h3><span class="ko">먼저 설치 — 빈 폴더에서 3단계</span><span class="en">First, set up — 3 steps from an empty folder</span></h3>
       <div class="qs-steps">
-        <div class="qs-step"><span class="qsn">01</span><span class="qst"><span class="ko">받기 + 설치</span><span class="en">Clone + install</span></span><span class="qsd"><span class="ko">빈 폴더에 레포를 받고, IEEE용 Playwright까지 한 번에 설치한다 (폴더명 자유).</span><span class="en">Clone into an empty folder and install IEEE's Playwright in one go (any name).</span></span><div class="qscode">git clone https://github.com/hyunchul176/tupa-llm-wiki.git my-wiki
-cd my-wiki
-pip install -r requirements.txt
-python -m playwright install chromium</div></div>
-        <div class="qs-step"><span class="qsn">02</span><span class="qst"><span class="ko">API 키 입력 <span style="font-size:12px;font-weight:600;color:var(--muted);">(선택)</span></span><span class="en">Add API keys <span style="font-size:12px;font-weight:600;color:var(--muted);">(optional)</span></span></span><span class="qsd"><span class="ko">유료 출판사(Elsevier·Wiley·Springer) 본문을 받으려면 복사 후 키를 채운다. <b>키 없어도 arXiv·무료 공개본(OA)은 받힌다.</b></span><span class="en">Copy, then fill in keys to fetch paywalled (Elsevier·Wiley·Springer) full text. <b>Without keys, arXiv &amp; open-access still work.</b></span></span><div class="qscode">cp secrets/api-keys.example.json secrets/api-keys.json</div></div>
-        <div class="qs-step"><span class="qsn">03</span><span class="qst"><span class="ko">Claude Code 열기</span><span class="en">Open Claude Code</span></span><span class="qsd"><span class="ko">이 폴더에서 <b>Claude Code</b>를 실행한다 — <code>AGENTS.md</code>·<code>CLAUDE.md</code>를 자동으로 읽는다. <span style="font-size:12px;">Codex로도 동작. IEEE 본문은 캠퍼스망/KAIST VPN이면 로그인 없이 바로 받힌다(Playwright는 01에서 이미 설치됨).</span></span><span class="en">Run <b>Claude Code</b> in this folder — it auto-reads <code>AGENTS.md</code>·<code>CLAUDE.md</code>. <span style="font-size:12px;">Codex works too. IEEE works on the campus network/KAIST VPN with no login (Playwright already installed in 01).</span></span></div>
-      </div>
-
-      <div class="pflow">
-        <div class="pf"><div class="pfn">STEP 1</div><div class="pft"><span class="ko">찾기</span><span class="en">Find</span></div><div class="pfd"><span class="ko">주제로 후보 검색</span><span class="en">search by topic</span></div></div>
-        <div class="pf"><div class="pfn">STEP 2</div><div class="pft"><span class="ko">고르기</span><span class="en">Shortlist</span></div><div class="pfd"><span class="ko">아티팩트로 선택</span><span class="en">pick in the artifact</span></div></div>
-        <div class="pf"><div class="pfn">STEP 3</div><div class="pft"><span class="ko">받기</span><span class="en">Fetch</span></div><div class="pfd"><span class="ko">PDF 다운로드</span><span class="en">download PDFs</span></div></div>
-        <div class="pf"><div class="pfn">STEP 4</div><div class="pft"><span class="ko">쌓기</span><span class="en">Ingest</span></div><div class="pfd"><span class="ko">위키로 정리</span><span class="en">build the wiki</span></div></div>
-        <div class="pf"><div class="pfn">STEP 5·6</div><div class="pft"><span class="ko">질문·종합</span><span class="en">Ask · Synthesize</span></div><div class="pfd"><span class="ko">내 위키로 답·틈 찾기</span><span class="en">answer & find gaps</span></div></div>
+        <div class="qs-step"><span class="qsn">01</span><span class="qst"><span class="ko">Claude Code 실행</span><span class="en">Open Claude Code</span></span><span class="qsd"><span class="ko">빈 폴더를 만들고 그 안에서 <b>Claude Code</b>를 연다. <span style="font-size:12px;">(Codex로도 동작)</span></span><span class="en">Make an empty folder and open <b>Claude Code</b> inside it. <span style="font-size:12px;">(Codex works too.)</span></span></span></div>
+        <div class="qs-step"><span class="qsn">02</span><span class="qst"><span class="ko">링크 주고 설치</span><span class="en">Paste the link → it sets up</span></span><span class="qsd"><span class="ko">아래 한 마디면 클론·의존성(IEEE용 Playwright 포함)까지 <b>알아서 설치</b>한다.</span><span class="en">One line and it <b>sets everything up</b> — clone + deps (incl. IEEE's Playwright).</span></span><div class="qscode"><span class="ko">이 깃헙 받아서 설치까지 해줘:
+https://github.com/hyunchul176/tupa-llm-wiki</span><span class="en">Clone and set this up for me:
+https://github.com/hyunchul176/tupa-llm-wiki</span></div></div>
+        <div class="qs-step"><span class="qsn">03</span><span class="qst"><span class="ko">API 키 입력 <span style="font-size:12px;font-weight:600;color:var(--muted);">(선택)</span></span><span class="en">Add API keys <span style="font-size:12px;font-weight:600;color:var(--muted);">(optional)</span></span></span><span class="qsd"><span class="ko">유료 출판사(Elsevier·Wiley·Springer) 본문이 필요하면 <code>secrets/api-keys.json</code>에 키를 입력한다. <b>키 없어도 arXiv·무료 공개본(OA)은 받힌다.</b></span><span class="en">If you need paywalled (Elsevier·Wiley·Springer) full text, put your keys in <code>secrets/api-keys.json</code>. <b>Without keys, arXiv &amp; open-access still work.</b></span></span></div>
       </div>
 
       <div class="steps">
