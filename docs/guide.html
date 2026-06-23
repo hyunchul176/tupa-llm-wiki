@@ -195,7 +195,10 @@
   .egtree .cmt{color:var(--muted);}
   .eganswer{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 15px;font-size:14px;line-height:1.62;color:#2a3744;}
   .eganswer .src{color:var(--navy-700);font-family:var(--mono);font-size:12px;display:block;margin-top:7px;}
-  @media(max-width:860px){ .pflow .pf{flex-basis:46%;} }
+  .stepmeta{display:flex;flex-wrap:wrap;gap:5px 18px;margin:6px 0 2px;font-size:13.5px;color:var(--muted);line-height:1.5;}
+  .stepmeta > span{display:inline-flex;gap:5px;align-items:baseline;}
+  .stepmeta b{color:var(--navy-700);font-weight:700;white-space:nowrap;}
+  .stepmeta .nx b{color:var(--red-dark);}
 
   /* code */
   .code{background:var(--navy-900);color:#d2ddee;border-radius:12px;padding:18px 20px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.7;margin:12px 0 2px;}
@@ -396,7 +399,8 @@ https://github.com/hyunchul176/tupa-llm-wiki</span></div></div>
       </div>
 
       <div class="steps">
-        <div class="st"><div class="n">1</div><div class="b"><b><span class="ko">문헌 찾기</span><span class="en">Find papers</span></b> (Find) — <span class="hint"><span class="ko">주제에 맞는 후보 논문 목록 확보</span><span class="en">get a candidate list for your topic</span></span>
+        <div class="st"><div class="n">1</div><div class="b"><b><span class="ko">문헌 찾기</span><span class="en">Find papers</span></b>
+          <div class="stepmeta"><span><b><span class="ko">이 단계</span><span class="en">Now</span></b> <span class="ko">주제로 관련 논문 검색</span><span class="en">search papers by topic</span></span><span><b><span class="ko">결과</span><span class="en">Out</span></b> <span class="ko">후보 표(요약·무료본)</span><span class="en">candidate table</span></span><span class="nx"><b><span class="ko">다음</span><span class="en">Next</span></b> <span class="ko">고르기</span><span class="en">Pick</span></span></div>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
             <p class="ptext"><span class="ko">내 연구 주제는 "<span class="ph">〈내 연구 주제〉</span>"야. 이 주제로 literature review를 시작하자. arXiv와 OpenAlex에서 관련 논문을 찾아, 제목·저자·연도·DOI(또는 arXiv id)·무료본 여부를 표로 보여줘.</span><span class="en">My research topic is "<span class="ph">〈your topic〉</span>". Let's start a literature review on it. Search arXiv and OpenAlex for relevant papers and show a table with title, authors, year, DOI (or arXiv id), and open-access availability.</span></p>
           </div>
@@ -409,12 +413,13 @@ https://github.com/hyunchul176/tupa-llm-wiki</span></div></div>
           </div>
         </div></div>
 
-        <div class="st"><div class="n">2</div><div class="b"><b><span class="ko">핵심 논문 추리기</span><span class="en">Shortlist</span></b> (Shortlist) — <span class="hint"><span class="ko">후보를 클릭형 체크리스트로 만들어 고른다</span><span class="en">turn candidates into a clickable checklist and pick</span></span>
+        <div class="st"><div class="n">2</div><div class="b"><b><span class="ko">받을 논문 고르기</span><span class="en">Pick papers</span></b>
+          <div class="stepmeta"><span><b><span class="ko">이 단계</span><span class="en">Now</span></b> <span class="ko">후보를 체크리스트로 만들어 고름</span><span class="en">pick from a checklist</span></span><span><b><span class="ko">결과</span><span class="en">Out</span></b> <span class="ko">고른 논문 목록</span><span class="en">chosen list</span></span><span class="nx"><b><span class="ko">다음</span><span class="en">Next</span></b> <span class="ko">받기</span><span class="en">Fetch</span></span></div>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
-            <p class="ptext"><span class="ko">위 후보로 <code>shortlist.html</code>을 만들어 열어줘. 각 논문에 초록 기반 한 줄 요약을 달고, 관련 낮은 건 '제외 추천'으로 빼줘.</span><span class="en">Build a <code>shortlist.html</code> from those candidates and open it. Add a one-line abstract-based summary to each, and mark the less relevant ones as "exclude".</span></p>
+            <p class="ptext"><span class="ko">위 후보 중 받을 논문을 고를 수 있게 체크리스트로 만들어 열어줘. 각 논문에 초록 기반 한 줄 요약을 달고, 관련 낮은 건 '제외 추천'으로 빼줘.</span><span class="en">Make a checklist from those candidates so I can pick which to fetch, and open it. Add a one-line abstract-based summary to each, and mark the less relevant ones as "exclude".</span></p>
           </div>
           <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ 브라우저에서 받을 것만 체크 → <b>“선택 복사”</b> → 채팅에 붙여넣으면 그 논문만 받는다.</span><span class="en">→ In the browser, check what you want → <b>“선택 복사”</b> → paste it back in chat to fetch just those.</span></p>
-          <div class="eg"><span class="eglabel"><span class="ko">결과 예시 — shortlist.html</span><span class="en">Example — shortlist.html</span></span>
+          <div class="eg"><span class="eglabel"><span class="ko">결과 예시 — 받을 논문 고르기</span><span class="en">Example — pick papers</span></span>
             <div class="egshort">
               <div class="esrow"><span class="ecb">☑</span><div><div class="et">OpenVLA: An Open-Source VLA Model <span class="eb free"><span class="ko">무료본</span><span class="en">OA</span></span></div><div class="esum"><span class="ko">7B 오픈 VLA, 범용 조작 베이스라인.</span><span class="en">7B open VLA; a general manipulation baseline.</span></div></div></div>
               <div class="esrow"><span class="ecb">☑</span><div><div class="et">TinyVLA: Fast, Data-Efficient VLA <span class="eb key"><span class="ko">키/브라우저</span><span class="en">key/browser</span></span></div><div class="esum"><span class="ko">작은 백본으로 추론 가속 — 실시간 제어에 직결.</span><span class="en">Smaller backbone for faster inference — directly on-topic.</span></div></div></div>
@@ -424,7 +429,8 @@ https://github.com/hyunchul176/tupa-llm-wiki</span></div></div>
           </div>
         </div></div>
 
-        <div class="st"><div class="n">3</div><div class="b"><b><span class="ko">PDF 받기</span><span class="en">Fetch PDFs</span></b> (Fetch) — <span class="hint"><span class="ko">papers/에 전문 PDF 수집</span><span class="en">collect full-text PDFs into papers/</span></span>
+        <div class="st"><div class="n">3</div><div class="b"><b><span class="ko">PDF 받기</span><span class="en">Fetch PDFs</span></b>
+          <div class="stepmeta"><span><b><span class="ko">이 단계</span><span class="en">Now</span></b> <span class="ko">고른 논문 전문 다운로드</span><span class="en">download chosen PDFs</span></span><span><b><span class="ko">결과</span><span class="en">Out</span></b> <span class="ko">papers/의 PDF</span><span class="en">PDFs in papers/</span></span><span class="nx"><b><span class="ko">다음</span><span class="en">Next</span></b> <span class="ko">쌓기</span><span class="en">Ingest</span></span></div>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
             <p class="ptext"><span class="ko">고른 논문들의 전문 PDF를 받아줘. arXiv·무료 공개본(OA)을 먼저 시도하고, 안 되는 건 출판사 API나 IEEE로. 못 받은 건 목록으로 알려줘.</span><span class="en">Download the full-text PDFs of the chosen papers. Try arXiv and open access (OA) first, then publisher APIs or IEEE. List anything you couldn't get.</span></p>
           </div>
@@ -437,7 +443,8 @@ https://github.com/hyunchul176/tupa-llm-wiki</span></div></div>
           </div>
         </div></div>
 
-        <div class="st"><div class="n">4</div><div class="b"><b><span class="ko">위키에 쌓기</span><span class="en">Ingest</span></b> (Ingest) — <span class="hint"><span class="ko">PDF가 지식 사슬을 타고 위키가 됨</span><span class="en">PDFs flow into the wiki</span></span>
+        <div class="st"><div class="n">4</div><div class="b"><b><span class="ko">위키에 쌓기</span><span class="en">Ingest</span></b>
+          <div class="stepmeta"><span><b><span class="ko">이 단계</span><span class="en">Now</span></b> <span class="ko">PDF를 요약·노트로 정리</span><span class="en">turn PDFs into notes</span></span><span><b><span class="ko">결과</span><span class="en">Out</span></b> <span class="ko">sources/·wiki/ 노트</span><span class="en">notes in sources·wiki</span></span><span class="nx"><b><span class="ko">다음</span><span class="en">Next</span></b> <span class="ko">질문</span><span class="en">Ask</span></span></div>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
             <p class="ptext"><span class="ko">받은 PDF들을 ingest해줘. 각 논문을 sources/ 요약 → wiki/ 구조화 노트 → overviews/ 종합까지 만들어줘.</span><span class="en">Ingest the downloaded PDFs. For each paper, create the sources/ summary → wiki/ structured note → overviews/ overview.</span></p>
           </div>
@@ -449,7 +456,8 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
           </div>
         </div></div>
 
-        <div class="st"><div class="n">5</div><div class="b"><b><span class="ko">내 위키에 질문하기</span><span class="en">Ask your wiki</span></b> (Ask) — <span class="hint"><span class="ko">“웹이 아니라 내 위키가 답한다”를 체험</span><span class="en">experience answering from your wiki, not the web</span></span>
+        <div class="st"><div class="n">5</div><div class="b"><b><span class="ko">내 위키에 질문하기</span><span class="en">Ask your wiki</span></b>
+          <div class="stepmeta"><span><b><span class="ko">이 단계</span><span class="en">Now</span></b> <span class="ko">쌓인 위키에 질문</span><span class="en">ask your wiki</span></span><span><b><span class="ko">결과</span><span class="en">Out</span></b> <span class="ko">근거 달린 답변</span><span class="en">cited answer</span></span><span class="nx"><b><span class="ko">다음</span><span class="en">Next</span></b> <span class="ko">종합</span><span class="en">Synthesize</span></span></div>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
             <p class="ptext"><span class="ko">지금까지 쌓은 위키만 근거로 답해줘(웹검색 금지): "<span class="ph">〈궁금한 점〉</span>?" 어느 노트·논문에서 나온 근거인지도 같이.</span><span class="en">Answer using only the wiki built so far (no web search): "<span class="ph">〈your question〉</span>?" Cite which note/paper each point comes from.</span></p>
           </div>
@@ -458,7 +466,8 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
           </div>
         </div></div>
 
-        <div class="st"><div class="n">6</div><div class="b"><b><span class="ko">종합·연구 틈 찾기</span><span class="en">Synthesize</span></b> (Synthesize) — <span class="hint"><span class="ko">리뷰 종합 + 다음 연구 실마리</span><span class="en">review synthesis + next research leads</span></span>
+        <div class="st"><div class="n">6</div><div class="b"><b><span class="ko">종합·연구 틈 찾기</span><span class="en">Synthesize</span></b>
+          <div class="stepmeta"><span><b><span class="ko">이 단계</span><span class="en">Now</span></b> <span class="ko">논문들 종합</span><span class="en">synthesize the papers</span></span><span><b><span class="ko">결과</span><span class="en">Out</span></b> <span class="ko">공통·차이·빈틈</span><span class="en">shared·diffs·gaps</span></span><span class="nx"><b><span class="ko">다음</span><span class="en">Next</span></b> <span class="ko">(반복) 다음 주제</span><span class="en">(repeat) next topic</span></span></div>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
             <p class="ptext"><span class="ko">이 주제 논문들을 종합해줘. 공통된 접근, 서로 다른 점, 아직 안 풀린 빈틈(gap)을 정리하고 근거 논문을 달아줘. 근거는 내 위키에서만.</span><span class="en">Synthesize the papers on this topic. Lay out common approaches, differences, and open gaps, citing the supporting papers. Ground it only in my wiki.</span></p>
           </div>

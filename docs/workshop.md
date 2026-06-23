@@ -33,7 +33,7 @@ For paywalled full text, add keys to `secrets/api-keys.json`. **Without keys, ar
 
 ---
 
-## 2. 핵심 논문 추리기 (Shortlist)
+## 2. 받을 논문 고르기 (Pick)
 
 **하는 일 / Goal:** 후보를 클릭형 체크리스트(`shortlist.html`)로 만들어 고른다. / Turn candidates into a clickable checklist (`shortlist.html`) and pick.
 
