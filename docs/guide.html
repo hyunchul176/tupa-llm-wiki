@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TUPA LLM-Wiki — 안내</title>
+<title>TUPA LLM-Wiki — 안내 / Guide</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>📚</text></svg>">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
@@ -32,6 +32,13 @@
     font-family:var(--font);line-height:1.78;font-size:17px;
     letter-spacing:-.003em;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
   }
+
+  /* language toggle */
+  body.lang-ko .en{display:none;}
+  body.lang-en .ko{display:none;}
+  .langtoggle{position:fixed;top:14px;right:16px;z-index:60;display:flex;gap:2px;background:var(--navy-800);border:1px solid var(--navy-600);border-radius:999px;padding:3px;box-shadow:0 6px 18px -8px rgba(0,0,0,.45);}
+  .langtoggle button{border:0;background:transparent;color:#bccbe2;font-family:inherit;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:999px;cursor:pointer;line-height:1;transition:background .15s,color .15s;}
+  .langtoggle button.on{background:#fff;color:var(--navy-800);}
 
   /* hero */
   header.hero{background:linear-gradient(135deg,var(--navy-900),var(--navy-700));color:#fff;padding:62px 0 54px;position:relative;overflow:hidden;}
@@ -131,6 +138,19 @@
   .steps .st .b b{color:var(--navy-800);}
   .steps .st .b .hint{font-size:14px;color:var(--muted);}
 
+  /* practice prompts */
+  .prompt{position:relative;background:#fff;border:1px solid var(--line);border-left:4px solid var(--red);border-radius:11px;padding:14px 64px 14px 18px;margin:10px 0 4px;}
+  .prompt .plabel{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--red-dark);margin-bottom:5px;}
+  .prompt .ptext{margin:0;font-size:16px;line-height:1.66;color:#2a3744;}
+  .prompt .ph{color:var(--red-dark);font-weight:700;}
+  .prompt .pcopy{position:absolute;top:12px;right:12px;border:1px solid var(--line);background:var(--navy-050);color:var(--navy-700);font-family:inherit;font-size:12px;font-weight:600;padding:5px 11px;border-radius:7px;cursor:pointer;transition:background .15s,color .15s,border-color .15s;}
+  .prompt .pcopy:hover{background:var(--navy-100);}
+  .prompt .pcopy.done{background:var(--navy-800);color:#fff;border-color:var(--navy-800);}
+  .adv{background:var(--navy-050);border:1px dashed #c4d3e6;border-left:3px solid var(--navy-600);border-radius:12px;padding:16px 20px;margin:18px 0 4px;}
+  .adv .advbadge{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.04em;color:#fff;background:var(--navy-600);padding:2px 11px;border-radius:999px;margin-bottom:9px;}
+  .adv h4{margin:0 0 6px;font-size:18px;color:var(--navy-800);font-weight:750;}
+  .adv .stepnote{font-size:14.5px;color:var(--muted);margin-bottom:4px;}
+
   /* code */
   .code{background:var(--navy-900);color:#d2ddee;border-radius:12px;padding:18px 20px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.7;margin:12px 0 2px;}
   .code .c{color:#7f93b3;}
@@ -160,26 +180,32 @@
   :focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:3px;}
 </style>
 </head>
-<body>
+<body class="lang-ko">
+
+<div class="langtoggle">
+  <button data-l="ko" class="on">한국어</button>
+  <button data-l="en">English</button>
+</div>
 
 <header class="hero">
   <div class="hero-inner">
-    <span class="kicker">TUPA LLM-Wiki · 개인 논문 지식베이스</span>
-    <h1>웹이 아니라, <em>내가 쌓은 위키</em>를 근거로 답한다.</h1>
-    <p class="hsub">읽은 논문을 흘려보내지 않고 내 지식베이스로 쌓는 LLM Wiki. 나중에 질문하면 웹이 아니라 이 더미가 답한다. Claude Code 또는 Codex CLI를 이 폴더에서 열어 굴린다.</p>
+    <span class="kicker"><span class="ko">TUPA LLM-Wiki · 개인 논문 지식베이스</span><span class="en">TUPA LLM-Wiki · Personal paper knowledge base</span></span>
+    <h1><span class="ko">웹이 아니라, <em>내가 쌓은 위키</em>를 근거로 답한다.</span><span class="en">Answers grounded in <em>the wiki you built</em> — not the web.</span></h1>
+    <p class="hsub"><span class="ko">읽은 논문을 흘려보내지 않고 개인 지식베이스로 축적하는 LLM Wiki. 나중에 질문하면 외부 웹 검색보다 내가 정리해 둔 논문 노트를 우선 근거로 답한다. Claude Code 또는 Codex CLI를 이 폴더에서 실행해 사용할 수 있다.</span><span class="en">An LLM Wiki that accumulates the papers you read into a personal knowledge base instead of letting them slip away. When you ask later, it answers from the paper notes you organized first, before any web search. Run it in this folder with Claude Code or Codex CLI.</span></p>
   </div>
 </header>
 
 <div class="layout">
 
   <nav class="sidebar">
-    <div class="toc-title">목차</div>
+    <div class="toc-title"><span class="ko">목차</span><span class="en">Contents</span></div>
     <ul class="toc">
-      <li><a href="#s1">LLM Wiki란?</a></li>
-      <li><a href="#s2">문헌 수집</a></li>
-      <li><a href="#s3">지식 사슬</a></li>
-      <li><a href="#s4">시작하기</a></li>
-      <li><a href="#s5">룰 &amp; 한계</a></li>
+      <li><a href="#s1"><span class="ko">LLM Wiki란?</span><span class="en">What is an LLM Wiki?</span></a></li>
+      <li><a href="#s2"><span class="ko">문헌 수집</span><span class="en">Collecting papers</span></a></li>
+      <li><a href="#s3"><span class="ko">지식화 흐름</span><span class="en">Knowledge flow</span></a></li>
+      <li><a href="#s4"><span class="ko">시작하기</span><span class="en">Getting started</span></a></li>
+      <li><a href="#s5"><span class="ko">규칙 &amp; 한계</span><span class="en">Rules &amp; limits</span></a></li>
+      <li><a href="#s6"><span class="ko">실습 단계</span><span class="en">Practice</span></a></li>
     </ul>
   </nav>
 
@@ -187,132 +213,133 @@
 
     <!-- 1 -->
     <section id="s1">
-      <h2><span class="num">1</span>LLM Wiki란?</h2>
+      <h2><span class="num">1</span><span class="ko">LLM Wiki란?</span><span class="en">What is an LLM Wiki?</span></h2>
       <div class="panel">
-        <p>논문은 읽고 나면 흩어진다 — 몇 달 뒤엔 뭘 읽었는지도 가물가물하다. <strong>LLM Wiki</strong>는 읽은 논문 하나를 아래 <strong>세 가지 모습</strong>으로 남기고, 주제별로 이어 붙여 점점 커지는 한 덩어리로 쌓는 방식이다. 그래서 나중에 질문하면 <em class="hl">웹이 아니라 내가 쌓은 이 덩어리</em>가 답한다.</p>
+        <p class="ko">논문은 한 번 읽고 끝나면 금방 흩어진다. 몇 달이 지나면 어떤 논문을 읽었고, 그 논문이 내 연구와 어떻게 연결되는지도 흐려진다. <strong>LLM Wiki</strong>는 읽은 논문을 아래 <strong>세 가지 형태</strong>로 남기고, 주제별로 서로 연결해 점점 커지는 개인 논문 지식베이스로 쌓아 가는 방식이다. 그래서 나중에 질문하면 <em class="hl">웹이 아니라 내가 직접 축적한 위키</em>를 근거로 답할 수 있다.</p>
+        <p class="en">A paper you read once scatters quickly. A few months later it's hazy which papers you read and how they connect to your work. An <strong>LLM Wiki</strong> keeps each paper you read in the <strong>three forms</strong> below and links them by topic, building a personal paper knowledge base that grows over time. So when you ask later, it can answer from <em class="hl">a wiki you accumulated yourself, not the web</em>.</p>
       </div>
-      <p style="margin-top:16px;color:#46535f;font-size:16px;">연구 아이디어를 대신 내주거나 버튼 한 번에 문헌조사를 끝내주는 도구가 <strong>아니다.</strong> <strong>읽은 걸 잊지 않게 쌓는 방식</strong>이다.</p>
+      <p style="margin-top:16px;color:#46535f;font-size:16px;"><span class="ko">이 시스템은 연구 아이디어를 대신 만들어 주거나, 버튼 한 번으로 문헌조사를 끝내는 도구가 <strong>아니다.</strong> 핵심은 <strong>읽은 논문을 잊지 않도록 구조화해서 쌓는 것</strong>이다.</span><span class="en">This system does <strong>not</strong> invent research ideas for you or finish a literature review at the push of a button. The point is to <strong>structure and accumulate what you read so you don't forget it</strong>.</span></p>
 
-      <h3>한 논문이 남는 세 가지 모습</h3>
+      <h3><span class="ko">한 편의 논문이 저장되는 세 가지 형태</span><span class="en">The three forms each paper is stored in</span></h3>
       <div class="benefits three">
         <div class="benefit">
           <div class="ico">📄</div>
           <div class="dir">papers/</div>
-          <h4>원본 PDF</h4>
-          <p>정확히 인용할 때.</p>
+          <h4><span class="ko">원본 PDF</span><span class="en">Original PDF</span></h4>
+          <p><span class="ko">정확한 확인과 인용이 필요할 때 다시 보는 원문이다.</span><span class="en">The source you return to when you need to verify or cite precisely.</span></p>
         </div>
         <div class="benefit">
           <div class="ico">📝</div>
           <div class="dir">sources/</div>
-          <h4>요약</h4>
-          <p>빠르게 훑을 때.</p>
+          <h4><span class="ko">요약</span><span class="en">Summary</span></h4>
+          <p><span class="ko">핵심 내용을 빠르게 다시 확인하기 위한 1차 정리본이다.</span><span class="en">A first-pass digest for quickly recalling the key points.</span></p>
         </div>
         <div class="benefit">
           <div class="ico">🔗</div>
           <div class="dir">wiki/</div>
-          <h4>연결된 노트</h4>
-          <p>다른 논문과 잇고 종합할 때.</p>
+          <h4><span class="ko">연결된 노트</span><span class="en">Linked note</span></h4>
+          <p><span class="ko">개념, 방법, 연구 흐름을 다른 논문과 연결하는 지식 노트다.</span><span class="en">A knowledge note linking concepts, methods, and threads across papers.</span></p>
         </div>
       </div>
-      <div class="info">세 곳이 같은 이름(<code>park2026-overtaking</code>)으로 묶여 <b>한 편으로 추적된다.</b> 분류는 미리 정하지 않고 <b>논문 내용</b>으로 부여하며, 쌓이면 세분화한다.</div>
+      <div class="info"><span class="ko">세 파일은 같은 이름(<code>park2026-overtaking</code>)으로 묶여 <b>하나의 논문 단위로 관리된다.</b> 분류는 처음부터 고정하지 않고 <b>논문 내용</b>을 기준으로 붙인다. 논문이 쌓이면 카테고리를 더 세분화하거나 재배치한다.</span><span class="en">The three files share one name (<code>park2026-overtaking</code>) and are <b>managed as a single paper unit.</b> Categories aren't fixed up front — they're assigned by <b>paper content</b>. As papers pile up, you subdivide or rearrange them.</span></div>
     </section>
 
     <!-- 2 -->
     <section id="s2">
-      <h2><span class="num">2</span>문헌 수집 — 주제를 주면 논문을 모은다</h2>
-      <p class="lead">연구 아이디어는 네가 들고 온다. 이 에이전트엔 <strong>주제로 lit review를 시킨다</strong> — “X에 대해 리뷰해줘.” 그러면 ① <strong>찾고</strong>(어떤 논문이 있나) ② <strong>받고</strong>(그 PDF를) ③ 위키에 넣는다. ‘찾기’와 ‘받기’는 다른 일이다.</p>
+      <h2><span class="num">2</span><span class="ko">문헌 수집 — 주제에서 논문까지</span><span class="en">Collecting papers — from topic to PDF</span></h2>
+      <p class="lead"><span class="ko">연구 질문과 방향은 사용자가 정한다. 이 에이전트에는 <strong>주제 기반 문헌조사</strong>를 맡긴다 — “X에 대해 리뷰해줘.” 그러면 ① <strong>관련 논문을 찾고</strong>, ② <strong>가능한 PDF를 내려받고</strong>, ③ <strong>위키에 넣을 수 있는 형태로 정리</strong>한다. 여기서 ‘찾기’와 ‘다운로드’는 서로 다른 단계다.</span><span class="en">You set the research question and direction. You hand this agent the <strong>topic-based literature search</strong> — “review X for me.” It then ① <strong>finds relevant papers</strong>, ② <strong>downloads the PDFs it can</strong>, and ③ <strong>organizes them into a wiki-ready form</strong>. Here, “finding” and “downloading” are separate steps.</span></p>
 
       <div class="legend">
-        <span class="lg ai">자동 · 무료</span>
-        <span class="lg key">키 + KAIST망</span>
-        <span class="lg hum">사람 손 필요</span>
+        <span class="lg ai"><span class="ko">자동 · 무료</span><span class="en">Automatic · free</span></span>
+        <span class="lg key"><span class="ko">API 키 + KAIST망</span><span class="en">API key + KAIST network</span></span>
+        <span class="lg hum"><span class="ko">수동 확인 필요</span><span class="en">Manual step</span></span>
       </div>
 
-      <h3>① 찾기 (discovery) — 어떤 논문이 있나</h3>
+      <h3><span class="ko">① 찾기 (discovery) — 관련 논문 확인</span><span class="en">① Find (discovery) — what papers exist</span></h3>
       <div class="chan">
         <div class="chan-logo"><img src="assets/arxiv.png" alt="arXiv"></div>
-        <div class="ch-head"><span class="ch-name">arXiv</span><span class="ch-tag free">자동·무료</span></div>
-        <p><code>search.py</code>로 검색. 프리프린트(CS·물리·로보틱스 등)에 강하다.</p>
+        <div class="ch-head"><span class="ch-name">arXiv</span><span class="ch-tag free"><span class="ko">자동·무료</span><span class="en">Auto · free</span></span></div>
+        <p><span class="ko"><code>search.py</code>로 검색한다. CS, 물리, 로보틱스처럼 프리프린트가 활발한 분야에서 특히 유용하다.</span><span class="en">Searched via <code>search.py</code>. Especially useful in preprint-heavy fields like CS, physics, and robotics.</span></p>
       </div>
       <div class="chan">
         <div class="chan-logo"><img src="assets/openalex.png" alt="OpenAlex"></div>
-        <div class="ch-head"><span class="ch-name">OpenAlex</span><span class="ch-tag free">자동·무료</span></div>
-        <p><code>search.py</code>로 함께 검색. 거의 전 출판사 메타데이터 + 인용 그래프를 무료로 훑는다. <span class="lbl">대부분의 ‘찾기’는 여기서 끝난다.</span></p>
+        <div class="ch-head"><span class="ch-name">OpenAlex</span><span class="ch-tag free"><span class="ko">자동·무료</span><span class="en">Auto · free</span></span></div>
+        <p><span class="ko"><code>search.py</code>로 함께 검색한다. 다양한 출판사의 메타데이터와 인용 관계를 무료로 확인할 수 있다. <span class="lbl">대부분의 ‘논문 찾기’는 이 단계에서 충분하다.</span></span><span class="en">Also searched via <code>search.py</code>. Metadata and citation links across many publishers, for free. <span class="lbl">Most “finding” is covered at this step.</span></span></p>
       </div>
       <div class="chan highlight">
         <div class="chan-logo"><img src="assets/leapspace.webp" alt="LeapSpace"></div>
-        <div class="ch-head"><span class="ch-name">LeapSpace</span><span class="ch-tag human">선택 · 사람 손</span></div>
-        <p><b>OpenAlex로 부족할 때만.</b> ScienceDirect 본문 기반 의미검색. 에이전트가 ≤500자 영어 질문을 만들어 주면, 네가 사이트에서 돌려 답(DOI 포함)을 붙여넣는다.</p>
+        <div class="ch-head"><span class="ch-name">LeapSpace</span><span class="ch-tag human"><span class="ko">선택 · 수동</span><span class="en">Optional · manual</span></span></div>
+        <p><span class="ko"><b>OpenAlex 검색만으로 부족할 때 선택적으로 사용한다.</b> ScienceDirect의 본문 기반 의미 검색 도구다. 에이전트가 500자 이내의 영어 질문을 만들어 주면, 사용자가 LeapSpace에서 직접 검색하고 DOI가 포함된 결과를 다시 붙여 넣는다.</span><span class="en"><b>Use optionally when OpenAlex search alone isn't enough.</b> A full-text semantic search over ScienceDirect. The agent drafts an English query under 500 characters; you run it on LeapSpace yourself and paste back the results (with DOIs).</span></p>
         <a class="ch-link" href="https://www.sciencedirect.com/leapspace">sciencedirect.com/leapspace ↗</a>
       </div>
 
-      <h3>② 받기 (fetch) — 그 PDF를 다운로드</h3>
+      <h3><span class="ko">② 다운로드 (fetch) — 찾은 논문 PDF 받기</span><span class="en">② Download (fetch) — get the PDFs you found</span></h3>
       <div class="chan nologo">
-        <div class="ch-head"><span class="ch-name"><code>arXiv · OA</code></span><span class="ch-tag free">키 불필요</span></div>
-        <p><code>fetch_paper.py</code> — arXiv와 무료 공개본(OA)은 키 없이 바로. DOI는 OA를 먼저 시도한다.</p>
+        <div class="ch-head"><span class="ch-name"><code>arXiv · OA</code></span><span class="ch-tag free"><span class="ko">키 불필요</span><span class="en">No key</span></span></div>
+        <p><span class="ko"><code>fetch_paper.py</code>를 사용한다. arXiv와 무료 공개본(OA)은 별도 키 없이 받을 수 있다. DOI가 입력되면 먼저 OA 버전을 시도한다.</span><span class="en">Uses <code>fetch_paper.py</code>. arXiv and open-access (OA) copies download with no key. Given a DOI, it tries the OA version first.</span></p>
       </div>
       <div class="chan nologo">
-        <div class="ch-head"><span class="ch-name">Elsevier · Wiley · Springer</span><span class="ch-tag key">키 + KAIST망</span></div>
-        <p><code>fetch_paper.py</code> — OA가 없으면 출판사 API로. <b>LeapSpace가 찾아준 Elsevier DOI도 여기서 받는다.</b></p>
+        <div class="ch-head"><span class="ch-name">Elsevier · Wiley · Springer</span><span class="ch-tag key"><span class="ko">API 키 + KAIST망</span><span class="en">API key + KAIST network</span></span></div>
+        <p><span class="ko"><code>fetch_paper.py</code>를 사용한다. OA가 없으면 출판사 API를 통해 PDF를 받는다. <b>LeapSpace에서 찾은 Elsevier DOI도 이 단계에서 다운로드한다.</b></span><span class="en">Uses <code>fetch_paper.py</code>. When no OA exists, it fetches through the publisher API. <b>Elsevier DOIs found via LeapSpace are downloaded here too.</b></span></p>
       </div>
       <div class="chan nologo">
-        <div class="ch-head"><span class="ch-name">IEEE</span><span class="ch-tag human">브라우저</span></div>
-        <p><code>fetch_ieee.py</code> — 브라우저로 받는다(Playwright 선택 설치). 캠퍼스망/KAIST VPN이면 로그인 없이도 받힌다.</p>
+        <div class="ch-head"><span class="ch-name">IEEE</span><span class="ch-tag human"><span class="ko">브라우저</span><span class="en">Browser</span></span></div>
+        <p><span class="ko"><code>fetch_ieee.py</code>로 브라우저 다운로드를 시도한다(Playwright 선택 설치). 캠퍼스망 또는 KAIST VPN 환경에서는 별도 로그인 없이 받을 수 있는 경우가 있다.</span><span class="en">Tries a browser download via <code>fetch_ieee.py</code> (Playwright, optional install). On the campus network or KAIST VPN, it can often download without a separate login.</span></p>
       </div>
       <div class="chan nologo">
-        <div class="ch-head"><span class="ch-name">직접 넣기</span><span class="ch-tag free">키 불필요</span></div>
-        <p>못 받는 논문은 <b>PDF를 <code>papers/</code>에 복사</b>만 해도 된다. 그다음 ingest는 똑같이 동작한다.</p>
+        <div class="ch-head"><span class="ch-name"><span class="ko">직접 넣기</span><span class="en">Add it yourself</span></span><span class="ch-tag free"><span class="ko">키 불필요</span><span class="en">No key</span></span></div>
+        <p><span class="ko">자동으로 받지 못한 논문은 <b>PDF 파일을 <code>papers/</code> 폴더에 직접 복사</b>하면 된다. 이후 위키에 넣는 과정은 동일하게 진행된다.</span><span class="en">For papers it can't fetch automatically, just <b>copy the PDF into the <code>papers/</code> folder.</b> Ingesting it into the wiki then proceeds the same way.</span></p>
       </div>
 
-      <div class="note"><b>“Elsevier API가 있으면 LeapSpace는 필요 없나?”</b> — 아니다. LeapSpace는 <b>찾기</b>, Elsevier API는 <b>받기</b>다. LeapSpace가 DOI를 찾아주면 그 DOI를 API로 받는, 앞뒤 단계라 오히려 같이 쓰면 시너지다. 다만 ‘찾기’는 OpenAlex도 무료·자동으로 하므로 LeapSpace는 선택이다.</div>
+      <div class="note"><span class="ko"><b>“Elsevier API가 있으면 LeapSpace는 필요 없나?”</b> — 역할이 다르다. LeapSpace는 <b>관련 논문을 찾는 도구</b>이고, Elsevier API는 <b>찾은 논문을 다운로드하는 도구</b>다. LeapSpace가 DOI를 찾아주면, 그 DOI를 Elsevier API로 받는 식으로 함께 사용할 수 있다. 다만 기본적인 논문 검색은 OpenAlex로도 자동 처리할 수 있으므로 LeapSpace는 선택 사항이다.</span><span class="en"><b>“If I have the Elsevier API, do I still need LeapSpace?”</b> — They do different jobs. LeapSpace <b>finds relevant papers</b>; the Elsevier API <b>downloads</b> the ones you found. If LeapSpace turns up a DOI, you download it via the Elsevier API — they work together. But basic search is handled automatically by OpenAlex, so LeapSpace is optional.</span></div>
     </section>
 
     <!-- 3 -->
     <section id="s3">
-      <h2><span class="num">3</span>지식 사슬 — 받은 논문이 위키가 되는 길</h2>
-      <p>받은 PDF에 <em class="hl">“이 PDF ingest해줘”</em> 한 마디면 아래가 한 번에 진행된다. 단계는 순서가 있고, 같은 이름(stem)으로 세 곳에 남는다.</p>
+      <h2><span class="num">3</span><span class="ko">지식화 흐름 — PDF가 위키 노트가 되는 과정</span><span class="en">Knowledge flow — how a PDF becomes a wiki note</span></h2>
+      <p><span class="ko">다운로드한 PDF에 대해 <em class="hl">“이 PDF ingest해줘”</em>라고 요청하면 아래 흐름이 진행된다. 각 단계는 정해진 순서대로 실행되며, 같은 이름(stem)을 사용해 원본·요약·위키 노트를 서로 연결한다.</span><span class="en">Ask <em class="hl">“ingest this PDF”</em> for a downloaded PDF and the flow below runs. Each step runs in a fixed order, using the same name (stem) to link the original, the summary, and the wiki note.</span></p>
 
       <div class="flow2">
-        <div class="fstage"><div class="fnum">1</div><div class="fmain"><div class="t">원본 PDF<span class="path">papers/</span></div><div class="d">수집한 논문 PDF. 파일명 = &lt;첫저자&gt;&lt;연도&gt;-&lt;키워드&gt;.pdf</div></div></div>
+        <div class="fstage"><div class="fnum">1</div><div class="fmain"><div class="t"><span class="ko">원본 PDF</span><span class="en">Original PDF</span><span class="path">papers/</span></div><div class="d"><span class="ko">수집한 논문 PDF를 보관한다. 파일명은 &lt;첫저자&gt;&lt;연도&gt;-&lt;키워드&gt;.pdf 형식으로 맞춘다.</span><span class="en">Stores the collected paper PDF. The filename follows &lt;firstauthor&gt;&lt;year&gt;-&lt;keyword&gt;.pdf.</span></div></div></div>
         <div class="fdown"><span class="arr">↓</span></div>
-        <div class="fstage"><div class="fnum">2</div><div class="fmain"><div class="t">요약<span class="path">sources/&lt;stem&gt;.md</span></div><div class="d">논문 1편 = 요약 마크다운 1편. 모르는 값은 unknown.</div></div></div>
+        <div class="fstage"><div class="fnum">2</div><div class="fmain"><div class="t"><span class="ko">요약</span><span class="en">Summary</span><span class="path">sources/&lt;stem&gt;.md</span></div><div class="d"><span class="ko">논문 한 편마다 요약 마크다운을 하나 만든다. 확인되지 않은 값은 추측하지 않고 unknown으로 표시한다.</span><span class="en">One summary markdown per paper. Unverified values are marked unknown rather than guessed.</span></div></div></div>
         <div class="fdown"><span class="arr">↓</span></div>
-        <div class="fstage"><div class="fnum">3</div><div class="fmain"><div class="t">구조화 노트<span class="path">wiki/&lt;category&gt;/</span></div><div class="d">내용으로 주제 카테고리 부여. 개념·방법은 concepts/·methods/에 따로 적고 백링크.</div></div></div>
+        <div class="fstage"><div class="fnum">3</div><div class="fmain"><div class="t"><span class="ko">구조화 노트</span><span class="en">Structured note</span><span class="path">wiki/&lt;category&gt;/</span></div><div class="d"><span class="ko">논문 내용을 기준으로 주제 카테고리를 부여한다. 핵심 개념과 방법론은 concepts/·methods/에 따로 정리하고, 관련 노트와 백링크로 연결한다.</span><span class="en">Assigns a topic category from the paper's content. Key concepts and methods go into concepts/·methods/ and link back via backlinks.</span></div></div></div>
         <div class="fdown"><span class="arr">↓</span></div>
-        <div class="fstage"><div class="fnum">4</div><div class="fmain"><div class="t">종합<span class="path">wiki/overviews/&lt;category&gt;.md</span></div><div class="d">카테고리별 허브. 그 주제 노트들을 백링크로 모아 분야 지도를 만든다.</div></div></div>
-        <div class="floop"><span class="ico">🎯</span><span>쌓인 위키가 곧 <b>내 연구의 토대</b>가 된다 — 분석·발표·코드. 여기까지가 이 시스템이 노리는 결과다.</span></div>
+        <div class="fstage"><div class="fnum">4</div><div class="fmain"><div class="t"><span class="ko">종합</span><span class="en">Overview</span><span class="path">wiki/overviews/&lt;category&gt;.md</span></div><div class="d"><span class="ko">카테고리별 허브 문서를 만든다. 같은 주제의 노트들을 백링크로 모아, 해당 분야의 흐름을 한눈에 볼 수 있게 한다.</span><span class="en">Builds a per-category hub. It gathers that topic's notes via backlinks so you can see the field at a glance.</span></div></div></div>
+        <div class="floop"><span class="ico">🎯</span><span><span class="ko">이렇게 쌓인 위키는 <b>내 연구의 토대</b>가 된다. 이후 연구 아이디어 정리, 분석 설계, 발표자료 작성, 코드 구현에 다시 활용할 수 있다.</span><span class="en">The wiki you build this way becomes <b>the foundation of your research</b> — reused later for shaping ideas, designing analyses, writing talks, and building code.</span></span></div>
       </div>
 
-      <div class="info">생성 순서 엄수: <code>PDF → sources → wiki</code>. 리뷰 한 편이 아니라 <b>지식이 누적되는 한 덩어리</b>를 만드는 게 목표다.</div>
+      <div class="info"><span class="ko">생성 순서는 <code>PDF → sources → wiki</code>를 지킨다. 목표는 단발성 리뷰 문서를 만드는 것이 아니라, <b>논문 지식이 계속 누적되는 개인 위키</b>를 만드는 것이다.</span><span class="en">Creation order is kept: <code>PDF → sources → wiki</code>. The goal isn't a one-off review document but a <b>personal wiki where paper knowledge keeps accumulating.</b></span></div>
     </section>
 
     <!-- 4 -->
     <section id="s4">
-      <h2><span class="num">4</span>시작하기</h2>
+      <h2><span class="num">4</span><span class="ko">시작하기</span><span class="en">Getting started</span></h2>
       <div class="steps">
         <div class="st">
           <div class="n">1</div>
-          <div class="b"><b>받기.</b> 폴더 이름은 자유다(<code>my-wiki</code> 등). 이후 내 GitHub에 따로 올려도 된다.
+          <div class="b"><span class="ko"><b>저장소 받기.</b> 폴더 이름은 자유롭게 정할 수 있다(<code>my-wiki</code> 등). 이후 필요하면 본인 GitHub에 따로 올려 관리해도 된다.</span><span class="en"><b>Clone the repo.</b> Name the folder whatever you like (<code>my-wiki</code>, etc.). You can later push it to your own GitHub.</span>
             <div class="code"><pre>git clone https://github.com/hyunchul176/tupa-llm-wiki.git my-wiki
 cd my-wiki</pre></div>
           </div>
         </div>
         <div class="st">
           <div class="n">2</div>
-          <div class="b"><b>에이전트 열기.</b> <b>Claude Code</b> 또는 <b>Codex CLI</b>를 이 폴더에서 연다. 세션 시작 시 <code>AGENTS.md</code>(룰)와 <code>CLAUDE.md</code>(진입점)를 자동으로 읽는다.</div>
+          <div class="b"><span class="ko"><b>에이전트 실행하기.</b> 이 폴더에서 <b>Claude Code</b> 또는 <b>Codex CLI</b>를 실행한다. 세션이 시작되면 <code>AGENTS.md</code>(운영 규칙)와 <code>CLAUDE.md</code>(진입점)를 자동으로 읽는다.</span><span class="en"><b>Run the agent.</b> Open <b>Claude Code</b> or <b>Codex CLI</b> in this folder. On start it automatically reads <code>AGENTS.md</code> (rules) and <code>CLAUDE.md</code> (entry point).</span></div>
         </div>
         <div class="st">
           <div class="n">3</div>
-          <div class="b"><b>(선택) 키 넣기.</b> 유료 출판사 본문을 받고 싶을 때만. <span class="hint">키가 없어도 arXiv·무료 공개본(OA)은 받힌다.</span>
-            <div class="code"><pre>cp secrets/api-keys.example.json secrets/api-keys.json   <span class="c"># 그다음 본인 키 입력</span></pre></div>
+          <div class="b"><span class="ko"><b>(선택) API 키 설정하기.</b> 유료 출판사 본문 PDF를 자동으로 받고 싶을 때만 필요하다. <span class="hint">키가 없어도 arXiv와 무료 공개본(OA)은 받을 수 있다.</span></span><span class="en"><b>(Optional) Set API keys.</b> Only needed to auto-download paywalled publisher PDFs. <span class="hint">Even without keys, arXiv and open-access (OA) papers download fine.</span></span>
+            <div class="code"><pre>cp secrets/api-keys.example.json secrets/api-keys.json   <span class="c ko"># 그다음 본인 키 입력</span><span class="c en"># then fill in your keys</span></pre></div>
           </div>
         </div>
         <div class="st">
           <div class="n">4</div>
-          <div class="b"><b>첫 주제로 lit review.</b> 에이전트에게 <b>“OOO 주제로 lit review 해줘”</b> 하면 찾기→받기까지 알아서 한다. 받은 PDF는 <b>“이 PDF ingest해줘”</b>로 위키에 쌓는다.
-            <div class="code"><pre>python scripts/search.py "vision language action humanoid"   <span class="c"># 찾기</span>
-python scripts/fetch_paper.py 2406.09246                      <span class="c"># 받기 (arXiv id / DOI)</span>
-python scripts/fetch_ieee.py fetch 10.1109/JSEN.2022.3156971  <span class="c"># IEEE (브라우저)</span></pre></div>
+          <div class="b"><span class="ko"><b>첫 주제로 문헌조사 시작하기.</b> 에이전트에게 <b>“OOO 주제로 lit review 해줘”</b>라고 요청한다. 에이전트는 관련 논문을 찾고, 받을 수 있는 PDF를 다운로드하는 과정을 도와준다. 받은 PDF는 <b>“이 PDF ingest해줘”</b>라고 요청해 위키에 쌓는다.</span><span class="en"><b>Start a review on your first topic.</b> Ask the agent <b>“review X for me.”</b> It helps find relevant papers and download what it can. Ingest a downloaded PDF with <b>“ingest this PDF.”</b></span>
+            <div class="code"><pre>python scripts/search.py "vision language action humanoid"   <span class="c ko"># 찾기</span><span class="c en"># find</span>
+python scripts/fetch_paper.py 2406.09246                      <span class="c ko"># 받기 (arXiv id / DOI)</span><span class="c en"># fetch (arXiv id / DOI)</span>
+python scripts/fetch_ieee.py fetch 10.1109/JSEN.2022.3156971  <span class="c ko"># IEEE (브라우저)</span><span class="c en"># IEEE (browser)</span></pre></div>
           </div>
         </div>
       </div>
@@ -320,24 +347,80 @@ python scripts/fetch_ieee.py fetch 10.1109/JSEN.2022.3156971  <span class="c"># 
 
     <!-- 5 -->
     <section id="s5">
-      <h2><span class="num">5</span>룰 &amp; 솔직한 한계</h2>
-      <h3>4대 룰 — 위키의 가치를 만드는 핵심</h3>
+      <h2><span class="num">5</span><span class="ko">운영 규칙과 한계</span><span class="en">Operating rules &amp; limits</span></h2>
+      <h3><span class="ko">4대 규칙 — 위키의 신뢰도를 지키는 기준</span><span class="en">Four rules — keeping the wiki trustworthy</span></h3>
       <div class="benefits">
-        <div class="benefit"><div class="ico">🚫</div><h4>웹검색 금지(기본)</h4><p>검색은 명시적으로 요청할 때만. 잡지식으로 빈칸을 채우지 않는다.</p></div>
-        <div class="benefit"><div class="ico">📚</div><h4>위키 우선</h4><p>답할 땐 먼저 sources/·wiki/를 근거로 한다.</p></div>
-        <div class="benefit"><div class="ico">🔍</div><h4>모르면 PDF 재독</h4><p>위키에 답이 흐릿하면 papers/의 원문을 다시 읽는다.</p></div>
-        <div class="benefit"><div class="ico">🙋</div><h4>없으면 요청</h4><p>근거 자료가 없으면 추측 말고 “이 PDF를 추가해 달라”고 한다.</p></div>
+        <div class="benefit"><div class="ico">🚫</div><h4><span class="ko">기본은 웹검색 금지</span><span class="en">Web search off by default</span></h4><p><span class="ko">웹 검색은 명시적으로 요청할 때만 사용한다. 근거 없는 일반 지식으로 빈칸을 채우지 않는다.</span><span class="en">Use web search only when explicitly asked. Don't fill gaps with unsourced general knowledge.</span></p></div>
+        <div class="benefit"><div class="ico">📚</div><h4><span class="ko">위키 우선</span><span class="en">Wiki first</span></h4><p><span class="ko">질문에 답할 때는 먼저 sources/와 wiki/에 정리된 내용을 근거로 삼는다.</span><span class="en">When answering, ground it first in what's organized under sources/ and wiki/.</span></p></div>
+        <div class="benefit"><div class="ico">🔍</div><h4><span class="ko">불확실하면 원문 확인</span><span class="en">Unsure? Recheck the source</span></h4><p><span class="ko">위키 노트만으로 답이 불명확하면 papers/에 있는 원문 PDF를 다시 확인한다.</span><span class="en">If the notes alone are unclear, re-read the original PDF in papers/.</span></p></div>
+        <div class="benefit"><div class="ico">🙋</div><h4><span class="ko">자료가 없으면 요청</span><span class="en">No material? Ask for it</span></h4><p><span class="ko">근거 자료가 없으면 추측하지 않고 필요한 PDF를 추가해 달라고 요청한다.</span><span class="en">If the supporting material is missing, don't guess — ask for the PDF to be added.</span></p></div>
       </div>
 
-      <h3>솔직한 한계</h3>
+      <h3><span class="ko">알아두어야 할 한계</span><span class="en">Limits to keep in mind</span></h3>
       <div class="limitbox">
-        <div class="lbl">알아둘 것</div>
+        <div class="lbl"><span class="ko">알아둘 것</span><span class="en">Good to know</span></div>
         <ul>
-          <li><b>자동 만능이 아니다.</b> 한 방에 끝나지 않는다 — 매일 조금씩 쌓는 누적의 가치를 노린 도구다.</li>
-          <li><b>출판사 본문은 환경에 달렸다.</b> Elsevier·Wiley·IEEE 등은 기관 라이선스와 KAIST 망에 의존한다. 못 받는 건 PDF를 직접 넣으면 된다.</li>
-          <li><b>요약은 틀릴 수 있다.</b> LLM 요약·노트는 단서지 최종 근거가 아니다. 최종 근거는 언제나 papers/의 원문이다.</li>
-          <li><b>분류는 자라며 바뀐다.</b> 카테고리를 미리 못 정한다. 쌓이면서 세분화·재배치되는 게 정상이다.</li>
+          <li><span class="ko"><b>자동 만능 도구가 아니다.</b> 한 번의 명령으로 모든 문헌조사가 끝나지는 않는다. 매일 조금씩 쌓아 가는 누적형 도구다.</span><span class="en"><b>Not an all-in-one autopilot.</b> One command won't finish a whole literature review. It's a cumulative tool you build up a little each day.</span></li>
+          <li><span class="ko"><b>출판사 PDF 접근은 환경에 따라 달라진다.</b> Elsevier·Wiley·IEEE 등은 기관 라이선스와 KAIST망 접속 여부에 영향을 받는다. 자동으로 받지 못한 논문은 PDF를 직접 넣으면 된다.</span><span class="en"><b>Publisher PDF access depends on your environment.</b> Elsevier, Wiley, IEEE, and others depend on institutional licenses and KAIST network access. For papers it can't fetch, add the PDF yourself.</span></li>
+          <li><span class="ko"><b>요약은 틀릴 수 있다.</b> LLM이 만든 요약과 노트는 이해를 돕는 출발점이지 최종 근거가 아니다. 최종 확인은 언제나 papers/의 원문 PDF를 기준으로 한다.</span><span class="en"><b>Summaries can be wrong.</b> LLM-made summaries and notes are a starting point, not the final authority. Final verification always goes to the original PDF in papers/.</span></li>
+          <li><span class="ko"><b>분류 체계는 누적되면서 바뀐다.</b> 처음부터 완벽한 카테고리를 정하기 어렵다. 논문이 쌓이면서 세분화하거나 재배치하는 것이 자연스러운 운영 방식이다.</span><span class="en"><b>The category scheme shifts as it grows.</b> A perfect taxonomy up front is hard. Subdividing and rearranging as papers accumulate is the normal way to operate.</span></li>
         </ul>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section id="s6">
+      <h2><span class="num">6</span><span class="ko">실습 — 단계별 프롬프트</span><span class="en">Practice — step-by-step prompts</span></h2>
+      <p><span class="ko">각자 <strong>연구 주제만 다르게</strong> 하고 나머지는 그대로 따라 한다. 프롬프트에서 <span class="ph">〈내 연구 주제〉</span>만 바꿔 복사하면 된다.</span><span class="en">Everyone uses the <strong>same prompts — only the research topic differs</strong>. Just replace <span class="ph">〈your topic〉</span> and copy.</span></p>
+
+      <div class="steps">
+        <div class="st"><div class="n">1</div><div class="b"><b><span class="ko">문헌 찾기</span><span class="en">Find papers</span></b> (Find) — <span class="hint"><span class="ko">주제에 맞는 후보 논문 목록 확보</span><span class="en">get a candidate list for your topic</span></span>
+          <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
+            <p class="ptext"><span class="ko">내 연구 주제는 "<span class="ph">〈내 연구 주제〉</span>"야. 이 주제로 literature review를 시작하자. arXiv와 OpenAlex에서 관련 논문을 찾아, 제목·저자·연도·DOI(또는 arXiv id)·무료본 여부를 표로 보여줘.</span><span class="en">My research topic is "<span class="ph">〈your topic〉</span>". Let's start a literature review on it. Search arXiv and OpenAlex for relevant papers and show a table with title, authors, year, DOI (or arXiv id), and open-access availability.</span></p>
+          </div>
+        </div></div>
+
+        <div class="st"><div class="n">2</div><div class="b"><b><span class="ko">핵심 논문 추리기</span><span class="en">Shortlist</span></b> (Shortlist) — <span class="hint"><span class="ko">받을 논문을 좁힌다 (최종 확인은 사람이)</span><span class="en">narrow down what to fetch (you decide)</span></span>
+          <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
+            <p class="ptext"><span class="ko">위 후보 중에서 내 주제에 가장 관련 깊은 핵심 논문 5~8편을 골라줘. 각각 왜 골랐는지 한 줄 이유를 달고, 빼는 게 나은 건 그 이유도 같이.</span><span class="en">From those candidates, pick the 5–8 most relevant core papers for my topic. Give a one-line reason for each, and note which to drop and why.</span></p>
+          </div>
+        </div></div>
+
+        <div class="st"><div class="n">3</div><div class="b"><b><span class="ko">PDF 받기</span><span class="en">Fetch PDFs</span></b> (Fetch) — <span class="hint"><span class="ko">papers/에 전문 PDF 수집</span><span class="en">collect full-text PDFs into papers/</span></span>
+          <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
+            <p class="ptext"><span class="ko">고른 논문들의 전문 PDF를 받아줘. arXiv·무료 공개본(OA)을 먼저 시도하고, 안 되는 건 출판사 API나 IEEE로. 못 받은 건 목록으로 알려줘.</span><span class="en">Download the full-text PDFs of the chosen papers. Try arXiv and open access (OA) first, then publisher APIs or IEEE. List anything you couldn't get.</span></p>
+          </div>
+        </div></div>
+
+        <div class="st"><div class="n">4</div><div class="b"><b><span class="ko">위키에 쌓기</span><span class="en">Ingest</span></b> (Ingest) — <span class="hint"><span class="ko">PDF가 지식 사슬을 타고 위키가 됨</span><span class="en">PDFs flow into the wiki</span></span>
+          <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
+            <p class="ptext"><span class="ko">받은 PDF들을 ingest해줘. 각 논문을 sources/ 요약 → wiki/ 구조화 노트 → overviews/ 종합까지 만들어줘.</span><span class="en">Ingest the downloaded PDFs. For each paper, create the sources/ summary → wiki/ structured note → overviews/ overview.</span></p>
+          </div>
+        </div></div>
+
+        <div class="st"><div class="n">5</div><div class="b"><b><span class="ko">내 위키에 질문하기</span><span class="en">Ask your wiki</span></b> (Ask) — <span class="hint"><span class="ko">“웹이 아니라 내 위키가 답한다”를 체험</span><span class="en">experience answering from your wiki, not the web</span></span>
+          <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
+            <p class="ptext"><span class="ko">지금까지 쌓은 위키만 근거로 답해줘(웹검색 금지): "<span class="ph">〈궁금한 점〉</span>?" 어느 노트·논문에서 나온 근거인지도 같이.</span><span class="en">Answer using only the wiki built so far (no web search): "<span class="ph">〈your question〉</span>?" Cite which note/paper each point comes from.</span></p>
+          </div>
+        </div></div>
+
+        <div class="st"><div class="n">6</div><div class="b"><b><span class="ko">종합·연구 틈 찾기</span><span class="en">Synthesize</span></b> (Synthesize) — <span class="hint"><span class="ko">리뷰 종합 + 다음 연구 실마리</span><span class="en">review synthesis + next research leads</span></span>
+          <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
+            <p class="ptext"><span class="ko">이 주제 논문들을 종합해줘. 공통된 접근, 서로 다른 점, 아직 안 풀린 빈틈(gap)을 정리하고 근거 논문을 달아줘. 근거는 내 위키에서만.</span><span class="en">Synthesize the papers on this topic. Lay out common approaches, differences, and open gaps, citing the supporting papers. Ground it only in my wiki.</span></p>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="adv">
+        <span class="advbadge"><span class="ko">심화 · 선택</span><span class="en">Advanced · optional</span></span>
+        <h4><span class="ko">LeapSpace로 더 찾기</span><span class="en">Find more with LeapSpace</span></h4>
+        <div class="stepnote"><span class="ko">1단계(OpenAlex·arXiv) 찾기로 부족할 때만. ScienceDirect 본문 기반 의미 검색이라 사람 손이 한 번 들어간다.</span><span class="en">Only when step 1 (OpenAlex·arXiv) isn't enough. A full-text semantic search over ScienceDirect — it takes one manual step.</span></div>
+        <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">① 질문 만들기</span><span class="en">① Draft a query</span></div>
+          <p class="ptext"><span class="ko">OpenAlex로 부족한 것 같아. 이 주제로 LeapSpace에 넣을 500자 이내 영어 질문을 만들어줘.</span><span class="en">OpenAlex doesn't seem enough. Draft an English query (under 500 characters) for this topic to run on LeapSpace.</span></p>
+        </div>
+        <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">② 결과 붙여넣은 뒤</span><span class="en">② After pasting the results</span></div>
+          <p class="ptext"><span class="ko">이 결과에서 DOI를 뽑아 PDF를 받아줘.</span><span class="en">Extract the DOIs from these results and download the PDFs.</span></p>
+        </div>
       </div>
     </section>
 
@@ -345,12 +428,26 @@ python scripts/fetch_ieee.py fetch 10.1109/JSEN.2022.3156971  <span class="c"># 
 </div>
 
 <footer>
-  <div><b>TUPA LLM-Wiki</b> · 패턴 출처: Karpathy LLM-Wiki 아이디어 · joonan30/llm-wiki-labs</div>
-  <div>운영 룰은 <span class="mono">AGENTS.md</span>(단일 매뉴얼) · 셋업은 <span class="mono">README.md</span> · 시스템 안내: <a href="https://hyunchul176.github.io/tupa-system/">hyunchul176.github.io/tupa-system</a></div>
+  <div><b>TUPA LLM-Wiki</b> · <span class="ko">패턴 출처: Karpathy의 LLM-Wiki 아이디어 · joonan30/llm-wiki-labs</span><span class="en">Pattern sources: Karpathy's LLM-Wiki idea · joonan30/llm-wiki-labs</span></div>
+  <div><span class="ko">운영 규칙은 <span class="mono">AGENTS.md</span>(단일 매뉴얼) · 설치와 사용법은 <span class="mono">README.md</span> · 시스템 안내: </span><span class="en">Operating rules: <span class="mono">AGENTS.md</span> (single manual) · Setup &amp; usage: <span class="mono">README.md</span> · System guide: </span><a href="https://hyunchul176.github.io/tupa-system/">hyunchul176.github.io/tupa-system</a></div>
 </footer>
 
 <script>
 (function(){
+  // language toggle
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.langtoggle button'));
+  function setLang(l){
+    document.body.className = 'lang-' + l;
+    document.documentElement.lang = l;
+    btns.forEach(function(b){ b.classList.toggle('on', b.dataset.l === l); });
+    try{ localStorage.setItem('tupaWikiLang', l); }catch(e){}
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.l); }); });
+  var saved = 'ko';
+  try{ saved = localStorage.getItem('tupaWikiLang') || 'ko'; }catch(e){}
+  setLang(saved);
+
+  // scrollspy
   var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
   var map = {}, sections = [];
   links.forEach(function(a){
@@ -370,6 +467,20 @@ python scripts/fetch_ieee.py fetch 10.1109/JSEN.2022.3156971  <span class="c"># 
     }, {rootMargin:'-15% 0px -75% 0px', threshold:0});
     sections.forEach(function(s){ obs.observe(s); });
   }
+
+  // prompt copy (copies the currently visible language)
+  document.querySelectorAll('.prompt .pcopy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.prompt');
+      var useEn = document.body.classList.contains('lang-en');
+      var node = box.querySelector('.ptext .' + (useEn ? 'en' : 'ko')) || box.querySelector('.ptext');
+      var text = node.textContent.trim().replace(/\s+/g, ' ');
+      navigator.clipboard.writeText(text).then(function(){
+        btn.classList.add('done');
+        setTimeout(function(){ btn.classList.remove('done'); }, 1400);
+      }).catch(function(){});
+    });
+  });
 })();
 </script>
 </body>
