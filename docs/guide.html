@@ -241,33 +241,6 @@
   </div>
 </header>
 
-<div class="quickstart">
-  <div class="qs-inner">
-    <div class="qs-title"><span class="ko">빠른 시작 — 3단계</span><span class="en">Quick start — 3 steps</span></div>
-    <div class="qs-sub"><span class="ko">클론 → 에이전트 열기 → 첫 주제. 키 없이도 arXiv·무료 공개본은 받힌다.</span><span class="en">Clone → open the agent → first topic. arXiv &amp; open-access papers work without any keys.</span></div>
-    <div class="qs-steps">
-      <div class="qs-step">
-        <span class="qsn">01</span>
-        <span class="qst"><span class="ko">받기</span><span class="en">Clone</span></span>
-        <span class="qsd"><span class="ko">레포를 받는다 (폴더 이름은 자유).</span><span class="en">Clone the repo (any folder name).</span></span>
-        <div class="qscode">git clone https://github.com/hyunchul176/tupa-llm-wiki.git my-wiki
-cd my-wiki</div>
-      </div>
-      <div class="qs-step">
-        <span class="qsn">02</span>
-        <span class="qst"><span class="ko">에이전트 열기</span><span class="en">Open the agent</span></span>
-        <span class="qsd"><span class="ko">이 폴더에서 <b>Claude Code</b> 또는 <b>Codex CLI</b> 실행 — <code>AGENTS.md</code>·<code>CLAUDE.md</code>를 자동으로 읽는다. (선택) 유료 출판사 키 입력.</span><span class="en">Run <b>Claude Code</b> or <b>Codex CLI</b> here — it auto-reads <code>AGENTS.md</code>·<code>CLAUDE.md</code>. (Optional) add publisher keys.</span></span>
-      </div>
-      <div class="qs-step">
-        <span class="qsn">03</span>
-        <span class="qst"><span class="ko">첫 주제 던지기</span><span class="en">Give it a topic</span></span>
-        <span class="qsd"><span class="ko">한 마디면 시작한다:</span><span class="en">One line to start:</span></span>
-        <div class="qscode"><span class="ko">"〈내 연구 주제〉로 lit review 해줘"</span><span class="en">"review 〈your topic〉 for me"</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="layout">
 
   <nav class="sidebar">
@@ -276,9 +249,8 @@ cd my-wiki</div>
       <li><a href="#s1"><span class="ko">LLM Wiki란?</span><span class="en">What is an LLM Wiki?</span></a></li>
       <li><a href="#s2"><span class="ko">문헌 수집</span><span class="en">Collecting papers</span></a></li>
       <li><a href="#s3"><span class="ko">지식화 흐름</span><span class="en">Knowledge flow</span></a></li>
-      <li><a href="#s4"><span class="ko">시작하기</span><span class="en">Getting started</span></a></li>
       <li><a href="#s5"><span class="ko">규칙 &amp; 한계</span><span class="en">Rules &amp; limits</span></a></li>
-      <li><a href="#s6"><span class="ko">실습 단계</span><span class="en">Practice</span></a></li>
+      <li><a href="#s6"><span class="ko">실습 (설치+단계)</span><span class="en">Practice (setup + steps)</span></a></li>
     </ul>
   </nav>
 
@@ -386,41 +358,9 @@ cd my-wiki</div>
       <div class="info"><span class="ko">생성 순서는 <code>PDF → sources → wiki</code>를 지킨다. 목표는 단발성 리뷰 문서를 만드는 것이 아니라, <b>논문 지식이 계속 누적되는 개인 위키</b>를 만드는 것이다.</span><span class="en">Creation order is kept: <code>PDF → sources → wiki</code>. The goal isn't a one-off review document but a <b>personal wiki where paper knowledge keeps accumulating.</b></span></div>
     </section>
 
-    <!-- 4 -->
-    <section id="s4">
-      <h2><span class="num">4</span><span class="ko">시작하기</span><span class="en">Getting started</span></h2>
-      <div class="steps">
-        <div class="st">
-          <div class="n">1</div>
-          <div class="b"><span class="ko"><b>저장소 받기.</b> 폴더 이름은 자유롭게 정할 수 있다(<code>my-wiki</code> 등). 이후 필요하면 본인 GitHub에 따로 올려 관리해도 된다.</span><span class="en"><b>Clone the repo.</b> Name the folder whatever you like (<code>my-wiki</code>, etc.). You can later push it to your own GitHub.</span>
-            <div class="code"><pre>git clone https://github.com/hyunchul176/tupa-llm-wiki.git my-wiki
-cd my-wiki</pre></div>
-          </div>
-        </div>
-        <div class="st">
-          <div class="n">2</div>
-          <div class="b"><span class="ko"><b>에이전트 실행하기.</b> 이 폴더에서 <b>Claude Code</b> 또는 <b>Codex CLI</b>를 실행한다. 세션이 시작되면 <code>AGENTS.md</code>(운영 규칙)와 <code>CLAUDE.md</code>(진입점)를 자동으로 읽는다.</span><span class="en"><b>Run the agent.</b> Open <b>Claude Code</b> or <b>Codex CLI</b> in this folder. On start it automatically reads <code>AGENTS.md</code> (rules) and <code>CLAUDE.md</code> (entry point).</span></div>
-        </div>
-        <div class="st">
-          <div class="n">3</div>
-          <div class="b"><span class="ko"><b>(선택) API 키 설정하기.</b> 유료 출판사 본문 PDF를 자동으로 받고 싶을 때만 필요하다. <span class="hint">키가 없어도 arXiv와 무료 공개본(OA)은 받을 수 있다.</span></span><span class="en"><b>(Optional) Set API keys.</b> Only needed to auto-download paywalled publisher PDFs. <span class="hint">Even without keys, arXiv and open-access (OA) papers download fine.</span></span>
-            <div class="code"><pre>cp secrets/api-keys.example.json secrets/api-keys.json   <span class="c ko"># 그다음 본인 키 입력</span><span class="c en"># then fill in your keys</span></pre></div>
-          </div>
-        </div>
-        <div class="st">
-          <div class="n">4</div>
-          <div class="b"><span class="ko"><b>첫 주제로 문헌조사 시작하기.</b> 에이전트에게 <b>“OOO 주제로 lit review 해줘”</b>라고 요청한다. 에이전트는 관련 논문을 찾고, 받을 수 있는 PDF를 다운로드하는 과정을 도와준다. 받은 PDF는 <b>“이 PDF ingest해줘”</b>라고 요청해 위키에 쌓는다.</span><span class="en"><b>Start a review on your first topic.</b> Ask the agent <b>“review X for me.”</b> It helps find relevant papers and download what it can. Ingest a downloaded PDF with <b>“ingest this PDF.”</b></span>
-            <div class="code"><pre>python scripts/search.py "vision language action humanoid"   <span class="c ko"># 찾기</span><span class="c en"># find</span>
-python scripts/fetch_paper.py 2406.09246                      <span class="c ko"># 받기 (arXiv id / DOI)</span><span class="c en"># fetch (arXiv id / DOI)</span>
-python scripts/fetch_ieee.py fetch 10.1109/JSEN.2022.3156971  <span class="c ko"># IEEE (브라우저)</span><span class="c en"># IEEE (browser)</span></pre></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- 5 -->
     <section id="s5">
-      <h2><span class="num">5</span><span class="ko">운영 규칙과 한계</span><span class="en">Operating rules &amp; limits</span></h2>
+      <h2><span class="num">4</span><span class="ko">운영 규칙과 한계</span><span class="en">Operating rules &amp; limits</span></h2>
       <h3><span class="ko">4대 규칙 — 위키의 신뢰도를 지키는 기준</span><span class="en">Four rules — keeping the wiki trustworthy</span></h3>
       <div class="benefits">
         <div class="benefit"><div class="ico">🚫</div><h4><span class="ko">기본은 웹검색 금지</span><span class="en">Web search off by default</span></h4><p><span class="ko">웹 검색은 명시적으로 요청할 때만 사용한다. 근거 없는 일반 지식으로 빈칸을 채우지 않는다.</span><span class="en">Use web search only when explicitly asked. Don't fill gaps with unsourced general knowledge.</span></p></div>
@@ -443,9 +383,18 @@ python scripts/fetch_ieee.py fetch 10.1109/JSEN.2022.3156971  <span class="c ko"
 
     <!-- 6 -->
     <section id="s6">
-      <h2><span class="num">6</span><span class="ko">실습 — 단계별 프롬프트</span><span class="en">Practice — step-by-step prompts</span></h2>
+      <h2><span class="num">5</span><span class="ko">실습 — 설치부터 끝까지</span><span class="en">Practice — from setup to finish</span></h2>
       <p><span class="ko">각자 <strong>연구 주제만 다르게</strong> 하고 나머지는 그대로 따라 한다. 프롬프트에서 <span class="ph">〈내 연구 주제〉</span>만 바꿔 복사하면 된다.</span><span class="en">Everyone uses the <strong>same prompts — only the research topic differs</strong>. Just replace <span class="ph">〈your topic〉</span> and copy.</span></p>
 
+      <h3><span class="ko">먼저 설치 — 빈 폴더에서 3단계</span><span class="en">First, set up — 3 steps from an empty folder</span></h3>
+      <div class="qs-steps">
+        <div class="qs-step"><span class="qsn">01</span><span class="qst"><span class="ko">받기</span><span class="en">Clone</span></span><span class="qsd"><span class="ko">빈 폴더에 레포를 받는다 (폴더명 자유).</span><span class="en">Clone into an empty folder (any name).</span></span><div class="qscode">git clone https://github.com/hyunchul176/tupa-llm-wiki.git my-wiki
+cd my-wiki</div></div>
+        <div class="qs-step"><span class="qsn">02</span><span class="qst"><span class="ko">Claude Code 열기</span><span class="en">Open Claude Code</span></span><span class="qsd"><span class="ko">이 폴더에서 <b>Claude Code</b> 실행 — <code>AGENTS.md</code>·<code>CLAUDE.md</code> 자동 로드. (선택) 키는 <code>secrets/api-keys.json</code>, IEEE는 <code>pip install playwright</code>. <span style="font-size:12px;">Codex로도 동작.</span></span><span class="en">Run <b>Claude Code</b> here — auto-loads <code>AGENTS.md</code>·<code>CLAUDE.md</code>. (Optional) keys in <code>secrets/api-keys.json</code>; IEEE needs <code>pip install playwright</code>. <span style="font-size:12px;">Codex works too.</span></span></div>
+        <div class="qs-step"><span class="qsn">03</span><span class="qst"><span class="ko">첫 주제 던지기</span><span class="en">Give it a topic</span></span><span class="qsd"><span class="ko">아래 1단계부터 시작:</span><span class="en">Start from step 1 below:</span></span><div class="qscode"><span class="ko">"〈내 연구 주제〉로 lit review 해줘"</span><span class="en">"review 〈your topic〉 for me"</span></div></div>
+      </div>
+
+      <h3><span class="ko">그다음 — 단계별 프롬프트</span><span class="en">Then — step-by-step prompts</span></h3>
       <div class="pflow">
         <div class="pf"><div class="pfn">STEP 1</div><div class="pft"><span class="ko">찾기</span><span class="en">Find</span></div><div class="pfd"><span class="ko">주제로 후보 검색</span><span class="en">search by topic</span></div></div>
         <div class="pf"><div class="pfn">STEP 2</div><div class="pft"><span class="ko">고르기</span><span class="en">Shortlist</span></div><div class="pfd"><span class="ko">아티팩트로 선택</span><span class="en">pick in the artifact</span></div></div>
@@ -471,7 +420,7 @@ python scripts/fetch_ieee.py fetch 10.1109/JSEN.2022.3156971  <span class="c ko"
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
             <p class="ptext"><span class="ko">위 후보로 선별 체크리스트를 만들어 아티팩트로 띄워줘. 각 논문에 초록 기반 한 줄 요약을 달고, 관련 낮은 건 '제외 추천'으로 빼줘.</span><span class="en">Build a selection checklist from those candidates and open it as an artifact. Add a one-line abstract-based summary to each, and mark the less relevant ones as "exclude".</span></p>
           </div>
-          <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ 아티팩트 링크에서 받을 것만 체크 → <b>“선택 복사”</b> → 채팅에 붙여넣으면 그 논문만 받는다. <span style="font-size:13px;">(Codex는 로컬 <code>shortlist.html</code>로 열림)</span></span><span class="en">→ In the artifact, check what you want → <b>“선택 복사”</b> → paste it back in chat to fetch just those. <span style="font-size:13px;">(Codex opens a local <code>shortlist.html</code> instead.)</span></span></p>
+          <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ 아티팩트 링크에서 받을 것만 체크 → <b>“선택 복사”</b> → 채팅에 붙여넣으면 그 논문만 받는다. <span style="font-size:13px;">(Codex면 채팅에서 번호로 고르거나 로컬 <code>shortlist.html</code>을 연다)</span></span><span class="en">→ In the artifact, check what you want → <b>“선택 복사”</b> → paste it back in chat to fetch just those. <span style="font-size:13px;">(On Codex, pick by number in chat or open the local <code>shortlist.html</code>.)</span></span></p>
           <div class="eg"><span class="eglabel"><span class="ko">결과 예시 — 선별 아티팩트</span><span class="en">Example — selection artifact</span></span>
             <div class="egshort">
               <div class="esrow"><span class="ecb">☑</span><div><div class="et">OpenVLA: An Open-Source VLA Model <span class="eb free"><span class="ko">무료본</span><span class="en">OA</span></span></div><div class="esum"><span class="ko">7B 오픈 VLA, 범용 조작 베이스라인.</span><span class="en">7B open VLA; a general manipulation baseline.</span></div></div></div>
