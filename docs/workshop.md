@@ -35,16 +35,16 @@ For paywalled full text, add keys to `secrets/api-keys.json`. **Without keys, ar
 
 ## 2. 핵심 논문 추리기 (Shortlist)
 
-**하는 일 / Goal:** 후보를 클릭형 체크리스트(아티팩트)로 만들어 고른다. / Turn candidates into a clickable checklist (artifact) and pick.
+**하는 일 / Goal:** 후보를 클릭형 체크리스트(`shortlist.html`)로 만들어 고른다. / Turn candidates into a clickable checklist (`shortlist.html`) and pick.
 
 **KO**
-> 위 후보로 선별 체크리스트를 만들어 아티팩트로 띄워줘. 각 논문에 초록 기반 한 줄 요약을 달고, 관련 낮은 건 '제외 추천'으로 빼줘.
+> 위 후보로 shortlist.html을 만들어 열어줘. 각 논문에 초록 기반 한 줄 요약을 달고, 관련 낮은 건 '제외 추천'으로 빼줘.
 
 **EN**
-> Build a selection checklist from those candidates and open it as an artifact. Add a one-line abstract-based summary to each, and mark the less relevant ones as "exclude".
+> Build a shortlist.html from those candidates and open it. Add a one-line abstract-based summary to each, and mark the less relevant ones as "exclude".
 
-→ 아티팩트 링크에서 받을 것만 체크 → **“선택 복사”** → 채팅에 붙여넣으면 그 논문만 받는다. (Codex·오프라인은 로컬 `shortlist.html`로 열림.)
-→ In the artifact, check what you want → **“선택 복사”** → paste back in chat. (Codex/offline opens a local `shortlist.html`.)
+→ 브라우저에서 받을 것만 체크 → **“선택 복사”** → 채팅에 붙여넣으면 그 논문만 받는다.
+→ In the browser, check what you want → **“선택 복사”** → paste back in chat to fetch just those.
 
 ---
 

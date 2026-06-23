@@ -63,9 +63,8 @@ my-wiki/                           ← 위키 루트
 
 **★ 선별 (shortlist) — 받기 전, 사용자가 고른다**
 - 후보가 여럿이면 곧장 받지 말고, 각 논문에 **초록 기반 요약·관련성 판단**을 단 JSON을 만들어 `python scripts/make_shortlist.py --input <json>` 로 클릭형 체크리스트(`shortlist.html`)를 만든다 (관련 낮은 건 `exclude:true`).
-  - **Claude Code**: 만든 `shortlist.html`을 **아티팩트로 발행**해 사용자에게 링크를 준다 (로컬 파일을 안 열어도 됨).
-  - **Codex / 그 외**: `shortlist.html`을 브라우저로 직접 열게 안내한다.
-  - 사용자가 체크해 **'선택 복사'한 id만** ②로 받는다. (후보가 소수로 명확하면 대화로 골라도 된다.)
+  - 만든 `shortlist.html`을 **브라우저로 열도록 안내**한다 (Claude Code면 직접 열어줘도 된다). 사용자가 체크해 **'선택 복사'한 id만** ②로 받는다.
+  - (후보가 소수로 명확하면 굳이 만들지 말고 대화에서 번호로 골라도 된다.)
 
 **② 받기 (fetch) — 그 PDF를 다운로드**
 - `python scripts/fetch_paper.py <DOI 또는 arXiv id> [...]`

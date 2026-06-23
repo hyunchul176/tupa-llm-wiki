@@ -1,0 +1,11 @@
+[project]
+name = "tupa-llm-wiki"
+version = "1.0.0"
+description = "TUPA LLM-Wiki — 개인 논문 지식베이스(수집 + 인제스트). 검색·arXiv/OA·출판사 수집은 표준 라이브러리만 사용."
+requires-python = ">=3.9"
+dependencies = [
+    "playwright>=1.40", # IEEE 본문을 브라우저로 받을 때만 필요. 설치 후: playwright install chromium
+]
+
+# uv로 관리(권장):  uv sync  →  uv run playwright install chromium
+# anaconda 불필요. pip 사용도 가능:  pip install -r requirements.txt
