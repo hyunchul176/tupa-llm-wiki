@@ -91,6 +91,8 @@
   .toc a.active{color:var(--navy-800);border-left-color:var(--red);font-weight:700;}
   .toc-sub{list-style:none;margin:-2px 0 4px;padding:0;}
   .toc-sub a{padding:5px 0 5px 30px;font-size:12.5px;}
+  .toc-sub3{list-style:none;margin:0 0 3px;padding:0;}
+  .toc-sub3 a{padding:3px 0 3px 44px;font-size:11.5px;}
   .content{flex:1;min-width:0;padding-bottom:90px;}
 
   /* sections */
@@ -331,8 +333,24 @@
       <li><a href="#s5"><span class="ko">규칙 &amp; 한계</span><span class="en">Rules &amp; limits</span></a></li>
       <li><a href="#s6"><span class="ko">실습 (설치+단계)</span><span class="en">Practice (setup + steps)</span></a>
         <ul class="toc-sub">
-          <li><a href="#s6-setup"><span class="ko">새 프로젝트 폴더 준비 (4단계)</span><span class="en">Prepare a folder (4 steps)</span></a></li>
-          <li><a href="#s6-run"><span class="ko">찾기에서 종합까지 (1~6단계)</span><span class="en">Find → synthesize (steps 1–6)</span></a></li>
+          <li><a href="#s6-setup"><span class="ko">에이전트 설치와 폴더 준비</span><span class="en">Install agent &amp; set up folder</span></a>
+            <ul class="toc-sub3">
+              <li><a href="#s6-p1"><span class="ko">에디터와 폴더</span><span class="en">Editor &amp; folder</span></a></li>
+              <li><a href="#s6-p2"><span class="ko">에이전트 설치</span><span class="en">Install the agent</span></a></li>
+              <li><a href="#s6-p3"><span class="ko">저장소 복제·설치</span><span class="en">Clone &amp; set up</span></a></li>
+              <li><a href="#s6-p4"><span class="ko">API 키 (선택)</span><span class="en">API keys (optional)</span></a></li>
+            </ul>
+          </li>
+          <li><a href="#s6-run"><span class="ko">논문을 위키로 쌓고 활용하기</span><span class="en">Build &amp; use the wiki</span></a>
+            <ul class="toc-sub3">
+              <li><a href="#s6-r1"><span class="ko">1 · 문헌 찾기</span><span class="en">1 · Find papers</span></a></li>
+              <li><a href="#s6-r2"><span class="ko">2 · 논문 선택</span><span class="en">2 · Pick papers</span></a></li>
+              <li><a href="#s6-r3"><span class="ko">3 · PDF 받기</span><span class="en">3 · Fetch PDFs</span></a></li>
+              <li><a href="#s6-r4"><span class="ko">4 · 위키로 정리</span><span class="en">4 · Ingest</span></a></li>
+              <li><a href="#s6-r5"><span class="ko">5 · 위키에 질문</span><span class="en">5 · Ask</span></a></li>
+              <li><a href="#s6-r6"><span class="ko">6 · 종합·공백</span><span class="en">6 · Synthesize</span></a></li>
+            </ul>
+          </li>
         </ul>
       </li>
       <li><a href="#s7"><span class="ko">심화 · 선택</span><span class="en">Advanced · optional</span></a></li>
@@ -476,9 +494,9 @@
       <h2><span class="num">5</span><span class="ko">실습: 설치부터 활용까지</span><span class="en">Practice: from setup to finish</span></h2>
       <p><span class="ko">실습에서는 <strong>연구 주제만 바꾸고</strong> 나머지 절차는 그대로 따라 하면 된다. 프롬프트에서 <span class="ph">〈내 연구 주제〉</span> 부분만 본인 주제로 바꿔 사용한다.</span><span class="en">Everyone uses the <strong>same prompts, changing only the research topic</strong>. Just replace <span class="ph">〈your topic〉</span> and copy.</span></p>
 
-      <h3 id="s6-setup"><span class="ph-eyebrow"><span class="ko">준비 · 설치</span><span class="en">Setup</span></span><span class="ko">새 프로젝트 폴더 준비 (4단계)</span><span class="en">Prepare a new project folder (4 steps)</span></h3>
+      <h3 id="s6-setup"><span class="ph-eyebrow"><span class="ko">준비 · 설치</span><span class="en">Setup</span></span><span class="ko">에이전트 설치와 작업 폴더 준비</span><span class="en">Install the agent &amp; set up your folder</span></h3>
       <div class="qs-steps">
-        <div class="qs-step"><span class="qsn">01</span><span class="qst"><span class="ko">에디터와 폴더</span><span class="en">Editor &amp; folder</span></span><span class="qsd"><span class="ko"><ul>
+        <div class="qs-step" id="s6-p1"><span class="qsn">01</span><span class="qst"><span class="ko">에디터와 폴더</span><span class="en">Editor &amp; folder</span></span><span class="qsd"><span class="ko"><ul>
           <li><b>VS Code</b> 설치 (code.visualstudio.com).</li>
           <li>위키를 둘 폴더를 <b>원하는 이름·위치로</b> 직접 만들어 VS Code에서 연다.</li>
           <li>VS Code 안의 <b>터미널</b>을 연다. 다음 단계는 모두 이 터미널에서 진행한다.</li>
@@ -487,7 +505,7 @@
           <li>Create the folder for your wiki <b>with the name and location you want</b>, open it in VS Code.</li>
           <li>Open the <b>terminal</b> inside VS Code. All next steps run there.</li>
         </ul></span></span></div>
-        <div class="qs-step"><span class="qsn">02</span><span class="qst"><span class="ko">에이전트 설치 (Claude Code 또는 Codex)</span><span class="en">Install the agent (Claude Code or Codex)</span></span><span class="qsd"><span class="ko">데스크탑 앱이 아니라 <b>터미널 CLI</b>다.<ul>
+        <div class="qs-step" id="s6-p2"><span class="qsn">02</span><span class="qst"><span class="ko">에이전트 설치 (Claude Code 또는 Codex)</span><span class="en">Install the agent (Claude Code or Codex)</span></span><span class="qsd"><span class="ko">데스크탑 앱이 아니라 <b>터미널 CLI</b>다.<ul>
           <li>먼저 <a href="https://nodejs.org" target="_blank" rel="noopener">Node.js</a>를 설치한다(<code>npm</code> 사용).</li>
           <li>아래에서 <b>Claude Code</b> 또는 <b>Codex</b> 하나를 설치하고, 그 폴더에서 <code>claude</code> / <code>codex</code>로 실행한다.</li>
           <li>둘 다 같은 규칙(<code>AGENTS.md</code>)을 읽어 동일하게 동작한다.</li>
@@ -510,10 +528,10 @@ npm install -g @openai/codex
 codex</span></div>
           <div class="qsnote"><span class="ko">⚠ <code>npm</code> 설치가 막히면(PowerShell 정책·버전 등) 공식 설치 안내를 따른다: <a href="https://docs.claude.com/en/docs/claude-code/setup" target="_blank" rel="noopener">Claude Code 설치</a> · <a href="https://github.com/openai/codex" target="_blank" rel="noopener">Codex 설치</a>.</span><span class="en">⚠ If <code>npm</code> install is blocked (PowerShell policy/version), use the official guides: <a href="https://docs.claude.com/en/docs/claude-code/setup" target="_blank" rel="noopener">Claude Code</a> · <a href="https://github.com/openai/codex" target="_blank" rel="noopener">Codex</a>.</span></div>
         </div>
-        <div class="qs-step"><span class="qsn">03</span><span class="qst"><span class="ko">저장소 복제 및 설치</span><span class="en">Clone &amp; set up</span></span><span class="qsd"><span class="ko">아래 문장을 입력하면 <b>지금 연 폴더에</b> 저장소를 복제하고 패키지(IEEE용 Playwright 포함)까지 설치한다. 폴더 이름·위치는 1번에서 정한 그대로다. <code>tupa-llm-wiki</code>로 강제되지 않는다.</span><span class="en">This clones the repo <b>into the folder you opened</b> and installs the dependencies (incl. Playwright for IEEE). The folder name/location stays what you chose in step 1, not forced to <code>tupa-llm-wiki</code>.</span></span><div class="qscode"><span class="ko">이 저장소를 지금 연 폴더에 그대로 복제하고 설치까지 진행해줘:
+        <div class="qs-step" id="s6-p3"><span class="qsn">03</span><span class="qst"><span class="ko">저장소 복제 및 설치</span><span class="en">Clone &amp; set up</span></span><span class="qsd"><span class="ko">아래 문장을 입력하면 <b>지금 연 폴더에</b> 저장소를 복제하고 패키지(IEEE용 Playwright 포함)까지 설치한다. 폴더 이름·위치는 1번에서 정한 그대로다. <code>tupa-llm-wiki</code>로 강제되지 않는다.</span><span class="en">This clones the repo <b>into the folder you opened</b> and installs the dependencies (incl. Playwright for IEEE). The folder name/location stays what you chose in step 1, not forced to <code>tupa-llm-wiki</code>.</span></span><div class="qscode"><span class="ko">이 저장소를 지금 연 폴더에 그대로 복제하고 설치까지 진행해줘:
 https://github.com/hyunchul176/tupa-llm-wiki</span><span class="en">Clone this repo into the folder I have open and set it up:
 https://github.com/hyunchul176/tupa-llm-wiki</span></div></div>
-        <div class="qs-step"><span class="qsn">04</span><span class="qst"><span class="ko">API 키 입력 <span style="font-size:12px;font-weight:600;color:var(--muted);">(선택)</span></span><span class="en">Add API keys <span style="font-size:12px;font-weight:600;color:var(--muted);">(optional)</span></span></span><span class="qsd"><span class="ko"><code>secrets/api-keys.json</code>에 입력한다(<code>api-keys.example.json</code> 복사).<ul>
+        <div class="qs-step" id="s6-p4"><span class="qsn">04</span><span class="qst"><span class="ko">API 키 입력 <span style="font-size:12px;font-weight:600;color:var(--muted);">(선택)</span></span><span class="en">Add API keys <span style="font-size:12px;font-weight:600;color:var(--muted);">(optional)</span></span></span><span class="qsd"><span class="ko"><code>secrets/api-keys.json</code>에 입력한다(<code>api-keys.example.json</code> 복사).<ul>
           <li><b>받기</b>(유료 본문): Elsevier · Wiley · Springer 키.</li>
           <li><b>찾기(선택)</b>: Semantic Scholar 키(rate limit 완화). <b>Scopus</b>는 위 Elsevier 키로 함께 동작(같은 키, KAIST 기관망).</li>
           <li><code>contact_email</code>: OpenAlex 예의용.</li>
@@ -555,10 +573,10 @@ claude --version</div>
         </div>
       </details>
 
-      <h3 class="phasehead" id="s6-run"><span class="ph-eyebrow"><span class="ko">실습 진행</span><span class="en">Run the practice</span></span><span class="ko">논문 찾기에서 종합까지 (1~6단계)</span><span class="en">From finding papers to synthesis (steps 1–6)</span></h3>
+      <h3 class="phasehead" id="s6-run"><span class="ph-eyebrow"><span class="ko">실습 진행</span><span class="en">Run the practice</span></span><span class="ko">논문을 위키로 쌓고 활용하기</span><span class="en">Build the wiki from papers, then use it</span></h3>
 
       <div class="steps">
-        <div class="st"><div class="n">1</div><div class="b"><b><span class="ko">문헌 찾기</span><span class="en">Find papers</span></b>
+        <div class="st" id="s6-r1"><div class="n">1</div><div class="b"><b><span class="ko">문헌 찾기</span><span class="en">Find papers</span></b>
           <div class="stepgoal"><span class="ko">연구 주제에 대한 논문을 <span class="mark">여러 학술 DB</span>(arXiv·OpenAlex·Semantic Scholar·Scopus)에서 조사해, lit review를 진행할 <span class="mark">후보 논문 리스트</span>를 만드는 게 목표. <span class="nx">다음 → 선택</span></span><span class="en">Survey papers on your topic across <span class="mark">several databases</span> (arXiv·OpenAlex·Semantic Scholar·Scopus) to build a <span class="mark">candidate list</span> for the lit review. <span class="nx">Next → Pick</span></span></div>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
             <p class="ptext"><span class="ko">내 연구 주제는 "<span class="ph">〈내 연구 주제〉</span>"야. 이 주제로 literature review를 시작하자. 여러 학술 DB(arXiv·OpenAlex·Semantic Scholar·Scopus)에서 관련 논문을 찾아, 제목·저자·연도·DOI(또는 arXiv id)·무료본 여부를 표로 보여줘.</span><span class="en">My research topic is "<span class="ph">〈your topic〉</span>". Let's start a literature review on it. Search several scholarly databases (arXiv, OpenAlex, Semantic Scholar, Scopus) for relevant papers and show a table with title, authors, year, DOI (or arXiv id), and open-access availability.</span></p>
@@ -572,7 +590,7 @@ claude --version</div>
           </div>
         </div></div>
 
-        <div class="st"><div class="n">2</div><div class="b"><b><span class="ko">다운로드할 논문 선택</span><span class="en">Pick papers</span></b>
+        <div class="st" id="s6-r2"><div class="n">2</div><div class="b"><b><span class="ko">다운로드할 논문 선택</span><span class="en">Pick papers</span></b>
           <div class="stepgoal"><span class="ko">후보 중 <span class="mark">리뷰할 것·제외할 것 추천</span>과 함께 내가 최종 선택하는 체크리스트(HTML)를 만들어, 골라서 <span class="mark">확정 DOI 목록</span>을 얻는 게 목적. <span class="nx">다음 → 받기</span></span><span class="en">Get <span class="mark">keep/exclude recommendations</span> plus a checklist (HTML) to make the final pick, ending with your <span class="mark">confirmed DOI list</span>. <span class="nx">Next → Fetch</span></span></div>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
             <p class="ptext"><span class="ko">위 후보로 <b><code>shortlist.html</code>(클릭형 체크리스트)을 만들어 브라우저로 열어줘</b>. 각 논문에 한 줄 요약과 함께 <b>초록을 한국어로 2~3문장 요약</b>해서 달고, 관련성이 낮은 논문은 '제외 추천'으로 표시해줘.</span><span class="en">Build a clickable <b><code>shortlist.html</code> from those candidates and open it in the browser</b>. For each, add a one-line summary plus a <b>2–3 sentence Korean summary of the abstract</b>, and mark the less relevant ones as "exclude".</span></p>
@@ -588,7 +606,7 @@ claude --version</div>
           </div>
         </div></div>
 
-        <div class="st"><div class="n">3</div><div class="b"><b><span class="ko">PDF 받기</span><span class="en">Fetch PDFs</span></b>
+        <div class="st" id="s6-r3"><div class="n">3</div><div class="b"><b><span class="ko">PDF 받기</span><span class="en">Fetch PDFs</span></b>
           <div class="stepgoal"><span class="ko">2단계에서 확정한 DOI·arXiv id의 <span class="mark">전문 PDF</span>를 받는다. arXiv·무료 공개본 먼저, 안 되면 출판사 API·브라우저 자동화(Playwright). <span class="nx">다음 → 위키 정리</span></span><span class="en">Fetch the <span class="mark">full-text PDFs</span> for the DOIs/arXiv ids confirmed in step 2: arXiv·OA first, then publisher APIs·browser automation. <span class="nx">Next → Ingest</span></span></div>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
             <p class="ptext"><span class="ko">전문 PDF를 다운로드해줘. arXiv와 무료 공개본(OA)을 먼저 시도하고, 안 되면 출판사 API, 그래도 안 되면 브라우저 자동화(Playwright)로 시도해줘. 다운로드하지 못한 논문은 목록으로 알려줘. 받을 논문 = 2단계에서 '선택 복사'한 DOI·arXiv id: <span class="ph">〈여기에 붙여넣기〉</span></span><span class="en">Download the full-text PDFs. Try arXiv and open access (OA) first, then publisher APIs, and if still blocked, browser automation (Playwright). List anything you couldn't get. Papers to fetch = the DOIs/arXiv ids you "선택 복사"-ed in step 2: <span class="ph">〈paste here〉</span></span></p>
@@ -603,7 +621,7 @@ claude --version</div>
           </div>
         </div></div>
 
-        <div class="st"><div class="n">4</div><div class="b"><b><span class="ko">위키로 정리하기</span><span class="en">Ingest</span></b>
+        <div class="st" id="s6-r4"><div class="n">4</div><div class="b"><b><span class="ko">위키로 정리하기</span><span class="en">Ingest</span></b>
           <div class="stepgoal"><span class="ko">받은 PDF를 요약·구조화 노트로 정리해 <span class="mark">위키에 누적</span>한다 (sources·wiki). <span class="nx">다음 → 질문</span></span><span class="en">Turn the PDFs into summaries and structured notes, <span class="mark">accumulated in the wiki</span> (sources·wiki). <span class="nx">Next → Ask</span></span></div>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
             <p class="ptext"><span class="ko">다운로드한 PDF들을 ingest해줘. 각 논문에 대해 sources/ 요약, wiki/ 구조화 노트, overviews/ 종합 문서까지 만들어줘.</span><span class="en">Ingest the downloaded PDFs. For each paper, create the sources/ summary → wiki/ structured note → overviews/ overview.</span></p>
@@ -620,7 +638,7 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
         <div class="stepdiv"><span class="ph-eyebrow"><span class="ko">5~6단계 · 활용 (위키가 쌓인 뒤)</span><span class="en">Steps 5–6 · Use it (once the wiki has grown)</span></span></div>
         <div class="flownote"><span class="fi">🌱</span><div><span class="ko"><b>5~6단계는 위키가 충분히 쌓여야 제대로 효과가 난다.</b> 실습에선 논문이 몇 편뿐이라 답이 빈약할 수 있다. 지금은 <b>흐름만</b> 익히고, 논문을 계속 쌓아 위키가 커진 뒤 다시 하면 훨씬 풍부해진다.</span><span class="en"><b>Steps 5–6 only pay off once your wiki has grown.</b> With only a few papers in the workshop, answers may be thin. For now just <b>get the feel</b>; they get much richer as you keep adding papers.</span></div></div>
 
-        <div class="st"><div class="n">5</div><div class="b"><b><span class="ko">내 위키에 질문하기</span><span class="en">Ask your wiki</span></b>
+        <div class="st" id="s6-r5"><div class="n">5</div><div class="b"><b><span class="ko">내 위키에 질문하기</span><span class="en">Ask your wiki</span></b>
           <div class="stepgoal"><span class="ko">구축한 위키만 근거로 질문에 답하게 한다. <span class="mark">웹이 아니라 내 자료로</span>(근거 인용 포함). <span class="nx">다음 → 종합</span></span><span class="en">Answer questions grounded only in the wiki you built: <span class="mark">your material, not the web</span> (with citations). <span class="nx">Next → Synthesize</span></span></div>
           <p style="font-size:13.5px;color:var(--muted);margin:9px 0 2px;"><span class="ko">아래는 모두 <b>같은 수준의 예시 프롬프트</b>다(전부 위키만 근거·웹검색 금지). 골라서 그대로 쓰면 된다.</span><span class="en">All <b>equal example prompts</b> (each grounded only in your wiki, no web search). Pick one and use it as-is.</span></p>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">예시 · 리뷰 원고</span><span class="en">e.g. · review draft</span></div>
@@ -634,7 +652,7 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
           </div>
         </div></div>
 
-        <div class="st"><div class="n">6</div><div class="b"><b><span class="ko">종합과 연구 공백 정리</span><span class="en">Synthesize</span></b>
+        <div class="st" id="s6-r6"><div class="n">6</div><div class="b"><b><span class="ko">종합과 연구 공백 정리</span><span class="en">Synthesize</span></b>
           <div class="stepgoal"><span class="ko">여러 논문을 종합해 공통점·차이점·<span class="mark">아직 안 풀린 연구 공백</span>을 정리한다 (다음 연구 실마리). <span class="nx">반복 → 다음 주제</span></span><span class="en">Synthesize across papers: shared points, differences, and <span class="mark">open research gaps</span> (leads for next work). <span class="nx">Repeat → next topic</span></span></div>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
             <p class="ptext"><span class="ko">이 주제의 논문들을 종합해줘. 공통된 접근, 서로 다른 점, 아직 충분히 다뤄지지 않은 연구 공백(gap)을 정리하고 근거 논문을 함께 제시해줘. 근거는 내 위키에서만 찾아줘.</span><span class="en">Synthesize the papers on this topic. Lay out common approaches, differences, and open gaps, citing the supporting papers. Ground it only in my wiki.</span></p>
@@ -645,29 +663,15 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
 
     <section id="s7">
       <h2><span class="num">6</span><span class="ko">심화 · 선택</span><span class="en">Advanced · optional</span></h2>
-      <p class="lead"><span class="ko">실습은 따라하기 쉽게 1~6단계를 정해진 순서로 진행하지만, <span class="mark">실제 연구에선 더 자유롭게</span> 섞어 쓴다. 아래는 그렇게 필요할 때 골라 쓰는 선택 기능 세 가지다(LeapSpace · 리뷰카드 · Obsidian).</span><span class="en">The practice runs steps 1–6 in a fixed order so it's easy to follow, but <span class="mark">real research is more flexible</span>. Below are three optional features you mix in as needed (LeapSpace · review cards · Obsidian).</span></p>
+      <p class="lead"><span class="ko">실습은 따라하기 쉽게 1~6단계를 정해진 순서로 진행하지만, <span class="mark">실제 연구에선 더 자유롭게</span> 섞어 쓴다. 아래는 그렇게 필요할 때 골라 쓰는 선택 기능 세 가지다(Obsidian · 리뷰카드 · LeapSpace).</span><span class="en">The practice runs steps 1–6 in a fixed order so it's easy to follow, but <span class="mark">real research is more flexible</span>. Below are three optional features you mix in as needed (Obsidian · review cards · LeapSpace).</span></p>
 
       <div class="adv">
-        <span class="advbadge"><span class="ko">찾기 보강</span><span class="en">Search boost</span></span>
-        <h4 style="display:flex;align-items:center;gap:10px;"><img src="assets/leapspace.webp" alt="LeapSpace" style="height:26px;width:auto;border:1px solid var(--line);border-radius:6px;background:#fff;padding:3px 7px;"><span><span class="ko">LeapSpace로 논문 더 찾기</span><span class="en">Find more papers with LeapSpace</span></span></h4>
-        <div class="stepnote"><span class="ko"><b>LeapSpace</b>는 Elsevier가 만든 <span class="mark">ChatGPT 같은 LLM</span>이다. 단, 웹을 검색하지 않고 <span class="mark">ScienceDirect 등 주요 학술 DB만 근거</span>로 답하며 문장마다 citation을 단다. 논문 초록을 바탕으로 답하고, 일부 논문은 full-text까지 읽어 답한다. API가 없어 사람이 사이트에서 직접 한 번 돌리고 그 답을 가져온다.</span><span class="en"><b>LeapSpace</b> (by Elsevier) is a <span class="mark">ChatGPT-like LLM</span>. But it doesn't browse the web; it answers <span class="mark">only from major scholarly DBs like ScienceDirect</span> and cites every sentence. It answers from paper abstracts, and for some papers from full text. No API, so you run it on the site by hand once and bring the answer back.</span></div>
-        <div class="stepnote"><span class="ko"><b>왜 LeapSpace인가?</b> Scopus·OpenAlex·Web of Science 같은 검색툴은 결국 <span class="mark">키워드 중심 매칭</span>으로 논문을 찾는다. LeapSpace는 <span class="mark">초록·본문까지 다 뒤져</span> 키워드만으로는 찾기 어려운 논문까지 찾아내고, 그 논문들에 <span class="mark">citation이 달린 답변</span>을 준다. 그래서 키워드 검색의 <b>보완재</b>로 쓴다. 꼭 보완재가 아니어도, <span class="mark">처음부터 LeapSpace와 대화</span>해 정리한 내용을 들고 와 이 위키(agentic AI)로 넘어와도 된다.</span><span class="en"><b>Why LeapSpace?</b> Tools like Scopus, OpenAlex, and Web of Science ultimately match on <span class="mark">keywords</span>. LeapSpace <span class="mark">searches abstracts and full text</span> to surface papers keywords alone can't, and answers with <span class="mark">cited sources</span>. So it's a <b>complement</b> to keyword search. And even without that, you can <span class="mark">start by chatting with LeapSpace</span>, organize what you get, and bring it into this wiki (agentic AI).</span></div>
-        <div class="stepnote"><span class="ko"><b>이용</b>: 기관 구독이 되면(예: <b>KAIST는 구독 중</b>) 무료로 쓸 수 있고, 아니면 <b>월 $32</b> 유료. → <a href="https://researcher.elsevier.com/" target="_blank" rel="noopener">researcher.elsevier.com ↗</a></span><span class="en"><b>Access</b>: free with an institutional subscription (e.g., <b>KAIST has one</b>), otherwise <b>$32/month</b>. → <a href="https://researcher.elsevier.com/" target="_blank" rel="noopener">researcher.elsevier.com ↗</a></span></div>
-        <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">① 질문 만들기</span><span class="en">① Draft a query</span></div>
-          <p class="ptext"><span class="ko">이 주제로 LeapSpace에 넣을, 500자 이내의 영어 질문을 만들어줘.</span><span class="en">Draft an English query (under 500 characters) for this topic to run on LeapSpace.</span></p>
-        </div>
-        <p style="font-size:13px;color:var(--muted);margin:6px 0 0;"><span class="ko">→ 질문은 하나일 필요 없다. 각도가 다른 질문을 여러 개 만들어 <b>여러 채팅에서</b> 물어보고 답을 모두 가져와도 된다. (답엔 어차피 인용·DOI가 붙으니 따로 요청하지 않아도 된다.)</span><span class="en">→ No need for a single query. Make several from different angles, ask them in <b>separate chats</b>, and bring all the answers back. (Answers already carry citations/DOIs, so no need to ask for them.)</span></p>
-        <div class="eg"><span class="eglabel"><span class="ko">화면 예시: 첫 화면과 답변</span><span class="en">Screens: home & an answer</span></span>
-          <div class="thumb-row shots">
-            <img class="shot" src="assets/leapspace-home.png" data-popup-img="assets/leapspace-home.png" role="button" tabindex="0" alt="LeapSpace 첫 화면: 'Discover deeper insights · Based on peer-reviewed abstracts and full text'와 질문 입력창 (클릭하면 확대)">
-            <img class="shot" src="assets/leapspace-example.png" data-popup-img="assets/leapspace-example.png" role="button" tabindex="0" alt="LeapSpace 답변 예시: citation이 달린 문헌 리뷰 답변, citation 클릭 시 논문 상세와 근거 문장 하이라이트 (클릭하면 확대)">
-          </div>
-          <p style="font-size:12px;color:var(--muted);margin:9px 0 0;text-align:center;"><span class="ko"><b>왼쪽</b> 첫 화면: 초록·full-text 기반 질의응답(ChatGPT처럼 물어본다). <b>오른쪽</b> 답변 예시: 문장마다 citation이 붙고, <b>citation을 클릭하면</b> 어떤 논문의 <b>어느 섹션·문장에서 왔는지</b>까지 하이라이트. (각 이미지를 클릭하면 팝업 확대)</span><span class="en"><b>Left</b>: home, ask it like ChatGPT, grounded in abstracts &amp; full text. <b>Right</b>: an answer, each sentence cited; <b>click a citation</b> to see which paper and <b>which section/sentence</b> it came from. (Click either image to enlarge.)</span></p>
-        </div>
-        <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">② 결과를 후보에 더하기</span><span class="en">② Fold results into your candidates</span></div>
-          <p class="ptext"><span class="ko">이 LeapSpace 답에서 인용된 논문들을 내 후보 목록에 더해줘. 답: <span class="ph">〈여기에 붙여넣기〉</span></span><span class="en">Add the papers cited in this LeapSpace answer to my candidate list. Answer: <span class="ph">〈paste here〉</span></span></p>
-        </div>
-        <div class="flownote"><span class="fi">🔁</span><div><span class="ko">LeapSpace 답은 에이전트가 만든 후보 리스트와 형식이 다르다. 받기로 바로 가지 말고, 새로 찾은 논문을 후보에 더하거나 이 결과를 두고 에이전트와 더 논의한 뒤, <span class="mark">실습 2단계(받을 논문 고르기)부터</span> 이어서 진행한다.</span><span class="en">A LeapSpace answer has a different shape than the agent's candidate list. Instead of fetching right away, add the new papers to your candidates (or discuss the result with the agent), then <span class="mark">continue from practice step 2 (pick papers)</span>.</span></div></div>
+        <span class="advbadge"><span class="ko">보기 도구</span><span class="en">Viewer</span></span>
+        <h4 style="display:flex;align-items:center;gap:9px;"><img src="assets/obsidian.png" alt="Obsidian" style="height:26px;width:26px;border-radius:6px;"><span><span class="ko">Obsidian으로 위키 보기</span><span class="en">View your wiki in Obsidian</span></span></h4>
+        <div class="stepnote"><span class="ko"><b>Obsidian이란?</b> 로컬 Markdown 파일을 <code>[[링크]]</code>로 잇는 <span class="mark">무료 노트 앱</span>이다. 흩어진 메모·지식을 서로 연결해 <b>그래프로 보여주는</b> '제2의 뇌' 도구로 연구자들이 많이 쓴다.</span><span class="en"><b>What is Obsidian?</b> A <span class="mark">free note app</span> that links local Markdown files with <code>[[links]]</code>. A popular "second brain" tool that connects scattered notes and <b>shows them as a graph</b>.</span></div>
+        <div class="stepnote"><span class="ko">우리 <code>wiki/</code>는 이미 Markdown + <code>[[백링크]]</code>라, 변환 없이 <span class="mark">Obsidian으로 그 폴더를 열기만</span> 하면 된다. 개인·학술 사용은 <span class="mark">무료</span>다(동기화·웹공개 부가서비스만 유료인데, 우리는 Git으로 동기화하니 필요 없다).</span><span class="en">Our <code>wiki/</code> is already Markdown with <code>[[backlinks]]</code>, so with no conversion you just <span class="mark">open that folder in Obsidian</span>. It's <span class="mark">free</span> for personal/academic use (only Sync/Publish are paid, and we use Git instead).</span></div>
+        <div class="stepnote"><span class="ko">얻는 것: <span class="mark">그래프 뷰</span>(논문·주제·개념이 이어진 지식 지도), 백링크 패널, <code>[[링크]]</code> 클릭 이동, 빠른 검색. 에이전트는 노트를 만들고, <span class="mark">Obsidian은 사람이 읽고 탐색하는 화면</span>이다. 평범한 <code>.md</code>라 락인(lock-in)은 없다.</span><span class="en">What you get: a <span class="mark">graph view</span> (a knowledge map of papers, topics, concepts), a backlinks panel, click-through <code>[[links]]</code>, and fast search. The agent writes the notes; <span class="mark">Obsidian is the human's reading and navigation layer</span>. It's plain <code>.md</code>, so there's no lock-in.</span></div>
+        <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ 여는 법: <a href="https://obsidian.md" target="_blank" rel="noopener">obsidian.md</a>에서 설치 → <b>Open folder as vault</b> → 내 위키 폴더를 고른다.</span><span class="en">→ How: install from <a href="https://obsidian.md" target="_blank" rel="noopener">obsidian.md</a> → <b>Open folder as vault</b> → pick your wiki folder.</span></p>
       </div>
 
       <div class="adv">
@@ -707,12 +711,26 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
       </div>
 
       <div class="adv">
-        <span class="advbadge"><span class="ko">보기 도구</span><span class="en">Viewer</span></span>
-        <h4 style="display:flex;align-items:center;gap:9px;"><img src="assets/obsidian.png" alt="Obsidian" style="height:26px;width:26px;border-radius:6px;"><span><span class="ko">Obsidian으로 위키 보기</span><span class="en">View your wiki in Obsidian</span></span></h4>
-        <div class="stepnote"><span class="ko"><b>Obsidian이란?</b> 로컬 Markdown 파일을 <code>[[링크]]</code>로 잇는 <span class="mark">무료 노트 앱</span>이다. 흩어진 메모·지식을 서로 연결해 <b>그래프로 보여주는</b> '제2의 뇌' 도구로 연구자들이 많이 쓴다.</span><span class="en"><b>What is Obsidian?</b> A <span class="mark">free note app</span> that links local Markdown files with <code>[[links]]</code>. A popular "second brain" tool that connects scattered notes and <b>shows them as a graph</b>.</span></div>
-        <div class="stepnote"><span class="ko">우리 <code>wiki/</code>는 이미 Markdown + <code>[[백링크]]</code>라, 변환 없이 <span class="mark">Obsidian으로 그 폴더를 열기만</span> 하면 된다. 개인·학술 사용은 <span class="mark">무료</span>다(동기화·웹공개 부가서비스만 유료인데, 우리는 Git으로 동기화하니 필요 없다).</span><span class="en">Our <code>wiki/</code> is already Markdown with <code>[[backlinks]]</code>, so with no conversion you just <span class="mark">open that folder in Obsidian</span>. It's <span class="mark">free</span> for personal/academic use (only Sync/Publish are paid, and we use Git instead).</span></div>
-        <div class="stepnote"><span class="ko">얻는 것: <span class="mark">그래프 뷰</span>(논문·주제·개념이 이어진 지식 지도), 백링크 패널, <code>[[링크]]</code> 클릭 이동, 빠른 검색. 에이전트는 노트를 만들고, <span class="mark">Obsidian은 사람이 읽고 탐색하는 화면</span>이다. 평범한 <code>.md</code>라 락인(lock-in)은 없다.</span><span class="en">What you get: a <span class="mark">graph view</span> (a knowledge map of papers, topics, concepts), a backlinks panel, click-through <code>[[links]]</code>, and fast search. The agent writes the notes; <span class="mark">Obsidian is the human's reading and navigation layer</span>. It's plain <code>.md</code>, so there's no lock-in.</span></div>
-        <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ 여는 법: <a href="https://obsidian.md" target="_blank" rel="noopener">obsidian.md</a>에서 설치 → <b>Open folder as vault</b> → 내 위키 폴더를 고른다.</span><span class="en">→ How: install from <a href="https://obsidian.md" target="_blank" rel="noopener">obsidian.md</a> → <b>Open folder as vault</b> → pick your wiki folder.</span></p>
+        <span class="advbadge"><span class="ko">찾기 보강</span><span class="en">Search boost</span></span>
+        <h4 style="display:flex;align-items:center;gap:10px;"><img src="assets/leapspace.webp" alt="LeapSpace" style="height:26px;width:auto;border:1px solid var(--line);border-radius:6px;background:#fff;padding:3px 7px;"><span><span class="ko">LeapSpace로 논문 더 찾기</span><span class="en">Find more papers with LeapSpace</span></span></h4>
+        <div class="stepnote"><span class="ko"><b>LeapSpace</b>는 Elsevier가 만든 <span class="mark">ChatGPT 같은 LLM</span>이다. 단, 웹을 검색하지 않고 <span class="mark">ScienceDirect 등 주요 학술 DB만 근거</span>로 답하며 문장마다 citation을 단다. 논문 초록을 바탕으로 답하고, 일부 논문은 full-text까지 읽어 답한다. API가 없어 사람이 사이트에서 직접 한 번 돌리고 그 답을 가져온다.</span><span class="en"><b>LeapSpace</b> (by Elsevier) is a <span class="mark">ChatGPT-like LLM</span>. But it doesn't browse the web; it answers <span class="mark">only from major scholarly DBs like ScienceDirect</span> and cites every sentence. It answers from paper abstracts, and for some papers from full text. No API, so you run it on the site by hand once and bring the answer back.</span></div>
+        <div class="stepnote"><span class="ko"><b>왜 LeapSpace인가?</b> Scopus·OpenAlex·Web of Science 같은 검색툴은 결국 <span class="mark">키워드 중심 매칭</span>으로 논문을 찾는다. LeapSpace는 <span class="mark">초록·본문까지 다 뒤져</span> 키워드만으로는 찾기 어려운 논문까지 찾아내고, 그 논문들에 <span class="mark">citation이 달린 답변</span>을 준다. 그래서 키워드 검색의 <b>보완재</b>로 쓴다. 꼭 보완재가 아니어도, <span class="mark">처음부터 LeapSpace와 대화</span>해 정리한 내용을 들고 와 이 위키(agentic AI)로 넘어와도 된다.</span><span class="en"><b>Why LeapSpace?</b> Tools like Scopus, OpenAlex, and Web of Science ultimately match on <span class="mark">keywords</span>. LeapSpace <span class="mark">searches abstracts and full text</span> to surface papers keywords alone can't, and answers with <span class="mark">cited sources</span>. So it's a <b>complement</b> to keyword search. And even without that, you can <span class="mark">start by chatting with LeapSpace</span>, organize what you get, and bring it into this wiki (agentic AI).</span></div>
+        <div class="stepnote"><span class="ko"><b>이용</b>: 기관 구독이 되면(예: <b>KAIST는 구독 중</b>) 무료로 쓸 수 있고, 아니면 <b>월 $32</b> 유료. → <a href="https://researcher.elsevier.com/" target="_blank" rel="noopener">researcher.elsevier.com ↗</a></span><span class="en"><b>Access</b>: free with an institutional subscription (e.g., <b>KAIST has one</b>), otherwise <b>$32/month</b>. → <a href="https://researcher.elsevier.com/" target="_blank" rel="noopener">researcher.elsevier.com ↗</a></span></div>
+        <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">① 질문 만들기</span><span class="en">① Draft a query</span></div>
+          <p class="ptext"><span class="ko">이 주제로 LeapSpace에 넣을, 500자 이내의 영어 질문을 만들어줘.</span><span class="en">Draft an English query (under 500 characters) for this topic to run on LeapSpace.</span></p>
+        </div>
+        <p style="font-size:13px;color:var(--muted);margin:6px 0 0;"><span class="ko">→ 질문은 하나일 필요 없다. 각도가 다른 질문을 여러 개 만들어 <b>여러 채팅에서</b> 물어보고 답을 모두 가져와도 된다. (답엔 어차피 인용·DOI가 붙으니 따로 요청하지 않아도 된다.)</span><span class="en">→ No need for a single query. Make several from different angles, ask them in <b>separate chats</b>, and bring all the answers back. (Answers already carry citations/DOIs, so no need to ask for them.)</span></p>
+        <div class="eg"><span class="eglabel"><span class="ko">화면 예시: 첫 화면과 답변</span><span class="en">Screens: home & an answer</span></span>
+          <div class="thumb-row shots">
+            <img class="shot" src="assets/leapspace-home.png" data-popup-img="assets/leapspace-home.png" role="button" tabindex="0" alt="LeapSpace 첫 화면: 'Discover deeper insights · Based on peer-reviewed abstracts and full text'와 질문 입력창 (클릭하면 확대)">
+            <img class="shot" src="assets/leapspace-example.png" data-popup-img="assets/leapspace-example.png" role="button" tabindex="0" alt="LeapSpace 답변 예시: citation이 달린 문헌 리뷰 답변, citation 클릭 시 논문 상세와 근거 문장 하이라이트 (클릭하면 확대)">
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin:9px 0 0;text-align:center;"><span class="ko"><b>왼쪽</b> 첫 화면: 초록·full-text 기반 질의응답(ChatGPT처럼 물어본다). <b>오른쪽</b> 답변 예시: 문장마다 citation이 붙고, <b>citation을 클릭하면</b> 어떤 논문의 <b>어느 섹션·문장에서 왔는지</b>까지 하이라이트. (각 이미지를 클릭하면 팝업 확대)</span><span class="en"><b>Left</b>: home, ask it like ChatGPT, grounded in abstracts &amp; full text. <b>Right</b>: an answer, each sentence cited; <b>click a citation</b> to see which paper and <b>which section/sentence</b> it came from. (Click either image to enlarge.)</span></p>
+        </div>
+        <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">② 결과를 후보에 더하기</span><span class="en">② Fold results into your candidates</span></div>
+          <p class="ptext"><span class="ko">이 LeapSpace 답에서 인용된 논문들을 내 후보 목록에 더해줘. 답: <span class="ph">〈여기에 붙여넣기〉</span></span><span class="en">Add the papers cited in this LeapSpace answer to my candidate list. Answer: <span class="ph">〈paste here〉</span></span></p>
+        </div>
+        <div class="flownote"><span class="fi">🔁</span><div><span class="ko">LeapSpace 답은 에이전트가 만든 후보 리스트와 형식이 다르다. 받기로 바로 가지 말고, 새로 찾은 논문을 후보에 더하거나 이 결과를 두고 에이전트와 더 논의한 뒤, <span class="mark">실습 2단계(받을 논문 고르기)부터</span> 이어서 진행한다.</span><span class="en">A LeapSpace answer has a different shape than the agent's candidate list. Instead of fetching right away, add the new papers to your candidates (or discuss the result with the agent), then <span class="mark">continue from practice step 2 (pick papers)</span>.</span></div></div>
       </div>
     </section>
 
