@@ -57,7 +57,7 @@ my-wiki/                           ← 위키 루트
 > **연구 아이디어는 사용자가 들고 온다.** 에이전트는 아이디어를 만들지 않는다. 사용자가 *"X에 대해 lit review 해줘"* 라고 주제를 주면, 그 주제의 문헌을 **① 찾고(discovery) → ② 받는다(fetch).** 둘은 다른 일이다. 받은 PDF는 모두 `papers/`에 stem 이름으로 저장된다. 어느 출처·스크립트를 쓸지 판단, 실패 처리, 중복 확인은 에이전트가 한다.
 
 **① 찾기 (discovery) — 어떤 논문이 있나**
-- **arXiv · OpenAlex · Semantic Scholar · Scopus** — `python scripts/search.py "<영어 키워드>"` (기본 `--source all`). 무료·자동(Scopus는 키 있을 때만 자동 포함). 출처마다 커버리지가 달라 보완적이다 — arXiv=프리프린트, OpenAlex=넓은 메타데이터+인용, Semantic Scholar=TL;DR 요약·다른 랭킹, Scopus=큐레이션·인용. search.py는 각 후보의 **초록/TL;DR**도 함께 출력한다. (Semantic Scholar는 키 없으면 rate limit으로 가끔 건너뛴다; Scopus는 `scopus_api_key`(+기관망 밖이면 `scopus_inst_token`) 필요 — `secrets/api-keys.json`.)
+- **arXiv · OpenAlex · Semantic Scholar · Scopus** — `python scripts/search.py "<영어 키워드>"` (기본 `--source all`). 무료·자동(Scopus는 키 있을 때만 자동 포함). 출처마다 커버리지가 달라 보완적이다 — arXiv=프리프린트, OpenAlex=넓은 메타데이터+인용, Semantic Scholar=TL;DR 요약·다른 랭킹, Scopus=큐레이션·인용. search.py는 각 후보의 **초록/TL;DR**도 함께 출력한다. (Semantic Scholar는 키 없으면 rate limit으로 가끔 건너뛴다; **Scopus는 `elsevier_api_key`를 그대로 쓴다** — 같은 Elsevier 개발자포털 키라 별도 키가 필요 없다(기관망 필요). 다른 키를 쓰려면 `scopus_api_key`, 기관망 밖이면 `scopus_inst_token`.)
   - 후보를 사용자에게 보여줄 때는 그 **초록을 한국어로 요약**(1~2줄, 필요하면 2~3문장)해, 제목·저자·연도·식별자(DOI/arXiv id)·무료본 여부와 함께 **표로** 제시한다. 영어 초록은 한국어로 옮겨 주고, 추측으로 채우지 말고 초록에 있는 내용만 쓴다.
 - **LeapSpace (선택, 사람 손 필요)** — OpenAlex/arXiv로 부족할 때만. Elsevier의 LLM으로, 웹 대신 ScienceDirect 등 주요 DB(초록·일부 full-text)만 근거로 답하고 문장마다 citation을 단다. 에이전트가 **영어 질문**을 만들어 주면(★ **반드시 500자 이하**: 글자 수를 세어 초과하면 줄여서 다시 준다), 사용자가 https://researcher.elsevier.com/ 에서 돌려 답(인용·DOI 포함)을 붙여넣는다 → 그 답에 나온 논문을 **후보에 더해 '받을 논문 고르기'(curation)로 보낸다**(바로 받기로 가지 않음 — 형식이 다르므로 선별 단계를 거친다). (LeapSpace도 LLM이므로 답은 '검증할 단서'로 다룬다.)
 

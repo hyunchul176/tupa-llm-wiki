@@ -133,17 +133,19 @@ def search_semanticscholar(query: str, limit: int):
 
 
 def search_scopus(query: str, limit: int):
-    """Scopus Search API. 키 필요(secrets: scopus_api_key, 기관망 밖이면 scopus_inst_token)."""
-    key = (_wiki.KEYS.get("scopus_api_key") or "").strip()
+    """Scopus Search API. 키 필요(secrets). Elsevier 개발자포털 키 하나로 ScienceDirect·Scopus를
+    함께 쓰므로, scopus_api_key가 없으면 elsevier_api_key로 폴백한다(엔타이틀먼트·기관망 필요)."""
+    key = (_wiki.KEYS.get("scopus_api_key") or _wiki.KEYS.get("elsevier_api_key") or "").strip()
     if not key:
-        raise RuntimeError("scopus_api_key 없음 — Scopus는 키 필요 (secrets/api-keys.json)")
+        raise RuntimeError("Scopus 키 없음 — scopus_api_key 또는 elsevier_api_key 필요 (secrets/api-keys.json)")
     headers = {"X-ELS-APIKey": key, "Accept": "application/json"}
     inst = (_wiki.KEYS.get("scopus_inst_token") or "").strip()
     if inst:
         headers["X-ELS-Insttoken"] = inst
     q = f"TITLE-ABS-KEY({query})"
+    # sort=relevancy 필수 — 없으면 기본이 날짜순이라 관련 없는 최신 논문이 올라온다.
     url = (f"https://api.elsevier.com/content/search/scopus?query={urllib.parse.quote(q)}"
-           f"&count={limit}")
+           f"&count={limit}&sort=relevancy")
     res = http_json(url, headers=headers, timeout=30).get("search-results", {})
     out = []
     for e in res.get("entry", []) or []:
@@ -199,7 +201,7 @@ def main():
         except Exception as e:
             print(f"[{name} 검색 건너뜀] {e}", file=sys.stderr)
 
-    have_scopus = bool((_wiki.KEYS.get("scopus_api_key") or "").strip())
+    have_scopus = bool((_wiki.KEYS.get("scopus_api_key") or _wiki.KEYS.get("elsevier_api_key") or "").strip())
     if src in ("arxiv", "both", "all"):
         run("arXiv", search_arxiv)
     if src in ("openalex", "both", "all"):
