@@ -53,10 +53,10 @@ For paywalled full text, add keys to `secrets/api-keys.json`. **Without keys, ar
 **하는 일 / Goal:** `papers/`에 전문 PDF 수집. / Collect full-text PDFs into `papers/`.
 
 **KO**
-> 고른 논문들의 전문 PDF를 받아줘. arXiv·무료 공개본(OA)을 먼저 시도하고, 안 되면 출판사 API, 그래도 안 되면 브라우저 자동화(Playwright, IEEE 등)로. 못 받은 건 목록으로 알려줘.
+> 고른 논문들의 전문 PDF를 받아줘. arXiv·무료 공개본(OA)을 먼저 시도하고, 안 되면 출판사 API, 그래도 안 되면 브라우저 자동화(Playwright)로. 못 받은 건 목록으로 알려줘.
 
 **EN**
-> Download the full-text PDFs of the chosen papers. Try arXiv and open access (OA) first, then publisher APIs, and if still blocked, browser automation (Playwright, e.g. IEEE). List anything you couldn't get.
+> Download the full-text PDFs of the chosen papers. Try arXiv and open access (OA) first, then publisher APIs, and if still blocked, browser automation (Playwright). List anything you couldn't get.
 
 ---
 
