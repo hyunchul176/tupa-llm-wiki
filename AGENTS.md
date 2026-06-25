@@ -4,6 +4,7 @@
 > 여기는 **너 한 사람의 개인 LLM-Wiki**다. 새 세션마다 가장 먼저 이 파일을 읽는다.
 > 패턴 출처: Karpathy LLM-Wiki / joonan30 llm-wiki-labs.
 > **버전**: v1.0 (개인 스타터 — 굴리며 계속 수정)
+> **환경**: All packages are managed by the `uv` environment. (모든 패키지는 `uv` 환경으로 관리한다 — 스크립트는 `uv run python scripts/…`로 실행, 의존성은 `uv add …`로 추가.)
 
 ---
 

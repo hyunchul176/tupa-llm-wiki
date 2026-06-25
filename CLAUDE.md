@@ -2,6 +2,8 @@
 
 이 폴더는 **나의 개인 LLM-Wiki** — 읽은 논문을 PDF→요약→구조화→종합으로 쌓는 지식베이스다.
 
+> **All packages are managed by the `uv` environment.** (스크립트는 `uv run python scripts/…`로 실행, 의존성은 `uv add …`로 추가.)
+
 ## 시작하기 전에 (필수)
 1. **`AGENTS.md`를 먼저 끝까지 읽어라.** 이 위키의 모든 운영 룰이 거기에 있다. Claude Code와 Codex가 공유하는 단일 매뉴얼이다.
 2. 처음이면 **`README.md`**로 셋업·워크플로를 익혀라.
