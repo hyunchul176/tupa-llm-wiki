@@ -68,6 +68,18 @@
   /* 준비(설치) ↔ 실습 단계 시각 구분 */
   .phasehead{margin-top:42px;padding-top:26px;border-top:2px dashed var(--line);}
   .ph-eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--red);margin-bottom:3px;}
+  /* 설치 문제해결 토글 */
+  details.howto{margin-top:14px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 10px 28px -22px rgba(12,31,61,.55);}
+  details.howto>summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--navy-800);font-size:15px;list-style:none;display:flex;align-items:center;gap:9px;}
+  details.howto>summary::-webkit-details-marker{display:none;}
+  details.howto>summary::before{content:"\25B8";color:var(--red);font-weight:800;}
+  details.howto[open]>summary::before{content:"\25BE";}
+  details.howto>summary:hover{color:var(--red-dark);}
+  details.howto .howto-body{padding:2px 18px 18px;}
+  details.howto .hstep{font-size:14.5px;color:#39434f;line-height:1.6;margin:14px 0 0;}
+  details.howto .hstep b{color:var(--navy-800);}
+  details.howto .hcode{font-family:var(--mono);font-size:13px;background:var(--navy-900);color:#d2ddee;border-radius:8px;padding:10px 12px;overflow-x:auto;white-space:pre;margin:6px 0 0;}
+  details.howto .hwarn{margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);}
 
   /* layout */
   .layout{max-width:1120px;margin:0 auto;display:flex;gap:38px;padding:0 22px;}
@@ -497,6 +509,37 @@ https://github.com/hyunchul176/tupa-llm-wiki</span></div></div>
           <li><code>contact_email</code>: courtesy for OpenAlex.</li>
         </ul><b>Without keys, arXiv, OA &amp; basic search still work.</b></span></span></div>
       </div>
+
+      <details class="howto">
+        <summary><span class="ko">⚠ Windows에서 Claude Code 설치가 막히면? (단계별 안내 펼치기)</span><span class="en">Stuck installing Claude Code on Windows? (open step-by-step)</span></summary>
+        <div class="howto-body">
+          <p class="hstep"><b><span class="ko">1단계 · 설치 명령 실행</span><span class="en">Step 1 · Run the installer</span></b><br><span class="ko">PowerShell을 열고 이 한 줄을 붙여넣는다. Node.js·npm은 필요 없고, <code>C:\Users\사용자명\.local\bin</code>에 알아서 설치된다.</span><span class="en">Open PowerShell and paste this line. No Node.js/npm needed; it installs to <code>C:\Users\&lt;you&gt;\.local\bin</code>.</span></p>
+          <div class="hcode">irm https://claude.ai/install.ps1 | iex</div>
+
+          <p class="hstep"><b><span class="ko">2단계 · 설치 확인</span><span class="en">Step 2 · Verify</span></b><br><span class="ko"><code>True</code>면 성공(3단계로), <code>False</code>면 1단계가 실패한 것(다시 실행하고 에러 확인).</span><span class="en"><code>True</code> = success (go to step 3); <code>False</code> = step 1 failed (re-run and check the error).</span></p>
+          <div class="hcode">Test-Path "$env:USERPROFILE\.local\bin\claude.exe"</div>
+
+          <p class="hstep"><b><span class="ko">3단계 · PATH 등록 (영구)</span><span class="en">Step 3 · Add to PATH (permanent)</span></b></p>
+          <div class="hcode">[Environment]::SetEnvironmentVariable("PATH", "$env:PATH;$env:USERPROFILE\.local\bin", "User")</div>
+
+          <p class="hstep"><b><span class="ko">4단계 · PowerShell 창을 완전히 닫고 새로 열기</span><span class="en">Step 4 · Fully close PowerShell and reopen</span></b><br><span class="ko"><span class="mark">여기가 제일 많이 놓치는 부분.</span> PATH 변경은 새로 연 창부터 적용된다. 쓰던 창에서 계속 치면 영원히 안 된다.</span><span class="en"><span class="mark">The most-missed step.</span> PATH changes apply only to newly opened windows; typing in the old window never works.</span></p>
+
+          <p class="hstep"><b><span class="ko">5단계 · 새 창에서 확인</span><span class="en">Step 5 · Check in the new window</span></b><br><span class="ko">버전 숫자가 뜨면 끝.</span><span class="en">A version number means you're done.</span></p>
+          <div class="hcode">claude --version</div>
+
+          <p class="hstep"><b><span class="ko">6단계 · 실행</span><span class="en">Step 6 · Run</span></b><br><span class="ko">작업할 폴더로 이동해서 <code>claude</code> 실행. 브라우저가 열리며 로그인한다(Pro/Max 구독 또는 API 키, 한 번만).</span><span class="en">Go to your folder and run <code>claude</code>. A browser opens for login (Pro/Max subscription or API key, once).</span></p>
+          <div class="hcode">claude</div>
+
+          <div class="hwarn">
+            <p class="hstep"><b><span class="ko">auto mode로 실행 (권한 확인 매번 안 묻기)</span><span class="en">Run in auto mode (skip permission prompts)</span></b><br><span class="ko">에이전트가 매번 허락을 묻지 않고 자동으로 진행하게 하려면 이 옵션으로 실행한다. <span class="mark"><code>--</code>가 맨 앞, 단어 사이는 하이픈</span>이다(<code>dangerously--skip-permissions</code>처럼 치면 안 됨).</span><span class="en">To let the agent proceed without asking each time, run with this flag. <span class="mark"><code>--</code> goes first, words joined by single hyphens</span> (not <code>dangerously--skip-permissions</code>).</span></p>
+            <div class="hcode">claude --dangerously-skip-permissions</div>
+
+            <p class="hstep"><b><span class="ko">"claude 용어가 인식되지 않습니다"가 계속 나올 때</span><span class="en">"claude is not recognized" keeps showing</span></b><br><span class="ko">대부분 4단계(새 창)를 안 해서다. 새 창에서도 안 되면, 그 창에서 임시로 PATH를 먹이고 바로 테스트한다(되면 적용 타이밍 문제였던 것, 다음 새 창부턴 그냥 된다).</span><span class="en">Usually step 4 (new window) was skipped. If a fresh window still fails, set PATH temporarily in that window and test (if it works, it was a timing issue; new windows are fine from now on).</span></p>
+            <div class="hcode">$env:PATH += ";$env:USERPROFILE\.local\bin"
+claude --version</div>
+          </div>
+        </div>
+      </details>
 
       <h3 class="phasehead"><span class="ph-eyebrow"><span class="ko">실습 진행</span><span class="en">Run the practice</span></span><span class="ko">논문 찾기에서 종합까지 (1~6단계)</span><span class="en">From finding papers to synthesis (steps 1–6)</span></h3>
 
