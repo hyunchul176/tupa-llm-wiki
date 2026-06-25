@@ -10,11 +10,11 @@ Everyone uses the **same prompts — only the research topic differs**. Just rep
 
 ## 0. 준비 / Setup
 
-**VS Code**(code.visualstudio.com)를 설치하고 빈 폴더를 VS Code로 연 뒤, 그 안에서 **Claude Code** 또는 **Codex CLI**를 실행한다. 깃헙 링크를 주면 클론·의존성(IEEE용 Playwright 포함)까지 알아서 설치한다.
-Install **VS Code** (code.visualstudio.com), open an empty folder in it, then run **Claude Code** or **Codex CLI** inside. Give it the GitHub link and it clones + installs deps (incl. Playwright for IEEE).
+**VS Code**(code.visualstudio.com)를 설치하고, 위키를 둘 폴더를 **원하는 이름·위치로 직접 만들어** VS Code로 연 뒤, 그 안에서 **Claude Code** 또는 **Codex CLI**를 실행한다. 깃헙 링크를 주면 **지금 연 폴더에** 클론·의존성(IEEE용 Playwright 포함)까지 알아서 설치한다(`tupa-llm-wiki`로 강제되지 않는다).
+Install **VS Code** (code.visualstudio.com), create the folder for your wiki **with the name/location you want**, open it, then run **Claude Code** or **Codex CLI** inside. Give it the GitHub link and it clones **into the folder you opened** + installs deps (not forced to `tupa-llm-wiki`).
 
-> 이 깃헙 받아서 설치까지 해줘: https://github.com/hyunchul176/tupa-llm-wiki
-> Clone and set this up for me: https://github.com/hyunchul176/tupa-llm-wiki
+> 이 저장소를 지금 연 폴더에 그대로 복제하고 설치까지 진행해줘: https://github.com/hyunchul176/tupa-llm-wiki
+> Clone this repo into the folder I have open and set it up: https://github.com/hyunchul176/tupa-llm-wiki
 
 유료 출판사(Elsevier·Wiley·Springer) 본문이 필요하면 `secrets/api-keys.json`에 키를 입력한다. **키 없어도 arXiv·무료 공개본(OA)은 받힌다.**
 For paywalled full text, add keys to `secrets/api-keys.json`. **Without keys, arXiv & open access still work.**
