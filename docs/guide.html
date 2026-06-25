@@ -300,6 +300,7 @@
       <li><a href="#s3"><span class="ko">지식화 흐름</span><span class="en">Knowledge flow</span></a></li>
       <li><a href="#s5"><span class="ko">규칙 &amp; 한계</span><span class="en">Rules &amp; limits</span></a></li>
       <li><a href="#s6"><span class="ko">실습 (설치+단계)</span><span class="en">Practice (setup + steps)</span></a></li>
+      <li><a href="#s7"><span class="ko">심화 · 선택</span><span class="en">Advanced · optional</span></a></li>
     </ul>
   </nav>
 
@@ -529,9 +530,14 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
           </div>
         </div></div>
       </div>
+    </section>
+
+    <section id="s7">
+      <h2><span class="num">6</span><span class="ko">심화 · 선택</span><span class="en">Advanced · optional</span></h2>
+      <p class="lead"><span class="ko">필수가 아니다 — 기본 흐름(1~6단계)으로 부족할 때 골라 쓰는 선택 기능 두 가지다.</span><span class="en">Not required — two optional features for when the basic flow (steps 1–6) isn't enough.</span></p>
 
       <div class="adv">
-        <span class="advbadge"><span class="ko">심화 · 선택</span><span class="en">Advanced · optional</span></span>
+        <span class="advbadge"><span class="ko">찾기 보강</span><span class="en">Search boost</span></span>
         <h4 style="display:flex;align-items:center;gap:10px;"><img src="assets/leapspace.webp" alt="LeapSpace" style="height:26px;width:auto;border:1px solid var(--line);border-radius:6px;background:#fff;padding:3px 7px;"><span><span class="ko">LeapSpace로 더 찾기</span><span class="en">Find more with LeapSpace</span></span></h4>
         <div class="stepnote"><span class="ko"><b>LeapSpace</b>는 Elsevier가 만든 <b>ChatGPT 같은 LLM</b>이다 — 단, 웹을 검색하지 않고 <b>ScienceDirect 등 주요 학술 DB만 근거</b>로 답하고 문장마다 citation을 단다. 논문 <b>초록</b>을 바탕으로 답하고, 일부 논문은 <b>full-text</b>까지 읽어 답한다. 키워드가 어긋나 OpenAlex·arXiv가 놓치는 논문을 찾을 때 유용하다. API가 없어 사람이 사이트에서 한 번 직접 돌려야 하므로, 1단계 검색으로 부족할 때만 쓰는 선택 단계다.</span><span class="en"><b>LeapSpace</b> (by Elsevier) is a <b>ChatGPT-like LLM</b> — but it doesn't browse the web; it answers <b>only from major scholarly DBs like ScienceDirect</b> and cites every sentence. It answers from paper <b>abstracts</b>, and for some papers from <b>full text</b>. Handy for papers that keyword search on OpenAlex/arXiv misses. No API, so you run it on the site by hand once — optional, for when step-1 search isn't enough.</span></div>
         <div class="stepnote"><span class="ko"><b>왜 OpenAlex로 안 되나?</b> OpenAlex 검색은 제목·초록 <b>키워드 매칭</b>이고 초록이 다 있지도 않다. LeapSpace는 <b>본문까지 의미로 뒤져</b> 키워드로 안 잡히는 논문을 회수하고, 질문에 <b>근거가 인용된 답</b>을 준다. 즉 OpenAlex의 <b>대체재가 아니라 보완재</b> — 1단계 찾기로 부족할 때만 쓴다.</span><span class="en"><b>Why not just OpenAlex?</b> OpenAlex search is title/abstract <b>keyword matching</b> (and abstracts aren't always present). LeapSpace searches <b>full text semantically</b> to recover papers keyword search misses, and answers with <b>cited evidence</b>. It's a <b>complement, not a replacement</b> — only when step-1 search isn't enough.</span></div>
@@ -553,7 +559,7 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
       </div>
 
       <div class="adv">
-        <span class="advbadge"><span class="ko">심화 · 선택</span><span class="en">Advanced · optional</span></span>
+        <span class="advbadge"><span class="ko">리뷰 산출물</span><span class="en">Review output</span></span>
         <h4><span class="ko">HTML 기반 리뷰카드 만들기</span><span class="en">Build review cards (HTML)</span></h4>
         <div class="stepnote"><span class="ko">위키와 <b>역할이 다른 산출물</b>이다. 같은 PDF로 만들지만, 한 주제를 깊게 정리하고 핵심 그림까지 담는다.</span><span class="en">A deliverable with a <b>different role</b> from the wiki. Built from the same PDFs, but it organizes one topic deeply — figures and all.</span></div>
         <div class="rolecompare">
