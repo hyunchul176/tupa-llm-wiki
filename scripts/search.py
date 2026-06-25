@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""search.py — 주제/키워드로 논문 후보를 찾는다 (arXiv + OpenAlex + Semantic Scholar). 표준 라이브러리만.
+"""search.py — 주제/키워드로 논문 후보를 찾는다 (arXiv + OpenAlex + Semantic Scholar + Scopus). 표준 라이브러리만.
 
 받는 게 아니라 '찾아 보여주는' 단계다. 결과에서 받을 것을 골라 fetch_paper.py 로 넘긴다.
-세 출처는 커버리지가 서로 달라(arXiv=프리프린트, OpenAlex=넓은 메타데이터, Semantic Scholar=TL;DR 요약·다른 랭킹) 보완적이다.
+출처는 커버리지가 서로 달라 보완적이다 — arXiv=프리프린트, OpenAlex=넓은 메타데이터,
+Semantic Scholar=TL;DR 요약·다른 랭킹, Scopus=큐레이션·인용(키 필요).
 
 사용:
   python scripts/search.py "vision language action humanoid driving"
@@ -10,7 +11,9 @@
 
 옵션:
   --limit N      각 출처에서 N개 (기본 8)
-  --source X     arxiv | openalex | semanticscholar(s2) | both | all (기본 all)
+  --source X     arxiv | openalex | semanticscholar(s2) | scopus | both | all (기본 all)
+                 Scopus는 키가 있어야 동작(secrets: scopus_api_key, 기관망 밖이면 scopus_inst_token).
+                 all 에서는 Scopus 키가 있을 때만 자동 포함.
 
 출력의 각 항목 끝에 '받기' 명령을 같이 보여준다. 무료본(OA) 여부도 표시.
 """
@@ -129,6 +132,37 @@ def search_semanticscholar(query: str, limit: int):
     return out
 
 
+def search_scopus(query: str, limit: int):
+    """Scopus Search API. 키 필요(secrets: scopus_api_key, 기관망 밖이면 scopus_inst_token)."""
+    key = (_wiki.KEYS.get("scopus_api_key") or "").strip()
+    if not key:
+        raise RuntimeError("scopus_api_key 없음 — Scopus는 키 필요 (secrets/api-keys.json)")
+    headers = {"X-ELS-APIKey": key, "Accept": "application/json"}
+    inst = (_wiki.KEYS.get("scopus_inst_token") or "").strip()
+    if inst:
+        headers["X-ELS-Insttoken"] = inst
+    q = f"TITLE-ABS-KEY({query})"
+    url = (f"https://api.elsevier.com/content/search/scopus?query={urllib.parse.quote(q)}"
+           f"&count={limit}")
+    res = http_json(url, headers=headers, timeout=30).get("search-results", {})
+    out = []
+    for e in res.get("entry", []) or []:
+        if e.get("error"):
+            continue
+        doi = norm_doi(e.get("prism:doi") or "")
+        out.append({
+            "title": e.get("dc:title") or "(제목 없음)",
+            "authors": [e.get("dc:creator")] if e.get("dc:creator") else [],
+            "year": (e.get("prism:coverDate") or "")[:4] or "?",
+            "abstract": e.get("dc:description") or "",
+            "id": doi, "id_kind": "DOI",
+            "oa": str(e.get("openaccess")) == "1",
+            "venue": e.get("prism:publicationName") or "",
+            "cited": int(e.get("citedby-count") or 0),
+        })
+    return out
+
+
 def _print(section, items):
     print(f"\n===== {section} — {len(items)}편 =====")
     for i, it in enumerate(items, 1):
@@ -153,8 +187,8 @@ def main():
     ap = argparse.ArgumentParser(description="주제/키워드 논문 검색 (arXiv + OpenAlex + Semantic Scholar)")
     ap.add_argument("query", help="검색어 (따옴표로 묶기)")
     ap.add_argument("--limit", type=int, default=8, help="각 출처에서 N개 (기본 8)")
-    ap.add_argument("--source", choices=["arxiv", "openalex", "semanticscholar", "s2", "both", "all"],
-                    default="all", help="기본 all(arXiv+OpenAlex+Semantic Scholar). both=arXiv+OpenAlex")
+    ap.add_argument("--source", choices=["arxiv", "openalex", "semanticscholar", "s2", "scopus", "both", "all"],
+                    default="all", help="기본 all(arXiv+OpenAlex+Semantic Scholar+Scopus(키 있을 때)). both=arXiv+OpenAlex")
     args = ap.parse_args()
     src = args.source
 
@@ -165,12 +199,15 @@ def main():
         except Exception as e:
             print(f"[{name} 검색 건너뜀] {e}", file=sys.stderr)
 
+    have_scopus = bool((_wiki.KEYS.get("scopus_api_key") or "").strip())
     if src in ("arxiv", "both", "all"):
         run("arXiv", search_arxiv)
     if src in ("openalex", "both", "all"):
         run("OpenAlex", search_openalex)
     if src in ("semanticscholar", "s2", "all"):
         run("Semantic Scholar", search_semanticscholar)
+    if src == "scopus" or (src == "all" and have_scopus):  # all에선 키 있을 때만(없으면 조용히 건너뜀)
+        run("Scopus", search_scopus)
 
     print("받을 논문을 골라 식별자를 fetch_paper.py 에 넘기세요 (여러 개 가능):")
     print("  python scripts/fetch_paper.py <DOI 또는 arXiv id> [...]")

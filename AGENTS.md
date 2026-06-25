@@ -57,12 +57,12 @@ my-wiki/                           ← 위키 루트
 > **연구 아이디어는 사용자가 들고 온다.** 에이전트는 아이디어를 만들지 않는다. 사용자가 *"X에 대해 lit review 해줘"* 라고 주제를 주면, 그 주제의 문헌을 **① 찾고(discovery) → ② 받는다(fetch).** 둘은 다른 일이다. 받은 PDF는 모두 `papers/`에 stem 이름으로 저장된다. 어느 출처·스크립트를 쓸지 판단, 실패 처리, 중복 확인은 에이전트가 한다.
 
 **① 찾기 (discovery) — 어떤 논문이 있나**
-- **arXiv · OpenAlex · Semantic Scholar** — `python scripts/search.py "<영어 키워드>"` (기본 `--source all`). 무료·자동. 세 출처는 커버리지가 달라 보완적이다(arXiv=프리프린트, OpenAlex=넓은 메타데이터+인용, Semantic Scholar=TL;DR 요약·다른 랭킹). search.py는 각 후보의 **초록/TL;DR**도 함께 출력한다. (Semantic Scholar는 키 없으면 rate limit으로 가끔 건너뛴다 — 안정적으로 쓰려면 `secrets/api-keys.json`에 `semantic_scholar` 키.)
-  - 후보를 사용자에게 보여줄 때는 그 **초록을 근거로 각 논문을 1~2줄로 요약**해, 제목·저자·연도·식별자(DOI/arXiv id)·무료본 여부와 함께 **표로** 제시한다. 추측으로 요약하지 말고 초록에 있는 내용만 쓴다.
-- **LeapSpace (선택, 사람 손 필요)** — OpenAlex/arXiv로 부족할 때만. ScienceDirect 본문 기반 의미검색. 에이전트가 **영어 질문**을 만들어 주면(★ **반드시 500자 이하**: 만든 뒤 글자 수를 세어 초과하면 줄여서 다시 준다), 사용자가 https://www.sciencedirect.com/leapspace 에서 돌려 답(인용·DOI 포함)을 붙여넣는다 → 거기서 **DOI를 추출**해 ②로 넘긴다. (LeapSpace도 LLM이므로 답은 '검증할 단서'로 다룬다.)
+- **arXiv · OpenAlex · Semantic Scholar · Scopus** — `python scripts/search.py "<영어 키워드>"` (기본 `--source all`). 무료·자동(Scopus는 키 있을 때만 자동 포함). 출처마다 커버리지가 달라 보완적이다 — arXiv=프리프린트, OpenAlex=넓은 메타데이터+인용, Semantic Scholar=TL;DR 요약·다른 랭킹, Scopus=큐레이션·인용. search.py는 각 후보의 **초록/TL;DR**도 함께 출력한다. (Semantic Scholar는 키 없으면 rate limit으로 가끔 건너뛴다; Scopus는 `scopus_api_key`(+기관망 밖이면 `scopus_inst_token`) 필요 — `secrets/api-keys.json`.)
+  - 후보를 사용자에게 보여줄 때는 그 **초록을 한국어로 요약**(1~2줄, 필요하면 2~3문장)해, 제목·저자·연도·식별자(DOI/arXiv id)·무료본 여부와 함께 **표로** 제시한다. 영어 초록은 한국어로 옮겨 주고, 추측으로 채우지 말고 초록에 있는 내용만 쓴다.
+- **LeapSpace (선택, 사람 손 필요)** — OpenAlex/arXiv로 부족할 때만. Elsevier의 LLM으로, 웹 대신 ScienceDirect 등 주요 DB(초록·일부 full-text)만 근거로 답하고 문장마다 citation을 단다. 에이전트가 **영어 질문**을 만들어 주면(★ **반드시 500자 이하**: 글자 수를 세어 초과하면 줄여서 다시 준다), 사용자가 https://researcher.elsevier.com/ 에서 돌려 답(인용·DOI 포함)을 붙여넣는다 → 그 답에 나온 논문을 **후보에 더해 '받을 논문 고르기'(curation)로 보낸다**(바로 받기로 가지 않음 — 형식이 다르므로 선별 단계를 거친다). (LeapSpace도 LLM이므로 답은 '검증할 단서'로 다룬다.)
 
 **★ 받을 논문 고르기 — 받기 전, 사용자가 고른다**
-- 후보가 여럿이면 곧장 받지 말고, 각 논문에 **초록 기반 요약·관련성 판단**을 단 JSON을 만들어 `python scripts/make_shortlist.py --input <json>` 로 클릭형 체크리스트(`shortlist.html`)를 만든다 (관련 낮은 건 `exclude:true`).
+- 후보가 여럿이면 곧장 받지 말고, 각 논문에 **한국어 한 줄 요약(`summary`) · 한국어 초록 요약(`abstract`, 2~3문장) · 관련성 판단(`note`)**을 단 JSON을 만들어 `python scripts/make_shortlist.py --input <json>` 로 클릭형 체크리스트(`shortlist.html`)를 만든다 (관련 낮은 건 `exclude:true`).
   - 만든 `shortlist.html`을 **브라우저로 열도록 안내**한다 (Claude Code면 직접 열어줘도 된다). 사용자가 체크해 **'선택 복사'한 id만** ②로 받는다.
   - (후보가 소수로 명확하면 굳이 만들지 말고 대화에서 번호로 골라도 된다.)
 

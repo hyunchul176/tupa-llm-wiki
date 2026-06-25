@@ -232,6 +232,10 @@
   .thumb-row .shot:hover{box-shadow:0 8px 26px rgba(15,23,42,.18);}
   .thumb-row .cardthumb-img{width:248px;max-width:46%;}
   @media(max-width:560px){.thumb-row .shot{height:130px;}.thumb-row .cardthumb-img{max-width:100%;}}
+  /* 흐름 안내 — 프롬프트가 '아님'. 밝은 callout으로, 복사 대상으로 오인하지 않게. */
+  .flownote{display:flex;gap:11px;align-items:flex-start;background:var(--navy-050);border:1px solid var(--navy-100);border-left:4px solid var(--navy-600);border-radius:11px;padding:13px 16px;margin:16px 0 4px;font-size:15px;line-height:1.6;color:#39434f;}
+  .flownote .fi{font-size:18px;line-height:1.35;flex:none;}
+  .flownote b{color:var(--navy-800);}
   .popup{position:fixed;inset:0;background:rgba(15,23,42,.82);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding:28px;overflow:auto;}
   .popup.active{display:flex;}
   .popup-x{position:fixed;top:16px;right:18px;background:rgba(255,255,255,.16);border:0;color:#fff;font-size:16px;width:34px;height:34px;border-radius:9px;cursor:pointer;z-index:1001;line-height:1;}
@@ -430,7 +434,7 @@
         <div class="qs-step"><span class="qsn">02</span><span class="qst"><span class="ko">저장소 복제 및 설치</span><span class="en">Paste the link and set up</span></span><span class="qsd"><span class="ko">아래 문장을 입력하면 저장소 복제와 필요한 패키지 설치(IEEE용 Playwright 포함)를 진행한다.</span><span class="en">One line sets up the repository and required dependencies, including Playwright for IEEE.</span></span><div class="qscode"><span class="ko">다음 GitHub 저장소를 복제하고 설치까지 진행해줘:
 https://github.com/hyunchul176/tupa-llm-wiki</span><span class="en">Clone and set this up for me:
 https://github.com/hyunchul176/tupa-llm-wiki</span></div></div>
-        <div class="qs-step"><span class="qsn">03</span><span class="qst"><span class="ko">API 키 입력 <span style="font-size:12px;font-weight:600;color:var(--muted);">(선택)</span></span><span class="en">Add API keys <span style="font-size:12px;font-weight:600;color:var(--muted);">(optional)</span></span></span><span class="qsd"><span class="ko">유료 출판사(Elsevier·Wiley·Springer) 본문이 필요하면 <code>secrets/api-keys.json</code>에 키를 입력한다. <b>키가 없어도 arXiv와 무료 공개본(OA)은 다운로드할 수 있다.</b></span><span class="en">If you need paywalled (Elsevier·Wiley·Springer) full text, put your keys in <code>secrets/api-keys.json</code>. <b>Without keys, arXiv &amp; open-access still work.</b></span></span></div>
+        <div class="qs-step"><span class="qsn">03</span><span class="qst"><span class="ko">API 키 입력 <span style="font-size:12px;font-weight:600;color:var(--muted);">(선택)</span></span><span class="en">Add API keys <span style="font-size:12px;font-weight:600;color:var(--muted);">(optional)</span></span></span><span class="qsd"><span class="ko"><code>secrets/api-keys.json</code>에 입력한다(<code>api-keys.example.json</code> 복사). <b>받기</b>: 유료 본문용 Elsevier·Wiley·Springer 키. <b>찾기(선택)</b>: Semantic Scholar 키(rate limit 완화)·Scopus 키(기관망 밖이면 InstToken도). <code>contact_email</code>은 OpenAlex 예의용. <b>키가 없어도 arXiv·무료 공개본(OA)·기본 검색은 된다.</b></span><span class="en">Put keys in <code>secrets/api-keys.json</code> (copy <code>api-keys.example.json</code>). <b>Fetch</b>: Elsevier·Wiley·Springer for paywalled text. <b>Search (optional)</b>: a Semantic Scholar key (eases rate limits) and a Scopus key (+ InstToken off-campus). <code>contact_email</code> is courtesy for OpenAlex. <b>Without keys, arXiv, OA &amp; basic search still work.</b></span></span></div>
       </div>
 
       <div class="steps">
@@ -451,7 +455,7 @@ https://github.com/hyunchul176/tupa-llm-wiki</span></div></div>
         <div class="st"><div class="n">2</div><div class="b"><b><span class="ko">다운로드할 논문 선택</span><span class="en">Pick papers</span></b>
           <div class="stepgoal"><span class="ko">후보 중 <b>리뷰할 것·제외할 것 추천</b>과 함께 내가 최종 선택하는 체크리스트(HTML)를 만들어, 골라서 <b>확정 DOI 목록</b>을 얻는 게 목적. <span class="nx">다음 → 받기</span></span><span class="en">Get <b>keep/exclude recommendations</b> plus a checklist (HTML) to make the final pick — ending with your <b>confirmed DOI list</b>. <span class="nx">Next → Fetch</span></span></div>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
-            <p class="ptext"><span class="ko">위 후보 중 다운로드할 논문을 고를 수 있도록 체크리스트로 정리해줘. 각 논문에는 초록 기반 한 줄 요약을 달고, 관련성이 낮은 논문은 '제외 추천'으로 표시해줘.</span><span class="en">Make a checklist from those candidates so I can pick which to fetch, and open it. Add a one-line abstract-based summary to each, and mark the less relevant ones as "exclude".</span></p>
+            <p class="ptext"><span class="ko">위 후보 중 다운로드할 논문을 고를 수 있도록 체크리스트로 정리해줘. 각 논문에 한 줄 요약과 함께 <b>초록을 한국어로 2~3문장 요약</b>해서 달고, 관련성이 낮은 논문은 '제외 추천'으로 표시해줘.</span><span class="en">Make a checklist from those candidates so I can pick which to fetch, and open it. For each, add a one-line summary plus a <b>2–3 sentence Korean summary of the abstract</b>, and mark the less relevant ones as "exclude".</span></p>
           </div>
           <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">브라우저에서 다운로드할 논문만 체크한 뒤 <b>“선택 복사”</b>를 누르고, 복사한 내용을 채팅에 붙여넣으면 선택한 논문만 다운로드한다.</span><span class="en">→ In the browser, check what you want → <b>“선택 복사”</b> → paste it back in chat to fetch just those.</span></p>
           <div class="eg"><span class="eglabel"><span class="ko">결과 예시: 다운로드할 논문 선택</span><span class="en">Example: pick papers</span></span>
@@ -533,7 +537,7 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
         <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">② 결과를 후보에 더하기</span><span class="en">② Fold results into your candidates</span></div>
           <p class="ptext"><span class="ko">LeapSpace에서 이런 답을 받았어: <span class="ph">〈답변 붙여넣기〉</span>. 여기 인용된 논문들을 내 후보 목록에 더해줘.</span><span class="en">I got this from LeapSpace: <span class="ph">〈paste the answer〉</span>. Add the papers it cites to my candidate list.</span></p>
         </div>
-        <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ LeapSpace 답은 에이전트가 만든 후보 리스트와 <b>형식이 다르다</b>. 받기로 바로 가지 말고, 새로 찾은 논문을 후보에 더해 <b>실습 2단계(받을 논문 고르기)부터 다시 반복</b>한다.</span><span class="en">→ A LeapSpace answer has a <b>different shape</b> than the agent's candidate list. Don't jump straight to fetching — add the new papers to your candidates and <b>loop back to practice step 2 (pick papers)</b>.</span></p>
+        <div class="flownote"><span class="fi">🔁</span><div><span class="ko">LeapSpace 답은 에이전트가 만든 후보 리스트와 <b>형식이 다르다</b>. 받기로 바로 가지 말고 — 새로 찾은 논문을 후보에 더하거나 <b>이 결과를 두고 에이전트와 더 논의</b>한 뒤, <b>실습 2단계(받을 논문 고르기)부터 다시 반복</b>한다.</span><span class="en">A LeapSpace answer has a <b>different shape</b> than the agent's candidate list. Don't jump straight to fetching — add the new papers to your candidates (or <b>discuss the result with the agent</b>), then <b>loop back to practice step 2 (pick papers)</b>.</span></div></div>
       </div>
 
       <div class="adv">

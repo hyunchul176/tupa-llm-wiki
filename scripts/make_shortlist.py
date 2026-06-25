@@ -21,7 +21,7 @@ JSON 스키마 (에이전트가 search.py 결과 + 초록 요약으로 만든다
      "papers": [
        {"title":"...", "authors":"Kim et al.", "year":2024, "venue":"arXiv",
         "id":"2406.09246", "url":"https://...",
-        "summary":"초록 기반 한두 줄 요약", "note":"왜 관련 있는지(선택)",
+        "summary":"한국어 한 줄 요약", "abstract":"초록을 한국어로 2~3문장 요약(선택, 권장)", "note":"왜 관련 있는지(선택)",
         "oa":true, "exclude":false}
      ]}
   ]
@@ -76,12 +76,13 @@ def main():
                 tags += '<span class="extag">제외 추천</span>'
             tags += '<span class="oatag free">무료본</span>' if p.get("oa") else '<span class="oatag key">키/브라우저</span>'
             summary = f'<span class="rsum"><b>내용</b> {esc(p.get("summary"))}</span>' if p.get("summary") else ""
+            abstract = f'<span class="rabs"><b>초록</b> {esc(p.get("abstract"))}</span>' if p.get("abstract") else ""
             note = f'<span class="rnote"><b>판단</b> {esc(p.get("note"))}</span>' if p.get("note") else ""
             items.append(
                 f'<label class="row{" ex" if ex else ""}">'
                 f'<input type="checkbox" class="cb" data-id="{pid}"{"" if ex else " checked"}>'
                 f'<span class="rmain"><span class="rtitle">{title}{tags}</span>'
-                f'<span class="rmeta">{meta}</span>{summary}{note}</span></label>'
+                f'<span class="rmeta">{meta}</span>{summary}{abstract}{note}</span></label>'
             )
         rows.append(f'<section class="cat"><h2>{esc(c.get("name") or "후보")} <span class="n">{len(c.get("papers", []))}</span></h2>{"".join(items)}</section>')
 
@@ -122,8 +123,10 @@ def main():
   .oatag.key{{color:#fff;background:var(--navy-600);}}
   .rmeta{{display:block;font-size:.8rem;color:var(--muted);margin-top:.15rem;}}
   .rsum{{display:block;font-size:.88rem;color:var(--ink);margin-top:.35rem;line-height:1.55;}}
+  .rabs{{display:block;font-size:.84rem;color:var(--muted);margin-top:.3rem;line-height:1.55;}}
   .rnote{{display:block;font-size:.86rem;color:var(--muted);margin-top:.3rem;font-style:italic;}}
-  .rsum b,.rnote b{{display:inline-block;font-style:normal;font-size:.66rem;font-weight:800;letter-spacing:.04em;color:#fff;background:var(--navy-700);border-radius:4px;padding:.05rem .35rem;margin-right:.4rem;vertical-align:middle;}}
+  .rsum b,.rnote b,.rabs b{{display:inline-block;font-style:normal;font-size:.66rem;font-weight:800;letter-spacing:.04em;color:#fff;background:var(--navy-700);border-radius:4px;padding:.05rem .35rem;margin-right:.4rem;vertical-align:middle;}}
+  .rabs b{{background:var(--navy-600);}}
   .rnote b{{background:var(--muted);}}
   textarea#out{{width:100%;height:90px;margin-top:.7rem;border:1px solid var(--line);border-radius:8px;padding:.6rem;font:13px/1.5 ui-monospace,Consolas,monospace;display:none;}}
   .toast{{font-size:.85rem;color:var(--red-dark);font-weight:700;}}

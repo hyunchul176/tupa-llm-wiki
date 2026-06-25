@@ -38,10 +38,10 @@ For paywalled full text, add keys to `secrets/api-keys.json`. **Without keys, ar
 **하는 일 / Goal:** 후보를 클릭형 체크리스트(`shortlist.html`)로 만들어 고른다. / Turn candidates into a clickable checklist (`shortlist.html`) and pick.
 
 **KO**
-> 위 후보로 shortlist.html을 만들어 열어줘. 각 논문에 초록 기반 한 줄 요약을 달고, 관련 낮은 건 '제외 추천'으로 빼줘.
+> 위 후보로 shortlist.html을 만들어 열어줘. 각 논문에 한 줄 요약과 함께 **초록을 한국어로 2~3문장 요약**해 달고, 관련 낮은 건 '제외 추천'으로 빼줘.
 
 **EN**
-> Build a shortlist.html from those candidates and open it. Add a one-line abstract-based summary to each, and mark the less relevant ones as "exclude".
+> Build a shortlist.html from those candidates and open it. For each, add a one-line summary plus a **2–3 sentence Korean summary of the abstract**, and mark the less relevant ones as "exclude".
 
 → 브라우저에서 받을 것만 체크 → **“선택 복사”** → 채팅에 붙여넣으면 그 논문만 받는다.
 → In the browser, check what you want → **“선택 복사”** → paste back in chat to fetch just those.
@@ -119,8 +119,8 @@ KO
 EN
 > I got this from LeapSpace: 〈paste the answer〉. Add the papers it cites to my candidate list.
 
-→ LeapSpace 답은 에이전트의 후보 리스트와 형식이 다르다. 받기로 바로 가지 말고, 새 논문을 후보에 더해 **2단계(받을 논문 고르기)부터 다시 반복**한다.
-→ A LeapSpace answer has a different shape than the agent's candidate list. Don't jump to fetching — add the new papers and **loop back to step 2 (pick papers)**.
+→ LeapSpace 답은 에이전트의 후보 리스트와 형식이 다르다. 받기로 바로 가지 말고 — 새 논문을 후보에 더하거나 에이전트와 더 논의한 뒤, **2단계(받을 논문 고르기)부터 다시 반복**한다.
+→ A LeapSpace answer has a different shape than the agent's candidate list. Don't jump to fetching — add the new papers (or discuss with the agent), then **loop back to step 2 (pick papers)**.
 
 ---
 
