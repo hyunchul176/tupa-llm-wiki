@@ -95,7 +95,7 @@ python scripts/search.py "vision language action humanoid"
 python scripts/fetch_paper.py 10.1016/j.trf.2025.103482   # DOI
 python scripts/fetch_paper.py 2406.09246                  # arXiv id
 
-# C — IEEE etc. that need no key (browser; Playwright optional, campus/VPN recommended)
+# C — browser automation (Playwright) for sources without an API, e.g. IEEE (campus/VPN recommended)
 python scripts/fetch_ieee.py fetch 10.1109/JSEN.2022.3156971
 
 # D — just copy a PDF into papers/ (no key needed)
@@ -129,7 +129,7 @@ my-wiki/
 │   ├── search.py        ← topic/keyword → arXiv·OpenAlex·Semantic Scholar·Scopus candidates
 │   ├── make_shortlist.py← candidates → clickable selection checklist (shortlist.html)
 │   ├── fetch_paper.py   ← DOI·arXiv id → full-text PDF (OA first → publisher APIs)
-│   ├── fetch_ieee.py    ← IEEE etc. that need no key (browser, optional)
+│   ├── fetch_ieee.py    ← browser automation (Playwright) for API-less sources, e.g. IEEE
 │   ├── extract_figures.py ← PDF figure extraction for review cards (advanced, pymupdf)
 │   └── _wiki.py         ← shared helpers (key loading · Crossref · stem)
 └── secrets/

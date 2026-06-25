@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""fetch_ieee.py — IEEE 등 키 없는 출판사: 브라우저 자동화 다운로드 (선택 기능).
+"""fetch_ieee.py — 브라우저 자동화(Playwright) 다운로드: API 없는 출판사용 (대표: IEEE, 선택 기능).
 
-IEEE는 API 키를 안 주므로 브라우저로 접근해 PDF를 받는다. 이 스크립트만 외부 패키지(Playwright)가
-필요하며, 위키의 다른 기능(fetch_paper.py / search.py)은 표준 라이브러리만으로 동작한다.
+핵심 로직은 출판사 무관이다 — 페이지를 열어 `application/pdf` 응답을 가로채 저장하므로, PDF를
+인라인으로 띄우는 사이트면 받힌다. IEEE는 PDF를 바로 안 띄워 전용 우회(stamp.jsp/getPDF.jsp)를
+추가로 둔다. (이름이 fetch_ieee인 건 IEEE가 이 방식이 꼭 필요한 대표 사례이기 때문.)
+이 스크립트만 외부 패키지(Playwright)가 필요하며, 다른 기능(fetch_paper.py / search.py)은 표준 라이브러리만으로 동작한다.
 
 설치 (IEEE 받을 때만):
   pip install playwright && python -m playwright install chromium

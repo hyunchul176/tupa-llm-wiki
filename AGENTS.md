@@ -73,7 +73,7 @@ my-wiki/                           ← 위키 루트
 - `python scripts/fetch_paper.py <DOI 또는 arXiv id> [...]`
   - DOI: **무료 공개본(OA) 우선** → 없으면 출판사 API(Elsevier·Wiley·Springer, `secrets/api-keys.json` 키, 보통 KAIST 망 필요). *LeapSpace가 찾아준 Elsevier DOI도 여기서 받는다.*
   - arXiv id: 키 없이 바로.
-- **IEEE 등 키 없는 곳** — `python scripts/fetch_ieee.py fetch <DOI>` (브라우저. Playwright는 셋업 `requirements.txt`에서 설치됨. 캠퍼스망/KAIST VPN이면 로그인 없이도 받힘.)
+- **브라우저 자동화(Playwright) — API 없는 곳(대표: IEEE)** — `python scripts/fetch_ieee.py fetch <DOI>`. 페이지를 열어 `application/pdf` 응답을 가로채 저장하므로 **출판사 무관**(PDF를 인라인으로 띄우는 곳이면 받힘). IEEE는 PDF를 바로 안 띄워 전용 우회(stamp.jsp)도 둔다. Playwright는 셋업 시 설치됨. 캠퍼스망/KAIST VPN이면 로그인 없이도 받힘.
 
 > 헷갈리지 말 것: **LeapSpace=찾기, 출판사 API=받기.** Elsevier 키가 있어도 LeapSpace가 불필요해지는 게 아니라(서로 다른 단계), 다만 '찾기'는 OpenAlex가 무료·자동으로 하므로 LeapSpace는 선택이다.
 
