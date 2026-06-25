@@ -76,6 +76,22 @@ my-wiki/                           ← 위키 루트
 - **브라우저 자동화(Playwright) — API 없는 곳(대표: IEEE)** — `python scripts/fetch_ieee.py fetch <DOI>`. **출판사 무관**: 페이지를 열어 `application/pdf`를 가로채거나, `citation_pdf_url`/PDF 링크를 찾아 브라우저로 받는다(키 없는 **Springer** 등도 이 경로로 받힘 — 실측 확인). IEEE는 전용 우회(stamp.jsp)도 둔다. Playwright는 셋업 시 설치됨. 캠퍼스망/KAIST VPN이면 로그인 없이도 받힘.
   - 단 **MDPI처럼 봇 차단(Akamai 'Access Denied')이 강한 곳**은 urllib·자동 브라우저 모두 막힐 수 있다. OA면 사용자가 브라우저에서 직접 'Download PDF' 해 `papers/`에 넣게 안내한다.
 
+**출판사별 받기 경로 (KAIST 망 실측, 2026-06).** *원칙은 API 우선 — 위 폴백 순서(OA → PMC → API → 브라우저)를 그대로 따른다. 아래는 각 출판사가 실제로 어느 단계에서 풀렸는지의 기록일 뿐, 스크립트는 자동으로 순서를 시도한다.*
+
+| 출판사 | 푸는 경로 | 키/조건 | 브라우저(Playwright) |
+|---|---|---|---|
+| arXiv | OA 직접 | 불필요 | — |
+| **IEEE** | **브라우저(stamp.jsp 전용 우회)** | KAIST IP | ✅ 뚫림 |
+| **Springer** | **브라우저(citation_pdf_url)** | 키 불필요 | ✅ 뚫림 |
+| MDPI | **PMC 우회**(Europe PMC) | 불필요 | ❌ Akamai 차단 → PMC로 |
+| Oxford · BMC | **PMC 우회** | 불필요 | (PMC가 먼저 품) |
+| Elsevier(ScienceDirect) | **API 키** | `elsevier_api_key` | ❌ 로그인·봇 월 → API로 |
+| Wiley | **API token** | `wiley_tdm_token` | ❌ 로그인·봇 월 → API로 |
+| ACS · RSC · SAGE · ACM · T&F · AAAS · PNAS | 페이월(키 없음) | — | ❌ → 사용자 직접 받기 |
+
+- **브라우저로 실제 뚫리는 곳**: IEEE(전용 우회)·Springer(citation_pdf_url), 그리고 일반적으로 같은 호스트에 `citation_pdf_url` 메타를 노출하는 OA/캠퍼스 인증 사이트.
+- **브라우저로 안 되는 곳**: Elsevier·Wiley는 헤드리스 브라우저가 로그인/봇 월에 막혀(실측 실패) **API 키가 정답**, MDPI는 Akamai 차단으로 **PMC 우회가 정답**이다. 그래서 fetch_paper.py가 자동으로 그 경로를 먼저 탄다.
+
 > 헷갈리지 말 것: **LeapSpace=찾기, 출판사 API=받기.** Elsevier 키가 있어도 LeapSpace가 불필요해지는 게 아니라(서로 다른 단계), 다만 '찾기'는 OpenAlex가 무료·자동으로 하므로 LeapSpace는 선택이다.
 
 **수집 규칙:**

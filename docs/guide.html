@@ -89,6 +89,8 @@
   .toc a{display:block;padding:8px 0 8px 15px;margin-left:-2px;border-left:2px solid transparent;color:var(--muted);text-decoration:none;font-size:14.5px;line-height:1.4;transition:color .15s,border-color .15s;}
   .toc a:hover{color:var(--navy-700);}
   .toc a.active{color:var(--navy-800);border-left-color:var(--red);font-weight:700;}
+  .toc-sub{list-style:none;margin:-2px 0 4px;padding:0;}
+  .toc-sub a{padding:5px 0 5px 30px;font-size:12.5px;}
   .content{flex:1;min-width:0;padding-bottom:90px;}
 
   /* sections */
@@ -265,7 +267,7 @@
   .flownote b{color:var(--navy-800);}
   /* 단계 사이 구분선 (1~4 쌓기 ↔ 5~6 활용) */
   .stepdiv{border-top:2px dashed var(--line);margin:40px 0 20px;}
-  .stepdiv .ph-eyebrow{margin-bottom:0;}
+  .stepdiv .ph-eyebrow{margin-bottom:0;font-size:15px;letter-spacing:.04em;}
   .popup{position:fixed;inset:0;background:rgba(15,23,42,.82);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding:28px;overflow:auto;}
   .popup.active{display:flex;}
   .popup-x{position:fixed;top:16px;right:18px;background:rgba(255,255,255,.16);border:0;color:#fff;font-size:16px;width:34px;height:34px;border-radius:9px;cursor:pointer;z-index:1001;line-height:1;}
@@ -327,7 +329,12 @@
       <li><a href="#s2"><span class="ko">문헌 수집</span><span class="en">Collecting papers</span></a></li>
       <li><a href="#s3"><span class="ko">지식화 흐름</span><span class="en">Knowledge flow</span></a></li>
       <li><a href="#s5"><span class="ko">규칙 &amp; 한계</span><span class="en">Rules &amp; limits</span></a></li>
-      <li><a href="#s6"><span class="ko">실습 (설치+단계)</span><span class="en">Practice (setup + steps)</span></a></li>
+      <li><a href="#s6"><span class="ko">실습 (설치+단계)</span><span class="en">Practice (setup + steps)</span></a>
+        <ul class="toc-sub">
+          <li><a href="#s6-setup"><span class="ko">새 프로젝트 폴더 준비 (4단계)</span><span class="en">Prepare a folder (4 steps)</span></a></li>
+          <li><a href="#s6-run"><span class="ko">찾기에서 종합까지 (1~6단계)</span><span class="en">Find → synthesize (steps 1–6)</span></a></li>
+        </ul>
+      </li>
       <li><a href="#s7"><span class="ko">심화 · 선택</span><span class="en">Advanced · optional</span></a></li>
     </ul>
   </nav>
@@ -469,7 +476,7 @@
       <h2><span class="num">5</span><span class="ko">실습: 설치부터 활용까지</span><span class="en">Practice: from setup to finish</span></h2>
       <p><span class="ko">실습에서는 <strong>연구 주제만 바꾸고</strong> 나머지 절차는 그대로 따라 하면 된다. 프롬프트에서 <span class="ph">〈내 연구 주제〉</span> 부분만 본인 주제로 바꿔 사용한다.</span><span class="en">Everyone uses the <strong>same prompts, changing only the research topic</strong>. Just replace <span class="ph">〈your topic〉</span> and copy.</span></p>
 
-      <h3><span class="ph-eyebrow"><span class="ko">준비 · 설치</span><span class="en">Setup</span></span><span class="ko">새 프로젝트 폴더 준비 (4단계)</span><span class="en">Prepare a new project folder (4 steps)</span></h3>
+      <h3 id="s6-setup"><span class="ph-eyebrow"><span class="ko">준비 · 설치</span><span class="en">Setup</span></span><span class="ko">새 프로젝트 폴더 준비 (4단계)</span><span class="en">Prepare a new project folder (4 steps)</span></h3>
       <div class="qs-steps">
         <div class="qs-step"><span class="qsn">01</span><span class="qst"><span class="ko">에디터와 폴더</span><span class="en">Editor &amp; folder</span></span><span class="qsd"><span class="ko"><ul>
           <li><b>VS Code</b> 설치 (code.visualstudio.com).</li>
@@ -548,7 +555,7 @@ claude --version</div>
         </div>
       </details>
 
-      <h3 class="phasehead"><span class="ph-eyebrow"><span class="ko">실습 진행</span><span class="en">Run the practice</span></span><span class="ko">논문 찾기에서 종합까지 (1~6단계)</span><span class="en">From finding papers to synthesis (steps 1–6)</span></h3>
+      <h3 class="phasehead" id="s6-run"><span class="ph-eyebrow"><span class="ko">실습 진행</span><span class="en">Run the practice</span></span><span class="ko">논문 찾기에서 종합까지 (1~6단계)</span><span class="en">From finding papers to synthesis (steps 1–6)</span></h3>
 
       <div class="steps">
         <div class="st"><div class="n">1</div><div class="b"><b><span class="ko">문헌 찾기</span><span class="en">Find papers</span></b>
@@ -642,7 +649,7 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
 
       <div class="adv">
         <span class="advbadge"><span class="ko">찾기 보강</span><span class="en">Search boost</span></span>
-        <h4 style="display:flex;align-items:center;gap:10px;"><img src="assets/leapspace.webp" alt="LeapSpace" style="height:26px;width:auto;border:1px solid var(--line);border-radius:6px;background:#fff;padding:3px 7px;"><span><span class="ko">LeapSpace로 더 찾기</span><span class="en">Find more with LeapSpace</span></span></h4>
+        <h4 style="display:flex;align-items:center;gap:10px;"><img src="assets/leapspace.webp" alt="LeapSpace" style="height:26px;width:auto;border:1px solid var(--line);border-radius:6px;background:#fff;padding:3px 7px;"><span><span class="ko">LeapSpace로 논문 더 찾기</span><span class="en">Find more papers with LeapSpace</span></span></h4>
         <div class="stepnote"><span class="ko"><b>LeapSpace</b>는 Elsevier가 만든 <span class="mark">ChatGPT 같은 LLM</span>이다. 단, 웹을 검색하지 않고 <span class="mark">ScienceDirect 등 주요 학술 DB만 근거</span>로 답하며 문장마다 citation을 단다. 논문 초록을 바탕으로 답하고, 일부 논문은 full-text까지 읽어 답한다. API가 없어 사람이 사이트에서 직접 한 번 돌리고 그 답을 가져온다.</span><span class="en"><b>LeapSpace</b> (by Elsevier) is a <span class="mark">ChatGPT-like LLM</span>. But it doesn't browse the web; it answers <span class="mark">only from major scholarly DBs like ScienceDirect</span> and cites every sentence. It answers from paper abstracts, and for some papers from full text. No API, so you run it on the site by hand once and bring the answer back.</span></div>
         <div class="stepnote"><span class="ko"><b>왜 LeapSpace인가?</b> Scopus·OpenAlex·Web of Science 같은 검색툴은 결국 <span class="mark">키워드 중심 매칭</span>으로 논문을 찾는다. LeapSpace는 <span class="mark">초록·본문까지 다 뒤져</span> 키워드만으로는 찾기 어려운 논문까지 찾아내고, 그 논문들에 <span class="mark">citation이 달린 답변</span>을 준다. 그래서 키워드 검색의 <b>보완재</b>로 쓴다. 꼭 보완재가 아니어도, <span class="mark">처음부터 LeapSpace와 대화</span>해 정리한 내용을 들고 와 이 위키(agentic AI)로 넘어와도 된다.</span><span class="en"><b>Why LeapSpace?</b> Tools like Scopus, OpenAlex, and Web of Science ultimately match on <span class="mark">keywords</span>. LeapSpace <span class="mark">searches abstracts and full text</span> to surface papers keywords alone can't, and answers with <span class="mark">cited sources</span>. So it's a <b>complement</b> to keyword search. And even without that, you can <span class="mark">start by chatting with LeapSpace</span>, organize what you get, and bring it into this wiki (agentic AI).</span></div>
         <div class="stepnote"><span class="ko"><b>이용</b>: 기관 구독이 되면(예: <b>KAIST는 구독 중</b>) 무료로 쓸 수 있고, 아니면 <b>월 $32</b> 유료. → <a href="https://researcher.elsevier.com/" target="_blank" rel="noopener">researcher.elsevier.com ↗</a></span><span class="en"><b>Access</b>: free with an institutional subscription (e.g., <b>KAIST has one</b>), otherwise <b>$32/month</b>. → <a href="https://researcher.elsevier.com/" target="_blank" rel="noopener">researcher.elsevier.com ↗</a></span></div>
