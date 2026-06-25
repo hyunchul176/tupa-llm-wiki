@@ -30,6 +30,7 @@ import argparse
 import re
 import sys
 import time
+import urllib.parse
 
 import _wiki
 from _wiki import BROWSER, PAPERS, crossref, make_stem, norm_doi
@@ -91,6 +92,22 @@ def _article_url(target: str) -> str:
     return t if t.startswith("http") else f"https://doi.org/{norm_doi(t)}"
 
 
+def _find_pdf_url(page) -> str:
+    """일반 출판사 PDF 주소 찾기 — 대부분 article HTML에 citation_pdf_url 메타가 있다(MDPI·Springer 등)."""
+    el = page.query_selector('meta[name="citation_pdf_url"]')
+    if el:
+        u = (el.get_attribute("content") or "").strip()
+        if u:
+            return u if u.startswith("http") else urllib.parse.urljoin(page.url, u)
+    for sel in ['a[href$=".pdf"]', 'a[href*="/pdf"]', 'a[data-track-action*="pdf" i]']:
+        el = page.query_selector(sel)
+        if el:
+            href = (el.get_attribute("href") or "").strip()
+            if href:
+                return href if href.startswith("http") else urllib.parse.urljoin(page.url, href)
+    return ""
+
+
 def do_fetch(target, headless=False):
     _need_pw()
     BROWSER.mkdir(exist_ok=True)   # 캠퍼스/VPN이면 빈 세션이어도 KAIST IP로 인증됨
@@ -146,6 +163,25 @@ def do_fetch(target, headless=False):
                             saved["size"] = len(body)
                     except Exception as ex:
                         print(f"  · 직접 다운로드 실패: {ex}", file=sys.stderr)
+            if not saved and not m:
+                # 일반 출판사(MDPI·Springer 등): citation_pdf_url/PDF 링크를 찾아 브라우저로 받는다 (urllib 403 우회)
+                pdf_url = _find_pdf_url(page)
+                if pdf_url:
+                    print(f"  · PDF 주소: {pdf_url}")
+                    try:
+                        page.goto(pdf_url, wait_until="domcontentloaded", timeout=60000)
+                        page.wait_for_timeout(3000)
+                    except Exception:
+                        pass
+                    if not saved:
+                        try:
+                            r = ctx.request.get(pdf_url, headers={"Referer": _article_url(target)})
+                            body = r.body()
+                            if r.ok and body[:4] == b"%PDF":
+                                out.write_bytes(body)
+                                saved["size"] = len(body)
+                        except Exception as ex:
+                            print(f"  · 직접 다운로드 실패: {ex}", file=sys.stderr)
             page.wait_for_timeout(1500)
         except Exception as ex:
             print(f"  · 탐색 중 오류: {ex}", file=sys.stderr)
@@ -158,6 +194,7 @@ def do_fetch(target, headless=False):
     else:
         print("  ❌ PDF를 못 받았습니다.")
         print("    캠퍼스망/KAIST VPN이면 보통 로그인 없이 받아집니다. 외부망이면 VPN을 켜거나 'login' 으로 세션을 만드세요.")
+        print("    일부 사이트(예: MDPI)는 봇 차단(Access Denied)이 강해 자동 다운로드가 막힐 수 있습니다 — OA라면 브라우저에서 직접 'Download PDF' 후 papers/에 넣으세요.")
         sys.exit(1)
 
 
