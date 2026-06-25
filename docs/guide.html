@@ -248,13 +248,13 @@
   .cardthumb-img{display:block;width:100%;max-width:300px;border:1px solid var(--line);border-radius:12px;cursor:zoom-in;transition:box-shadow .15s;margin-top:2px;}
   .thumb-img:hover,.cardthumb-img:hover{box-shadow:0 8px 26px rgba(15,23,42,.18);}
   /* 여러 섬네일 묶어 가운데정렬 */
-  .thumb-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:4px;}
-  .thumb-row.shots{align-items:flex-end;}
+  .thumb-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:6px;}
+  .thumb-row.shots{align-items:flex-start;}
   .thumb-row.cards{align-items:flex-start;}
-  .thumb-row .shot{height:185px;width:auto;max-width:100%;border:1px solid var(--line);border-radius:9px;cursor:zoom-in;transition:box-shadow .15s;}
+  .thumb-row .shot{width:calc(50% - 8px);height:auto;max-width:100%;border:1px solid var(--line);border-radius:9px;cursor:zoom-in;transition:box-shadow .15s;}
   .thumb-row .shot:hover{box-shadow:0 8px 26px rgba(15,23,42,.18);}
-  .thumb-row .cardthumb-img{width:248px;max-width:46%;}
-  @media(max-width:560px){.thumb-row .shot{height:130px;}.thumb-row .cardthumb-img{max-width:100%;}}
+  .thumb-row .cardthumb-img{width:calc(50% - 8px);max-width:100%;}
+  @media(max-width:560px){.thumb-row .shot,.thumb-row .cardthumb-img{width:100%;}}
   /* 흐름 안내: 프롬프트가 '아님'. 밝은 callout으로, 복사 대상으로 오인하지 않게. */
   .flownote{display:flex;gap:11px;align-items:flex-start;background:var(--navy-050);border:1px solid var(--navy-100);border-left:4px solid var(--navy-600);border-radius:11px;padding:13px 16px;margin:16px 0 4px;font-size:15px;line-height:1.6;color:#39434f;}
   .flownote .fi{font-size:18px;line-height:1.35;flex:none;}
