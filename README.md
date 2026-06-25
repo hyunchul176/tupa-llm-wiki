@@ -42,6 +42,38 @@ pip install -r requirements.txt && python -m playwright install chromium
 - Open this folder in **Claude Code** or **Codex CLI**.
 - The rules live in **one place**, `AGENTS.md`. **Codex** reads `AGENTS.md` and **Claude Code** reads `CLAUDE.md` (which points to `AGENTS.md`) at the start of each session — both behave **identically**. (See "The AGENTS.md manual" below.)
 
+<details>
+<summary>⚠ Stuck installing Claude Code on Windows / PowerShell? (click for step-by-step)</summary>
+
+**1. Run the installer** (no Node/npm needed; installs to `C:\Users\<you>\.local\bin`):
+```powershell
+irm https://claude.ai/install.ps1 | iex
+```
+**2. Verify** (`True` = ok; `False` = step 1 failed, re-run and check the error):
+```powershell
+Test-Path "$env:USERPROFILE\.local\bin\claude.exe"
+```
+**3. Add to PATH (permanent):**
+```powershell
+[Environment]::SetEnvironmentVariable("PATH", "$env:PATH;$env:USERPROFILE\.local\bin", "User")
+```
+**4. Fully close PowerShell and reopen.** The most-missed step: PATH changes apply only to newly opened windows.
+
+**5. Check in the new window:** `claude --version`
+
+**6. Run** in your folder: `claude` (a browser opens for login; Pro/Max subscription or API key, once).
+
+**Auto mode** (let the agent proceed without asking each time) — `--` goes first, single hyphens between words (not `dangerously--skip-permissions`):
+```powershell
+claude --dangerously-skip-permissions
+```
+**"claude is not recognized" keeps showing?** Usually step 4 (new window) was skipped. If a fresh window still fails, set PATH temporarily and test:
+```powershell
+$env:PATH += ";$env:USERPROFILE\.local\bin"
+claude --version
+```
+</details>
+
 ### 3. (optional) Set up collection keys
 To fetch paywalled full text (Elsevier / Wiley / Springer) by DOI:
 ```bash

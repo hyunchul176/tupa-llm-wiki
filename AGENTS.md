@@ -65,9 +65,9 @@ my-wiki/                           ← 위키 루트
 - **LeapSpace (선택, 사람 손 필요)** — OpenAlex/arXiv로 부족할 때만. Elsevier의 LLM으로, 웹 대신 ScienceDirect 등 주요 DB(초록·일부 full-text)만 근거로 답하고 문장마다 citation을 단다. 에이전트가 **영어 질문**을 만들어 주면(★ **반드시 500자 이하**: 글자 수를 세어 초과하면 줄여서 다시 준다), 사용자가 https://researcher.elsevier.com/ 에서 돌려 답(인용·DOI 포함)을 붙여넣는다 → 그 답에 나온 논문을 **후보에 더해 '받을 논문 고르기'(curation)로 보낸다**(바로 받기로 가지 않음 — 형식이 다르므로 선별 단계를 거친다). (LeapSpace도 LLM이므로 답은 '검증할 단서'로 다룬다.)
 
 **★ 받을 논문 고르기 — 받기 전, 사용자가 고른다**
-- 후보가 여럿이면 곧장 받지 말고, 각 논문에 **한국어 한 줄 요약(`summary`) · 한국어 초록 요약(`abstract`, 2~3문장) · 관련성 판단(`note`)**을 단 JSON을 만들어 `python scripts/make_shortlist.py --input <json>` 로 클릭형 체크리스트(`shortlist.html`)를 만든다 (관련 낮은 건 `exclude:true`).
-  - 만든 `shortlist.html`을 **브라우저로 열도록 안내**한다 (Claude Code면 직접 열어줘도 된다). 사용자가 체크해 **'선택 복사'한 id만** ②로 받는다.
-  - (후보가 소수로 명확하면 굳이 만들지 말고 대화에서 번호로 골라도 된다.)
+- 사용자가 **'체크리스트 / 고르기 / 선별'을 요청하면 기본적으로 항상 `shortlist.html`을 만든다.** 채팅에 텍스트 목록으로 대체하지 말 것 — 클릭형 HTML(체크 → '선택 복사')이 이 단계의 핵심이다. 각 논문에 **한국어 한 줄 요약(`summary`) · 한국어 초록 요약(`abstract`, 2~3문장) · 관련성 판단(`note`)**을 단 JSON을 만들어 `python scripts/make_shortlist.py --input <json>` 로 생성한다 (관련 낮은 건 `exclude:true`).
+  - 만든 `shortlist.html`을 **반드시 브라우저로 연다** (Claude Code면 직접 열고, 아니면 경로를 알려 열게 한다). 사용자가 체크해 **'선택 복사'한 id만** ②로 받는다.
+  - 후보가 **1~2편으로 아주 적을 때만** 대화에서 번호로 골라도 된다.
 
 **② 받기 (fetch) — 그 PDF를 다운로드**
 - `python scripts/fetch_paper.py <DOI 또는 arXiv id> [...]`
