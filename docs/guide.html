@@ -31,6 +31,7 @@
     margin:0;background:var(--navy-050);color:var(--ink);
     font-family:var(--font);line-height:1.78;font-size:17px;
     letter-spacing:-.003em;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    word-break:keep-all;overflow-wrap:break-word;
   }
 
   /* language toggle */
@@ -144,15 +145,15 @@
 
   /* steps */
   .steps{margin:14px 0;}
-  .steps .st{display:flex;gap:15px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line);}
-  .steps .st:last-child{border-bottom:none;}
+  .steps .st{display:flex;gap:15px;align-items:flex-start;padding:18px 20px;margin:0 0 16px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 3px rgba(15,23,42,.05);}
+  .steps .st:last-child{margin-bottom:0;}
   .steps .st .n{flex:none;width:32px;height:32px;border-radius:50%;background:var(--navy-100);color:var(--navy-800);font-weight:700;font-size:16px;display:grid;place-items:center;margin-top:1px;}
   .steps .st .b{font-size:17px;min-width:0;flex:1;}
   .steps .st .b b{color:var(--navy-800);}
   .steps .st .b .hint{font-size:14px;color:var(--muted);}
 
   /* practice prompts */
-  .prompt{position:relative;background:#fff;border:1px solid var(--line);border-left:4px solid var(--red);border-radius:11px;padding:14px 64px 14px 18px;margin:10px 0 4px;}
+  .prompt{position:relative;background:#fff;border:1px solid var(--line);border-left:4px solid var(--red);border-radius:11px;padding:14px 64px 14px 18px;margin:18px 0 4px;}
   .prompt .plabel{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--red-dark);margin-bottom:5px;}
   .prompt .ptext{margin:0;font-size:16px;line-height:1.66;color:#2a3744;}
   .prompt .ph{color:var(--red-dark);font-weight:700;}
@@ -170,8 +171,9 @@
   .pflow .pf .pfn{font-family:var(--mono);font-size:11px;color:var(--navy-600);font-weight:700;}
   .pflow .pf .pft{font-weight:750;font-size:14.5px;color:var(--navy-800);margin-top:2px;}
   .pflow .pf .pfd{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.45;}
-  .eg{position:relative;margin:10px 0 4px;border:1px solid var(--line);border-radius:11px;background:var(--navy-050);padding:32px 16px 16px;}
-  .eg .eglabel{position:absolute;top:0;left:0;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--navy-600);padding:3px 11px;border-radius:11px 0 11px 0;}
+  .eg{position:relative;margin:14px 0 4px;padding:2px 0 2px 20px;border:none;border-left:3px solid #b9c6d8;border-radius:0;background:transparent;}
+  .eg .eglabel{display:inline-flex;align-items:center;gap:5px;position:static;font-size:11.5px;font-weight:700;letter-spacing:.03em;text-transform:none;color:var(--navy-600);background:none;padding:0;margin:0 0 8px;border-radius:0;}
+  .eg .eglabel::before{content:"↳";color:#8aa0bd;font-weight:800;font-size:13px;}
   .egtbl{width:100%;border-collapse:collapse;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;}
   .egtbl th,.egtbl td{text-align:left;padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top;}
   .egtbl tr:last-child td{border-bottom:none;}
@@ -199,7 +201,7 @@
   .stepmeta > span{display:inline-flex;gap:5px;align-items:baseline;}
   .stepmeta b{color:var(--navy-700);font-weight:700;white-space:nowrap;}
   .stepmeta .nx b{color:var(--red-dark);}
-  .stepgoal{font-size:15.5px;color:#39434f;line-height:1.62;margin:7px 0 6px;}
+  .stepgoal{font-size:15px;color:#39434f;line-height:1.6;margin:9px 0 0;padding:11px 14px;background:var(--navy-050);border:1px solid var(--navy-100);border-radius:10px;}
   .stepgoal b{color:var(--navy-800);font-weight:700;}
   .stepgoal .nx{color:var(--red-dark);font-weight:600;white-space:nowrap;margin-left:4px;}
   /* 역할 구분 (LLM 위키 vs 리뷰카드) */
@@ -214,16 +216,9 @@
   .rolecompare li b{color:var(--navy-800);}
   .rolecompare .rc-review li b{color:var(--red-dark);}
   @media(max-width:640px){.rolecompare{grid-template-columns:1fr;}}
-  /* 진짜 예시 팝업 (리뷰카드) */
-  .expreview{cursor:zoom-in;transition:box-shadow .15s;}
-  .expreview:hover{box-shadow:0 8px 26px rgba(15,23,42,.17);}
-  .exopen-hint{display:inline-flex;align-items:center;gap:6px;margin-top:9px;font-size:13px;font-weight:700;color:var(--red-dark);cursor:zoom-in;}
-  .exmodal{position:fixed;inset:0;background:rgba(15,23,42,.80);z-index:1000;display:none;flex-direction:column;padding:22px;}
-  .exmodal.active{display:flex;}
-  .exmodal-bar{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:13.5px;padding:0 4px 10px;}
-  .exmodal-x{margin-left:auto;background:rgba(255,255,255,.16);border:0;color:#fff;font-size:15px;width:32px;height:32px;border-radius:8px;cursor:pointer;line-height:1;}
-  .exmodal-x:hover{background:rgba(255,255,255,.3);}
-  .exmodal iframe{flex:1;width:100%;border:0;border-radius:12px;background:#fff;box-shadow:0 24px 70px rgba(0,0,0,.45);}
+  /* 실제 리뷰 인라인 예시 (iframe) */
+  .exframe{display:block;width:100%;height:560px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 6px 22px rgba(15,23,42,.10);margin-top:4px;}
+  @media(max-width:640px){.exframe{height:420px;}}
 
   /* code */
   .code{background:var(--navy-900);color:#d2ddee;border-radius:12px;padding:18px 20px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.7;margin:12px 0 2px;}
@@ -535,40 +530,17 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
         </div>
         <div class="stepnote"><span class="ko"><b>주제 1개당 리뷰카드 1편</b> — 다른 주제 논문을 섞지 않는다. PDF에서 핵심 그림도 자동 추출한다(<code>extract_figures.py</code>, pymupdf 필요).</span><span class="en"><b>One review per topic</b> — never mix topics. Key figures are auto-extracted from the PDFs (<code>extract_figures.py</code>, needs pymupdf).</span></div>
         <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
-          <p class="ptext"><span class="ko"><code>wiki/<span class="ph">〈주제〉</span></code>의 논문들로 HTML 리뷰카드를 만들어줘 — <b>이 주제만</b>. 논문마다 깊은 카드(연구배경·무엇·방법론 상세·결과·한계·본 연구와의 관계)와 <b>핵심 figure(클릭하면 확대)</b>까지. <code>review/<span class="ph">〈주제〉</span>/index.html</code>로.</span><span class="en">Build HTML review cards from the papers in <code>wiki/<span class="ph">〈topic〉</span></code> — <b>this topic only</b>. A deep card per paper (background · what · method detail · results · limits · relevance) with <b>key figures (click to enlarge)</b>. Output to <code>review/<span class="ph">〈topic〉</span>/index.html</code>.</span></p>
+          <p class="ptext"><span class="ko">이 <b>2편</b>으로 HTML 리뷰카드를 만들어줘: <span class="ph">〈논문 1 — 제목 또는 DOI〉</span>, <span class="ph">〈논문 2 — 제목 또는 DOI〉</span>. <code>review/<span class="ph">〈주제〉</span>/index.html</code>로.</span><span class="en">Build HTML review cards from these <b>2 papers</b>: <span class="ph">〈paper 1 — title or DOI〉</span>, <span class="ph">〈paper 2 — title or DOI〉</span>. Output to <code>review/<span class="ph">〈topic〉</span>/index.html</code>.</span></p>
         </div>
-        <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ 생성된 <code>review/〈주제〉/index.html</code>을 브라우저로 연다. 비교 매트릭스·공백 분석은 <b>옵션</b>("매트릭스도 넣어줘").</span><span class="en">→ Open <code>review/〈topic〉/index.html</code>. A comparison matrix &amp; gap analysis are <b>optional</b> ("add a matrix too").</span></p>
-        <div class="eg"><span class="eglabel"><span class="ko">결과 예시 — 클릭하면 실제 리뷰가 팝업으로 열립니다</span><span class="en">Example — click to open the real review</span></span>
-          <div class="expreview" data-exopen role="button" tabindex="0" aria-label="실제 리뷰 예시 열기" style="background:#fff;border:1px solid var(--line);border-left:3px solid #0891b2;border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.6;color:#2a3744;">
-            <div style="display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap;">
-              <span style="font-size:10px;font-weight:700;background:#0891b2;color:#fff;padding:1px 8px;border-radius:999px;">Line A</span>
-              <span style="font-size:10px;font-weight:700;background:var(--navy-100);color:var(--navy-800);padding:1px 8px;border-radius:999px;">Conference</span>
-              <span style="font-size:10px;font-weight:700;background:var(--navy-100);color:var(--navy-800);padding:1px 8px;border-radius:999px;">2014</span>
-            </div>
-            <div style="font-weight:750;color:var(--navy-800);font-size:14.5px;">Toward Autonomous Car Driving by a Humanoid Robot</div>
-            <div style="font-size:11.5px;color:var(--muted);margin:2px 0 9px;">A. Paolillo et al. · IEEE Humanoids 2014 · 10.1109/HUMANOIDS.2014.7041400</div>
-            <div style="display:flex;gap:12px;flex-wrap:wrap;">
-              <div style="flex:0 0 140px;border:1px solid var(--line);border-radius:7px;background:var(--navy-050);min-height:84px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:11px;text-align:center;">Fig 6 ·<br>실험 셋업 그림</div>
-              <div style="flex:1;min-width:210px;">
-                <div style="background:var(--navy-050);border-radius:7px;padding:7px 10px;font-size:12.5px;"><b style="color:var(--red-dark);font-size:10px;letter-spacing:.04em;">TL;DR</b> HRP-4가 <span style="background:linear-gradient(transparent 58%,rgba(250,204,21,.5) 58%);">차량을 개조하지 않고 핸들을 직접 돌려</span> 운전한 첫 시연.</div>
-                <div style="margin-top:8px;"><b style="font-size:10px;color:#fff;background:var(--navy-700);border-radius:3px;padding:1px 6px;">무엇을 했는가</b> <span style="background:linear-gradient(transparent 58%,rgba(250,204,21,.5) 58%);">운전 과제를 비전·제어 모듈로 분해</span>해 핸들을 직접 돌려 추종.</div>
-                <div style="margin-top:6px;"><b style="font-size:10px;color:#fff;background:var(--red);border-radius:3px;padding:1px 6px;">본 연구와의 관계</b> problem framing의 <span style="background:linear-gradient(transparent 58%,rgba(250,204,21,.5) 58%);">학술적 기원</span>.</div>
-              </div>
-            </div>
-          </div>
-          <span class="exopen-hint" data-exopen role="button" tabindex="0">▶ <span class="ko">실제 예시 열기 (휴머노이드 차량 운전 리뷰)</span><span class="en">Open the live example (humanoid driving review)</span></span>
-          <p style="font-size:12px;color:var(--muted);margin:7px 0 0;"><span class="ko">실제 출력은 Pretendard·기존 lit-review 템플릿(<code>shared.css</code>)으로 렌더되고, 각 파트의 핵심 구절은 형광펜으로 강조되며 <b>그림은 클릭하면 확대</b>된다. 섹션(§1·§2…)마다 이런 카드가 쌓인다.</span><span class="en">Real output renders in Pretendard with the existing lit-review template (<code>shared.css</code>); key phrases are highlighter-marked, <b>figures enlarge on click</b>, and cards like this stack under each section (§1, §2…).</span></p>
+        <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ 깊은 카드·핵심 figure·그림 클릭 확대는 <b>규칙(AGENTS §8)대로 자동 포함</b>되니 프롬프트에 따로 적지 않아도 된다. 시연이라 <b>2편만</b> 지정한다(많으면 오래 걸림). 비교 매트릭스·공백 분석은 <b>옵션</b>("매트릭스도 넣어줘").</span><span class="en">→ Deep cards, key figures, and click-to-zoom are <b>included automatically per the rules (AGENTS §8)</b> — no need to spell them out. For the demo, pick just <b>2 papers</b> (more takes a while). A comparison matrix &amp; gap analysis are <b>optional</b>.</span></p>
+        <div class="eg"><span class="eglabel"><span class="ko">결과 예시 — 실제 리뷰 한 편 (틀 안에서 스크롤)</span><span class="en">Example — a real review (scroll inside the frame)</span></span>
+          <iframe class="exframe" src="example-review/index.html" title="실제 리뷰 예시 — 휴머노이드 차량 운전" loading="lazy"></iframe>
+          <p style="font-size:12px;color:var(--muted);margin:7px 0 0;"><span class="ko">위 틀 안이 실제 생성물(<code>review/&lt;주제&gt;/index.html</code>) 한 편이다 — Pretendard·기존 lit-review 템플릿(<code>shared.css</code>)으로 렌더되고, 각 파트의 핵심 구절은 형광펜으로 강조되며 <b>그림은 클릭하면 확대</b>된다.</span><span class="en">The frame above is one real output (<code>review/&lt;topic&gt;/index.html</code>) — rendered in Pretendard with the lit-review template (<code>shared.css</code>); key phrases are highlighter-marked and <b>figures enlarge on click</b>.</span></p>
         </div>
       </div>
     </section>
 
   </main>
-</div>
-
-<!-- 리뷰카드 실제 예시 팝업 -->
-<div id="exmodal" class="exmodal" aria-hidden="true">
-  <div class="exmodal-bar"><span class="ko">실제 예시 — 휴머노이드 차량 운전 리뷰 (HTML 리뷰카드)</span><span class="en">Live example — humanoid driving review (HTML cards)</span><button class="exmodal-x" type="button" aria-label="닫기">✕</button></div>
-  <iframe title="example review" src=""></iframe>
 </div>
 
 <footer>
@@ -625,22 +597,6 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
       }).catch(function(){});
     });
   });
-})();
-
-// 리뷰카드 실제 예시 팝업 (iframe)
-(function(){
-  var m = document.getElementById('exmodal');
-  if(!m) return;
-  var fr = m.querySelector('iframe'), src = 'example-review/index.html';
-  function open(){ if(fr.getAttribute('src') !== src){ fr.setAttribute('src', src); } m.classList.add('active'); m.setAttribute('aria-hidden','false'); }
-  function close(){ m.classList.remove('active'); m.setAttribute('aria-hidden','true'); }
-  document.querySelectorAll('[data-exopen]').forEach(function(el){
-    el.addEventListener('click', open);
-    el.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(); } });
-  });
-  m.querySelector('.exmodal-x').addEventListener('click', close);
-  m.addEventListener('click', function(e){ if(e.target === m){ close(); } });
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ close(); } });
 })();
 </script>
 </body>

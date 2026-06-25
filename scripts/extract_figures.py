@@ -49,6 +49,14 @@ def _save_pix(pix, out):
 
 # ---- 모드 1: 캡션 기준 영역 렌더링 (기본, 권장) ----
 def by_caption(doc, prefix, out_dir, dpi, band_frac, pad):
+    """캡션("Fig. N …") 위의 그림 영역만 잘라 렌더한다.
+
+    합쳐짐·본문 캡쳐를 막기 위한 규칙:
+      - ceiling: 같은 열에서 **바로 위 캡션**의 아래까지만 거슬러 올라간다(이전 그림 침범 금지).
+      - 그림(임베디드 이미지·벡터 드로잉)이 캡션 위에 **없으면 건너뛴다** — 본문 텍스트 밴드로 fallback 하지 않는다.
+      - 간격이 큰(다른 그림으로 추정되는) 블록은 union 하지 않는다.
+      - 캡션 블록이 다음 단락과 붙어 있어도, 캡션부는 최대 몇 줄만 포함한다.
+    """
     saved, used = [], {}
     for pno in range(len(doc)):
         page = doc[pno]
@@ -61,30 +69,64 @@ def by_caption(doc, prefix, out_dir, dpi, band_frac, pad):
             txt = "".join(s.get("text", "") for l in b.get("lines", []) for s in l.get("spans", []))
             m = CAP_RE.match(txt)
             if m:
-                caps.append((m.group(1).lower(), m.group(2), fitz.Rect(b["bbox"])))
+                lines = [(fitz.Rect(l["bbox"]), "".join(s.get("text", "") for s in l.get("spans", [])))
+                         for l in b.get("lines", [])]
+                caps.append((m.group(1).lower(), m.group(2), fitz.Rect(b["bbox"]), lines))
         if not caps:
             continue
+        # 그림 후보 = 임베디드 이미지(type 1) + 벡터 드로잉 (텍스트는 제외)
         content = [fitz.Rect(b["bbox"]) for b in blocks if b.get("type") == 1]
         try:
             content += [fitz.Rect(d["rect"]) for d in page.get_drawings()]
         except Exception:
             pass
-        for kind, num, cb in caps:
+        cap_rects = [c[2] for c in caps]
+        gap_limit = 0.10 * H
+        for kind, num, cb, cap_lines in caps:
             x0, x1 = max(0, cb.x0 - pad), min(W, cb.x1 + pad)
-            top_limit = max(0, cb.y0 - band_frac * H)
-            union = None
-            for r in content:
-                if (r.y1 <= cb.y0 + 2 and r.y1 >= top_limit and r.x1 > x0 and r.x0 < x1
-                        and r.height > 8 and r.width > 20):
-                    union = r if union is None else (union | r)
-            if union is None:
-                clip = fitz.Rect(x0, top_limit, x1, cb.y1)
-            else:
-                cx0 = min(union.x0, cb.x0) - pad
-                cx1 = max(union.x1, cb.x1) + pad
-                clip = fitz.Rect(cx0, union.y0 - pad, cx1, cb.y1)
-            clip = clip & page.rect
-            if clip.width < 40 or clip.height < 40:
+            # ceiling: 같은 열에서 바로 위 캡션의 아래 경계 (없으면 band_frac 만큼만)
+            ceiling = max(0.0, cb.y0 - band_frac * H)
+            for rc in cap_rects:
+                if rc is cb:
+                    continue
+                if rc.y1 <= cb.y0 - 2 and rc.x1 > x0 and rc.x0 < x1:
+                    ceiling = max(ceiling, rc.y1 + 1)
+            # 캡션 위·ceiling 아래·같은 열에 있는 그림 블록만
+            cand = [r for r in content
+                    if r.y1 <= cb.y0 + 2 and r.y0 >= ceiling and r.x1 > x0 and r.x0 < x1
+                    and r.height > 6 and r.width > 16]
+            if not cand:
+                continue  # 그림이 없으면 건너뜀 (본문 텍스트로 fallback 하지 않음)
+            # 캡션에 가장 가까운 블록부터, 간격이 크면(다른 그림) 멈추고 union
+            cand.sort(key=lambda r: r.y1, reverse=True)
+            union = cand[0]
+            for r in cand[1:]:
+                if union.y0 - r.y1 > gap_limit:
+                    break
+                union = union | r
+            # crop: 그림 영역 + 캡션부. 캡션 블록에 다음 단락이 붙어 있으면
+            # (빈 줄 또는 큰 줄간격에서) 끊어 본문이 딸려오지 않게 한다.
+            cap_bottom = cb.y1
+            cl = sorted(cap_lines, key=lambda lr: lr[0].y0)
+            got = False
+            prev_y1 = None
+            lh = 10.0
+            for r, t in cl:
+                blank = (t.strip() == "")
+                big_gap = (prev_y1 is not None and r.y0 - prev_y1 > 0.7 * lh)
+                if got and (blank or big_gap):
+                    break
+                if not blank:
+                    cap_bottom = r.y1
+                    got = True
+                    lh = max(r.height, 6)
+                prev_y1 = r.y1
+            cap_bottom = min(cap_bottom, cb.y0 + 0.13 * H)
+            cx0 = min(union.x0, cb.x0) - pad
+            cx1 = max(union.x1, cb.x1) + pad
+            clip = fitz.Rect(cx0, union.y0 - pad, cx1, cap_bottom) & page.rect
+            # 크기 sanity: 진짜 그림인지 (밑줄·조각 배제)
+            if clip.width < 80 or clip.height < 60 or clip.width * clip.height < 0.03 * W * H:
                 continue
             label = f"{'table' if kind == 'table' else 'fig'}{num}"
             used[label] = used.get(label, 0) + 1

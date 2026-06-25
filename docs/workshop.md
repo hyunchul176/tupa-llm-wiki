@@ -126,11 +126,14 @@ EN
 **핵심 / Key:** 위키와 **역할이 다르다** — 위키는 여러 주제를 누적·질의응답하는 지식베이스, 리뷰카드는 **한 주제를 깊게**(주제당 1편, 다른 주제 섞지 않기) 정리하고 figure까지 담아 읽고 비교하는 문서.
 A different role from the wiki — the wiki accumulates many topics for Q&A; review cards go **deep on one topic** (one per topic, no mixing), figures and all.
 
+시연이라 **내가 고른 2편만** 지정한다(wiki 전체는 오래 걸림). 깊은 카드·핵심 figure·그림 클릭 확대는 규칙(AGENTS §8)대로 **자동 포함**되니 프롬프트에 적지 않아도 된다.
+For the demo, pick **just 2 papers** (the whole wiki takes a while). Deep cards, key figures, and click-to-zoom are **automatic** per the rules (AGENTS §8) — no need to spell them out.
+
 **KO**
-> `wiki/〈주제〉`의 논문들로 HTML 리뷰카드를 만들어줘 — 이 주제만. 논문마다 깊은 카드(연구배경·무엇·방법론 상세·결과·한계·본 연구와의 관계)와 핵심 figure(클릭하면 확대)까지. `review/〈주제〉/index.html`로.
+> 이 2편으로 HTML 리뷰카드를 만들어줘: 〈논문 1 — 제목 또는 DOI〉, 〈논문 2 — 제목 또는 DOI〉. `review/〈주제〉/index.html`로.
 
 **EN**
-> Build HTML review cards from the papers in `wiki/〈topic〉` — this topic only. A deep card per paper (background · what · method detail · results · limits · relevance) with key figures (click to enlarge). Output to `review/〈topic〉/index.html`.
+> Build HTML review cards from these 2 papers: 〈paper 1 — title or DOI〉, 〈paper 2 — title or DOI〉. Output to `review/〈topic〉/index.html`.
 
 → 생성된 `review/〈주제〉/index.html`을 브라우저로 연다. 비교 매트릭스·공백 분석은 옵션("매트릭스도 넣어줘").
 → Open the generated `review/〈topic〉/index.html`. A comparison matrix & gap analysis are optional ("add a matrix too").

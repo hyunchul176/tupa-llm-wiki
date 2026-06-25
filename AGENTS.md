@@ -143,6 +143,7 @@ ingested: 2026-06-11
 - 기본 **한국어**. 위키·요약·노트 모두 한국어 우선.
 - 영어 원문 인용(논문 제목·핵심 문장)은 보존.
 - 영-한 중복 작성 금지.
+- **HTML 생성 시**(guide·리뷰카드 등) 한글이 단어 중간에서 끊기지 않게 `body{word-break:keep-all; overflow-wrap:break-word;}`를 넣는다 (PPT '한글 잘림 허용' 끄기와 같은 효과).
 
 ---
 
@@ -157,11 +158,13 @@ ingested: 2026-06-11
 
 > 위키(ingest)와 **역할이 다른 산출물**이다. 위키는 여러 주제를 누적·질의응답하는 지식베이스이고, 리뷰카드는 **한 주제를 깊게** 정리하고 figure까지 담아 **읽고 비교**하는 리뷰 문서다. 그래서 **주제 1개당 1편** — 서로 다른 주제 논문을 한 리뷰에 섞지 않는다.
 
-사용자가 *"〈주제〉 논문들로 HTML 리뷰카드 만들어줘"* 라고 하면:
+**기본 포함 (사용자가 따로 요청하지 않아도 항상)**: 깊은 카드(연구배경~한계) · 핵심 figure · 그림 클릭 확대(lightbox) · 핵심 구절 형광펜 · 한글 `word-break:keep-all`. 프롬프트가 *"리뷰카드 만들어줘"*처럼 짧아도 아래를 전부 적용한다 — 매번 일일이 적게 하지 말 것.
 
-1. **대상 논문 모으기 (주제 격리)** — 그 주제 논문만 고른다. `wiki/<category>/`의 같은 카테고리, 또는 사용자가 지정한 PDF 묶음. 주제가 어긋나는 논문은 **빼고**, 애매하면 사용자에게 확인한다.
-2. **figure 추출** — 논문마다 `python scripts/extract_figures.py papers/<stem>.pdf --prefix <stem> --out review/<주제>/images` (caption 모드). 출력 목록에서 **핵심 그림 1~3장**(아키텍처·결과 위주)만 고른다. 캡션 못 찾으면 `--mode embedded`/`pages`.
-3. **리뷰 생성** — `review/<주제>/index.html` **한 파일**로, `<head>`에 `<link rel="stylesheet" href="../assets/shared.css">`만 건다(폰트 Pretendard는 shared.css가 `@import`로 불러온다). 방법론 불릿용 작은 `<style>`(`.paper-section ul.method` 여백 정도)만 head에 얹는다. 기존 lit-review 템플릿 클래스를 그대로 쓴다:
+사용자가 *"이 논문들로 HTML 리뷰카드 만들어줘"* 라고 하면 (대상은 **사용자가 지정한 논문**. 시연은 보통 **2편** — wiki 전체를 다 만들면 오래 걸린다):
+
+1. **대상 논문 확정 (주제 격리)** — 사용자가 지정한 논문(시연은 2편)만 쓴다. **지정이 없으면** `wiki/<category>/` 목록을 보여주고 *어느 논문으로 할지 먼저 묻는다* — wiki 전체를 임의로 자동 생성하지 않는다. 주제가 어긋나는 논문은 한 리뷰에 섞지 않는다.
+2. **figure 추출 + 반드시 눈으로 검증** — 논문마다 `python scripts/extract_figures.py papers/<stem>.pdf --prefix <stem> --out review/<주제>/images` (caption 모드). ⚠ 자동 추출은 완벽하지 않다 — **고른 그림을 직접 열어 확인**하고 ① 본문 텍스트가 잡힌 것 ② 두 그림이 합쳐진 것 ③ 캡션 아래 본문이 딸려온 것은 **쓰지 않는다**. 핵심 그림 1~3장(아키텍처·결과 위주)만 고르고, 잘 안 나오면 `--mode embedded`(사진)·`--mode pages`(페이지 통째)로 재시도하거나 다른 figure 번호를 쓴다.
+3. **리뷰 생성** — `review/<주제>/index.html` **한 파일**로, `<head>`에 `<link rel="stylesheet" href="../assets/shared.css">`만 건다(폰트 Pretendard는 shared.css가 `@import`로 불러온다). head에 작은 `<style>`만 얹는다: 한글이 단어 중간에서 끊기지 않게 `body{word-break:keep-all; overflow-wrap:break-word;}` + 방법론 불릿 여백(`.paper-section ul.method`). 기존 lit-review 템플릿 클래스를 그대로 쓴다:
    - `<header class="landing-hero">`: `<h1>` 제목 · `.subtitle` · `.meta`(작성자·논문 수·버전·날짜)
    - `<div class="page-grid">` 안에 `<aside class="toc-sidebar">`(`.toc-title` + 섹션/논문 링크, 라인별 `<details class="toc-line">`) + `<main>`
    - `<main>`: `.lede`(주제·왜 보는지 2~4줄) → 섹션마다 `<h2 id="sN">§N. 제목 <span class="section-status">…</span></h2>` → 그 아래 `.paper` 카드들
