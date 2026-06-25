@@ -358,7 +358,17 @@
         <div class="ch-head"><span class="ch-name">OpenAlex</span><span class="ch-tag free"><span class="ko">자동·무료</span><span class="en">Auto · free</span></span></div>
         <p><span class="ko"><code>search.py</code>로 함께 검색한다. 다양한 출판사의 메타데이터와 인용 관계를 무료로 확인할 수 있다. <span class="lbl">대부분의 ‘논문 찾기’는 이 단계에서 충분하다.</span></span><span class="en">Also searched via <code>search.py</code>. Metadata and citation links across many publishers, for free. <span class="lbl">Most “finding” is covered at this step.</span></span></p>
       </div>
-      <p style="font-size:13.5px;color:var(--muted);margin:4px 0 0;"><span class="ko">※ OpenAlex로 부족하면 <b>LeapSpace</b>(ScienceDirect 본문 검색)를 쓸 수 있다 — 아래 <b>심화·선택</b>에서 한 번에 설명한다.</span><span class="en">※ If OpenAlex isn't enough, <b>LeapSpace</b> (ScienceDirect full-text search) is available — explained in <b>Advanced</b> below.</span></p>
+      <div class="chan">
+        <div class="chan-logo"><span style="font-weight:800;font-size:15px;color:var(--navy-700);text-align:center;line-height:1.15;">Semantic<br>Scholar</span></div>
+        <div class="ch-head"><span class="ch-name">Semantic Scholar</span><span class="ch-tag free"><span class="ko">자동·무료</span><span class="en">Auto · free</span></span></div>
+        <p><span class="ko"><code>search.py</code>로 함께 검색한다. 논문마다 <b>TL;DR 자동요약</b>을 주고, OpenAlex와 커버리지·관련도 랭킹이 달라 보완적이다. <span class="lbl">무료 키를 넣으면 안정적(없으면 가끔 rate limit으로 건너뜀).</span></span><span class="en">Also searched via <code>search.py</code>. Gives a <b>TL;DR</b> per paper; different coverage and ranking than OpenAlex. <span class="lbl">A free key makes it reliable (without one it may hit rate limits).</span></span></p>
+      </div>
+      <div class="chan">
+        <div class="chan-logo"><span style="font-weight:800;font-size:20px;color:var(--navy-700);letter-spacing:-.01em;">Scopus</span></div>
+        <div class="ch-head"><span class="ch-name">Scopus</span><span class="ch-tag key"><span class="ko">Elsevier 키</span><span class="en">Elsevier key</span></span></div>
+        <p><span class="ko"><code>search.py</code>로 함께 검색한다(키 있을 때 자동 포함). Elsevier의 <b>큐레이션·인용 중심</b> 학술 DB다. <span class="lbl">받기용으로 이미 넣은 Elsevier 키로 그대로 동작한다</span>(같은 키, KAIST 기관망).</span><span class="en">Also searched via <code>search.py</code> (auto-included when a key exists). Elsevier's <b>curated, citation-rich</b> database. <span class="lbl">Runs on the same Elsevier key you already added for fetching</span> (institutional network).</span></p>
+      </div>
+      <p style="font-size:13.5px;color:var(--muted);margin:4px 0 0;"><span class="ko">※ 위 네 곳으로도 부족하면 <b>LeapSpace</b>(본문 의미검색)를 쓸 수 있다 — 아래 <b>심화·선택</b>에서 한 번에 설명한다.</span><span class="en">※ If these four aren't enough, <b>LeapSpace</b> (full-text semantic search) is available — explained in <b>Advanced</b> below.</span></p>
 
       <h3><span class="ko">② 다운로드 (fetch): 찾은 논문 PDF 확보</span><span class="en">② Download (fetch): get the PDFs you found</span></h3>
       <div class="chan nologo">
@@ -439,9 +449,9 @@ https://github.com/hyunchul176/tupa-llm-wiki</span></div></div>
 
       <div class="steps">
         <div class="st"><div class="n">1</div><div class="b"><b><span class="ko">문헌 찾기</span><span class="en">Find papers</span></b>
-          <div class="stepgoal"><span class="ko">연구 주제에 대한 논문을 arXiv·OpenAlex에서 조사해, lit review를 진행할 <b>후보 논문 리스트</b>를 만드는 게 목표. <span class="nx">다음 → 선택</span></span><span class="en">Survey papers on your topic via arXiv·OpenAlex to build a <b>candidate list</b> for the lit review. <span class="nx">Next → Pick</span></span></div>
+          <div class="stepgoal"><span class="ko">연구 주제에 대한 논문을 <b>여러 학술 DB</b>(arXiv·OpenAlex·Semantic Scholar·Scopus)에서 조사해, lit review를 진행할 <b>후보 논문 리스트</b>를 만드는 게 목표. <span class="nx">다음 → 선택</span></span><span class="en">Survey papers on your topic across <b>several databases</b> (arXiv·OpenAlex·Semantic Scholar·Scopus) to build a <b>candidate list</b> for the lit review. <span class="nx">Next → Pick</span></span></div>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
-            <p class="ptext"><span class="ko">내 연구 주제는 "<span class="ph">〈내 연구 주제〉</span>"야. 이 주제로 literature review를 시작하자. arXiv와 OpenAlex에서 관련 논문을 찾아, 제목·저자·연도·DOI(또는 arXiv id)·무료본 여부를 표로 보여줘.</span><span class="en">My research topic is "<span class="ph">〈your topic〉</span>". Let's start a literature review on it. Search arXiv and OpenAlex for relevant papers and show a table with title, authors, year, DOI (or arXiv id), and open-access availability.</span></p>
+            <p class="ptext"><span class="ko">내 연구 주제는 "<span class="ph">〈내 연구 주제〉</span>"야. 이 주제로 literature review를 시작하자. 여러 학술 DB(arXiv·OpenAlex·Semantic Scholar·Scopus)에서 관련 논문을 찾아, 제목·저자·연도·DOI(또는 arXiv id)·무료본 여부를 표로 보여줘.</span><span class="en">My research topic is "<span class="ph">〈your topic〉</span>". Let's start a literature review on it. Search several scholarly databases (arXiv, OpenAlex, Semantic Scholar, Scopus) for relevant papers and show a table with title, authors, year, DOI (or arXiv id), and open-access availability.</span></p>
           </div>
           <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">💡 막연한 분야보다 <b>구체적인 lit review 카테고리</b>일수록 결과가 좋다. 예: "자율주행"(△) → "도심 자율주행에서 보행자 의도 예측"(○).</span><span class="en">💡 A <b>specific lit-review category</b> beats a broad field. e.g. "autonomous driving" (△) → "pedestrian intent prediction in urban self-driving" (○).</span></p>
           <div class="eg"><span class="eglabel"><span class="ko">결과 예시</span><span class="en">Example</span></span>

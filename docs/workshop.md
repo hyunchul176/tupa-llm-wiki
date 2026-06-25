@@ -26,10 +26,10 @@ For paywalled full text, add keys to `secrets/api-keys.json`. **Without keys, ar
 **하는 일 / Goal:** 주제에 맞는 후보 논문 목록 확보. / Get a candidate list for your topic.
 
 **KO**
-> 내 연구 주제는 "〈내 연구 주제〉"야. 이 주제로 literature review를 시작하자. arXiv와 OpenAlex에서 관련 논문을 찾아, 제목·저자·연도·DOI(또는 arXiv id)·무료본 여부를 표로 보여줘.
+> 내 연구 주제는 "〈내 연구 주제〉"야. 이 주제로 literature review를 시작하자. 여러 학술 DB(arXiv·OpenAlex·Semantic Scholar·Scopus)에서 관련 논문을 찾아, 제목·저자·연도·DOI(또는 arXiv id)·무료본 여부를 표로 보여줘.
 
 **EN**
-> My research topic is "〈your topic〉". Let's start a literature review on it. Search arXiv and OpenAlex for relevant papers and show a table with title, authors, year, DOI (or arXiv id), and open-access availability.
+> My research topic is "〈your topic〉". Let's start a literature review on it. Search several scholarly databases (arXiv, OpenAlex, Semantic Scholar, Scopus) for relevant papers and show a table with title, authors, year, DOI (or arXiv id), and open-access availability.
 
 ---
 
