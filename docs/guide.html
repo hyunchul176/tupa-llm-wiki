@@ -317,12 +317,7 @@
         <div class="ch-head"><span class="ch-name">OpenAlex</span><span class="ch-tag free"><span class="ko">자동·무료</span><span class="en">Auto · free</span></span></div>
         <p><span class="ko"><code>search.py</code>로 함께 검색한다. 다양한 출판사의 메타데이터와 인용 관계를 무료로 확인할 수 있다. <span class="lbl">대부분의 ‘논문 찾기’는 이 단계에서 충분하다.</span></span><span class="en">Also searched via <code>search.py</code>. Metadata and citation links across many publishers, for free. <span class="lbl">Most “finding” is covered at this step.</span></span></p>
       </div>
-      <div class="chan highlight">
-        <div class="chan-logo"><img src="assets/leapspace.webp" alt="LeapSpace"></div>
-        <div class="ch-head"><span class="ch-name">LeapSpace</span><span class="ch-tag human"><span class="ko">선택 · 수동</span><span class="en">Optional · manual</span></span></div>
-        <p><span class="ko"><b>OpenAlex 검색만으로 부족할 때 선택적으로 사용한다.</b> ScienceDirect의 본문 기반 의미 검색 도구다. 에이전트가 500자 이내의 영어 질문을 만들어 주면, 사용자가 LeapSpace에서 직접 검색하고 DOI가 포함된 결과를 다시 붙여 넣는다.</span><span class="en"><b>Use optionally when OpenAlex search alone isn't enough.</b> A full-text semantic search over ScienceDirect. The agent drafts an English query under 500 characters; you run it on LeapSpace yourself and paste back the results (with DOIs).</span></p>
-        <a class="ch-link" href="https://www.sciencedirect.com/leapspace">sciencedirect.com/leapspace ↗</a>
-      </div>
+      <p style="font-size:13.5px;color:var(--muted);margin:4px 0 0;"><span class="ko">※ OpenAlex로 부족하면 <b>LeapSpace</b>(ScienceDirect 본문 검색)를 쓸 수 있다 — 아래 <b>심화·선택</b>에서 한 번에 설명한다.</span><span class="en">※ If OpenAlex isn't enough, <b>LeapSpace</b> (ScienceDirect full-text search) is available — explained in <b>Advanced</b> below.</span></p>
 
       <h3><span class="ko">② 다운로드 (fetch): 찾은 논문 PDF 확보</span><span class="en">② Download (fetch): get the PDFs you found</span></h3>
       <div class="chan nologo">
@@ -375,7 +370,7 @@
         <div class="benefit"><div class="ico">🙋</div><h4><span class="ko">자료가 없으면 요청</span><span class="en">No material? Ask for it</span></h4><p><span class="ko">근거 자료가 없으면 추측하지 않고 필요한 PDF를 추가해 달라고 요청한다.</span><span class="en">If the supporting material is missing, don't guess. Ask for the PDF to be added.</span></p></div>
       </div>
 
-      <h3><span class="ko">알아두어야 할 한계</span><span class="en">Limits to keep in mind</span></h3>
+      <h3><span class="ko">유의사항</span><span class="en">Things to note</span></h3>
       <div class="limitbox">
         <div class="lbl"><span class="ko">알아둘 것</span><span class="en">Good to know</span></div>
         <ul>
@@ -484,7 +479,7 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
 
       <div class="adv">
         <span class="advbadge"><span class="ko">심화 · 선택</span><span class="en">Advanced · optional</span></span>
-        <h4><span class="ko">LeapSpace로 더 찾기</span><span class="en">Find more with LeapSpace</span></h4>
+        <h4 style="display:flex;align-items:center;gap:10px;"><img src="assets/leapspace.webp" alt="LeapSpace" style="height:26px;width:auto;border:1px solid var(--line);border-radius:6px;background:#fff;padding:3px 7px;"><span><span class="ko">LeapSpace로 더 찾기</span><span class="en">Find more with LeapSpace</span></span></h4>
         <div class="stepnote"><span class="ko"><b>LeapSpace</b>는 Elsevier(ScienceDirect)의 AI 검색 도구다 — 키워드가 아니라 논문 <b>본문까지 의미 기반으로</b> 뒤져, 던진 질문에 답하고 근거 논문(인용·DOI)을 달아준다. 키워드가 어긋나 OpenAlex·arXiv가 놓치는 논문을 찾을 때 유용하다. <b>API가 없어</b> 에이전트가 만든 질문을 사람이 사이트에서 한 번 직접 돌려야 하므로, 1단계 검색으로 부족할 때만 쓰는 선택 단계다.</span><span class="en"><b>LeapSpace</b> is Elsevier's (ScienceDirect) AI search — it searches paper <b>full text semantically</b> (not just keywords), answering your question with cited sources (DOIs). Handy for papers that keyword search on OpenAlex/arXiv misses. It has <b>no API</b>, so you run the agent's query on the site by hand — an optional step for when step-1 search isn't enough.</span></div>
         <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">① 질문 만들기</span><span class="en">① Draft a query</span></div>
           <p class="ptext"><span class="ko">OpenAlex로 부족한 것 같아. 이 주제로 LeapSpace에 넣을 500자 이내 영어 질문을 만들어줘.</span><span class="en">OpenAlex doesn't seem enough. Draft an English query (under 500 characters) for this topic to run on LeapSpace.</span></p>
