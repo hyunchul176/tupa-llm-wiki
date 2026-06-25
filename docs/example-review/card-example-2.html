@@ -37,12 +37,6 @@
         </div>
         <div>
           <div class="tldr"><span class="tldr-label">TL;DR</span>DRC Finals 2015 <strong>1위</strong> KAIST의 DRC-HUBO+가 비개조 차량을 운전하고 직후 스스로 <span class="mark">하차(egress)</span>한 제어 전략. 핵심은 정교함이 아니라 <span class="mark">최소 센서 + 단순·강건한 고전 제어</span>.</div>
-          <div class="attrs">
-            <div class="attr"><div class="attr-label">로봇</div><div class="attr-value">DRC-HUBO+ (DRC Finals 2015 우승, 1.70 m, 30 DoF)</div></div>
-            <div class="attr"><div class="attr-label">차량</div><div class="attr-value">Polaris Ranger XP900 (비개조)</div></div>
-            <div class="attr"><div class="attr-label">센서</div><div class="attr-value">카메라 2대 + 라이다 1대 + IMU</div></div>
-            <div class="attr"><div class="attr-label">학습 여부</div><div class="attr-value">없음 (고전 제어)</div></div>
-          </div>
           <div class="paper-section"><div class="paper-section-label">연구 배경</div><p>재난 지역 접근은 로봇이 걷는 것보다 차를 모는 편이 에너지·시간을 크게 아낀다 → DRC 2015 운전 과제. 그런데 자율주행차(Velodyne·GPS 다수)와 달리 DRC 로봇은 다른 조작 과제도 해야 해 <span class="mark">센서·연산·대역폭이 빈약</span>하고 통신 지연으로 클라우드 연산도 못 쓴다. 게다가 하차(egress)는 차체와 큰 힘 상호작용인데, 고감속·고강성 관절은 역구동성이 낮아 외력에 잘 적응하지 못한다.</p></div>
           <div class="paper-section"><div class="paper-section-label">무엇을 했는가</div><p>최소 센서 운전 알고리즘(<b>Wagon Model</b>)과 자율 오판 대비 <b>레인 투영 텔레옵</b>을 병행(실패가 허용 안 되는 실전용 백업). 고감속 팔 한계를 넘는 모터 제어(게인 오버라이드·비상보 스위칭·마찰 보상)와 <span class="mark">하차용 직교 하이브리드 위치/힘 제어</span>를 제시. 이 전략으로 DRC Finals 2015 운전+하차 과제를 완수(운전 최단)했다.</p></div>
           <div class="paper-section"><div class="paper-section-label">방법론 상세</div>

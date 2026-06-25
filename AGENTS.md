@@ -175,12 +175,12 @@ ingested: 2026-06-11
    - `<div class="page-grid">` 안에 `<aside class="toc-sidebar">`(`.toc-title` + 섹션/논문 링크, 라인별 `<details class="toc-line">`) + `<main>`
    - `<main>`: `.lede`(주제·왜 보는지 2~4줄) → 섹션마다 `<h2 id="sN">§N. 제목 <span class="section-status">…</span></h2>` → 그 아래 `.paper` 카드들
    - **`.paper` 카드 1장(깊게)** = `<article class="paper line-a anchor-offset" id="paper-...">` 안에:
-     `.tag-row`(`.tag.tag-line-a` + `.tag.tag-conf`/`.tag-journal` + `.tag.tag-year`) · `<h4>`제목 · `.citation`(저자·venue·연도·DOI) · `.paper-body`[ `.paper-figs`>`.paper-figure`(`.fig-label` + img + `.paper-figure-caption`, 캡션 끝에 `<em>(클릭 시 확대)</em>`) + `<div>`( `.tldr`(`.tldr-label`+요약) · `.attrs`>`.attr`(로봇·차량·센서·학습여부) · `.paper-section`(`.paper-section-label`) **연구 배경 · 무엇을 했는가 · 방법론 상세 · 결과/시연 · 한계** · `.paper-section.relevance`(본 연구와의 관계) ) ]
+     `.tag-row`(`.tag.tag-line-a` + `.tag.tag-conf`/`.tag-journal` + `.tag.tag-year`) · `<h4>`제목 · `.citation`(저자·venue·연도·DOI) · `.paper-body`[ `.paper-figs`>`.paper-figure`(`.fig-label` + img + `.paper-figure-caption`, 캡션 끝에 `<em>(클릭 시 확대)</em>`) + `<div>`( `.tldr`(`.tldr-label` + 논문 한두 줄 핵심 요약) · `.paper-section`(`.paper-section-label`) **연구 배경 · 무엇을 했는가 · 방법론 상세 · 결과/시연 · 한계** · `.paper-section.relevance`(본 연구와의 관계) ) ]
    - **방법론 상세**는 `<ul class="method">`로 핵심 포인트 3~6개, 각 `<li>`는 `<b>소제목.</b> 설명` 형태. 가장 중요한 1~2개는 `<span class="key">★ …</span>`로.
    - 라인(클러스터) 색: line-a/line-b/… (toc 점 색과 tag-line-* 일치).
 4. **그림 클릭 확대(lightbox)** — `</body>` 앞에 `<div id="lightbox" aria-hidden="true"><span class="lb-close">✕</span><img alt=""><div class="lb-hint">…</div></div>`와 작은 `<script>`(`.paper-figure img` 클릭 시 라이트박스 img.src 설정 + `.active` 토글, 클릭/Esc로 닫기)를 넣는다. CSS(`#lightbox`, `.paper-figure img{cursor:zoom-in}`)는 shared.css에 이미 있다.
 5. **핵심 구절 형광펜** — 각 파트(lede·TL;DR·연구배경·무엇·방법론·결과·한계·관계)의 가장 중요한 구절 1개를 `<span class="mark">…</span>`로 감싼다(투명 형광펜). 파트당 1개 정도, 과하게 칠하지 말 것.
-6. **깊이 — 기본은 위 깊은 카드**(연구배경~한계 + figure 클릭확대). **옵션**(요청 시만): 비교 매트릭스(`.matrix-wrap`>table) · 공백 분석(`.gap-card`).
+6. **출력은 논문 카드만(기본)**. 비교 매트릭스·공백 분석 같은 **별도 섹션(예: "§N 두 연구 비교 · 내 연구 공백")은 기본 제외** — 사용자가 명시적으로 요청할 때만 추가한다(`.matrix-wrap`>table / `.gap-card`). 임의로 비교·공백 섹션을 만들지 말 것.
 
 규칙:
 - 내용은 **`sources/`·`wiki/` 노트와 원문 PDF에 근거**. 추측·잡지식 금지(모르면 unknown). '본 연구와의 관계'는 사용자 주제 맥락에서 쓴다.

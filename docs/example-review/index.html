@@ -76,12 +76,6 @@
         </div>
         <div>
           <div class="tldr"><span class="tldr-label">TL;DR</span>HRP-4가 <span class="mark">차량을 개조하지 않고 사람용 핸들을 손으로 직접 돌려</span> 운전한 첫 시연. 도로 영상에서 조향각을 정하는 비전 컨트롤러와 손 힘센서 기반 어드미턴스 제어로 분해했다 (<a class="figref" href="#fig-paolillo2014-2">Fig 3</a>). 학습 없는 반응형 제어의 출발점.</div>
-          <div class="attrs">
-            <div class="attr"><div class="attr-label">로봇</div><div class="attr-value">HRP-4 (Kawada, 1.5 m, 34 DoF)</div></div>
-            <div class="attr"><div class="attr-label">차량</div><div class="attr-value">시뮬레이터 + 실제 Thrustmaster 핸들</div></div>
-            <div class="attr"><div class="attr-label">센서</div><div class="attr-value">단안 카메라 + 손목 F/T</div></div>
-            <div class="attr"><div class="attr-label">학습 여부</div><div class="attr-value">없음 (visual servoing)</div></div>
-          </div>
           <div class="paper-section"><div class="paper-section-label">연구 배경</div><p>사람이 운전하려면 면허·훈련이 필요하듯, 로봇이 사람처럼 운전하려면 그 기술을 옮겨야 한다. 차량을 개조할 수 없는 <span class="mark">재난 현장(DRC의 첫 과제)</span>에서는 사람이 몰던 차를 그대로 몰 로봇이 필요하다. 저자들은 완전한 운전을 여러 동작 프리미티브(탑승·자세·조작·하차)로 보고, 그 중심인 <strong>'도로를 따라 차를 모는 것'</strong>만 떼어 다룬다. 핵심 난제는 로봇이 사람용 기계(핸들·페달)를 스스로 조작하는 'humanoid in the loop'.</p></div>
           <div class="paper-section"><div class="paper-section-label">무엇을 했는가</div><p>차량을 개조하지 않고 휴머노이드가 사람용 핸들을 직접 돌려 도로를 따라 차를 모는 <span class="mark">닫힌 루프(closed-loop) 제어 구조</span>를 제안하고 HRP-4로 시연했다. 당시 DRC 운전 과제 참가팀이 전부 로봇을 원격조작하던 것과 달리, 로봇이 영상을 보고 스스로 핸들을 돌린다는 점이 신규성이다.</p></div>
           <div class="paper-section"><div class="paper-section-label">방법론 상세</div>
@@ -122,12 +116,6 @@
         </div>
         <div>
           <div class="tldr"><span class="tldr-label">TL;DR</span>사람 크기 HRP-2Kai가 <span class="mark">비개조 일반 차량을 사람처럼 손발로 조작해 모르는 야외 길을 자율 주행</span>. 완전자율/부분자율/텔레옵 3모드를 즉시 전환하며 DARPA DRC 결선에서 운전 과제를 완수했다.</div>
-          <div class="attrs">
-            <div class="attr"><div class="attr-label">로봇</div><div class="attr-value">HRP-2Kai (1.71 m, 32 DoF)</div></div>
-            <div class="attr"><div class="attr-label">차량</div><div class="attr-value">Polaris Ranger XP900 (비개조, DRC와 동일)</div></div>
-            <div class="attr"><div class="attr-label">센서</div><div class="attr-value">단안 카메라 + IMU + 손목 F/T (차량 센서 미사용)</div></div>
-            <div class="attr"><div class="attr-label">학습 여부</div><div class="attr-value">없음 (모델기반)</div></div>
-          </div>
           <div class="paper-section"><div class="paper-section-label">연구 배경</div><p>DRC로 휴머노이드의 재난 대응 가치가 드러났고, 8개 과제 중 하나가 사람용 유틸리티 차량 운전이었다. 핵심 발상은 차를 자율차로 개조하는 대신 <span class="mark">사람이 운전하도록 설계된 차를 그대로 두고 사람 모양 로봇이 핸들·페달을 물리적으로 조작</span>하는 것. 그러면 차마다 센서를 심을 필요 없이 같은 로봇이 밸브·드릴 같은 다른 사람용 도구도 다룰 수 있다. 앞선 HRP-4 시뮬레이션 예비연구를 실차로 확장한 논문이다.</p></div>
           <div class="paper-section"><div class="paper-section-label">무엇을 했는가</div><p><span class="mark">표준 휴머노이드 센서(단안·IMU·손목 F/T)만으로</span> 차량의 어떤 정보에도 의존하지 않는 순수 반응형(reactive) 자율 운전 구조를 제안. 기여는 ①조향 제어 ②속도 제어(광류+IMU 융합) ③어드미턴스 제어 ④세 운전 모드. 모듈식이라 켜고 끌 수 있고, 사전 지도가 없어 처음 보는 길도 달린다.</p></div>
           <div class="paper-section"><div class="paper-section-label">방법론 상세</div>
@@ -167,12 +155,6 @@
         </div>
         <div>
           <div class="tldr"><span class="tldr-label">TL;DR</span>DRC용 휴머노이드(DRC-Hubo)가 골프카트형 유틸리티 차량 2종을 <span class="mark">drive-by-wire 없이 손·발로 직접 조작해 자율 주행한 최초급 실증</span> (<a class="figref" href="#fig-rasmussen2014-1">Fig 7</a>).</div>
-          <div class="attrs">
-            <div class="attr"><div class="attr-label">로봇</div><div class="attr-value">DRC-Hubo (Hubo 2+ 기반, 1.40 m, 33 DoF)</div></div>
-            <div class="attr"><div class="attr-label">차량</div><div class="attr-value">Club Car DS · Polaris Ranger (둘 다 비개조)</div></div>
-            <div class="attr"><div class="attr-label">센서</div><div class="attr-value">스테레오 3캠 + Hokuyo 라이다 + IMU</div></div>
-            <div class="attr"><div class="attr-label">학습 여부</div><div class="attr-value">없음 (기하·정합 기반)</div></div>
-          </div>
           <div class="paper-section"><div class="paper-section-label">연구 배경</div><p>DRC의 Vehicle 단계는 로봇이 골프카트형 차량을 몰아 장애물을 피해 목표 지점까지 가게 했다. 휴머노이드 운전은 자율주행차와 근본적으로 다르다 — ①무게·전력·균형 제약으로 센서·연산이 빠듯하고, ②차 안에 앉으면 <span class="mark">시야가 본질적으로 가려져</span> view planning이 필요하며, ③drive-by-wire가 아니라 휠·페달을 직접 다뤄 스스로 정렬·안정화하고 미끄러짐을 감시해야 한다(차량 상태값도 대시보드·센서로 추정).</p></div>
           <div class="paper-section"><div class="paper-section-label">무엇을 했는가</div><p><span class="mark">범용 휴머노이드가 비개조 차량을 운전할 수 있다는 실현 가능성</span>을 실증. 저자들이 찾은 선행(HRP-1)이 전부 영상 기반 원격조작이던 것과 달리, ①차량과 인터페이스해 명령대로 가감속·조향하는 지각·물리 방법과 ②가림 시야 속 센싱·동작 계획을 제시했다.</p></div>
           <div class="paper-section"><div class="paper-section-label">방법론 상세</div>
@@ -215,12 +197,6 @@
         </div>
         <div>
           <div class="tldr"><span class="tldr-label">TL;DR</span>DRC Finals 2015 <strong>1위</strong> KAIST의 DRC-HUBO+가 비개조 차량을 운전하고 직후 스스로 <span class="mark">하차(egress)</span>한 제어 전략. 핵심은 정교함이 아니라 <span class="mark">최소 센서 + 단순·강건한 고전 제어</span>.</div>
-          <div class="attrs">
-            <div class="attr"><div class="attr-label">로봇</div><div class="attr-value">DRC-HUBO+ (DRC Finals 2015 우승, 1.70 m, 30 DoF)</div></div>
-            <div class="attr"><div class="attr-label">차량</div><div class="attr-value">Polaris Ranger XP900 (비개조)</div></div>
-            <div class="attr"><div class="attr-label">센서</div><div class="attr-value">카메라 2대 + 라이다 1대 + IMU</div></div>
-            <div class="attr"><div class="attr-label">학습 여부</div><div class="attr-value">없음 (고전 제어)</div></div>
-          </div>
           <div class="paper-section"><div class="paper-section-label">연구 배경</div><p>재난 지역 접근은 로봇이 걷는 것보다 차를 모는 편이 에너지·시간을 크게 아낀다 → DRC 2015 운전 과제. 그런데 자율주행차(Velodyne·GPS 다수)와 달리 DRC 로봇은 다른 조작 과제도 해야 해 <span class="mark">센서·연산·대역폭이 빈약</span>하고 통신 지연으로 클라우드 연산도 못 쓴다. 게다가 하차(egress)는 차체와 큰 힘 상호작용인데, 고감속·고강성 관절은 역구동성이 낮아 외력에 잘 적응하지 못한다.</p></div>
           <div class="paper-section"><div class="paper-section-label">무엇을 했는가</div><p>최소 센서 운전 알고리즘(<b>Wagon Model</b>)과 자율 오판 대비 <b>레인 투영 텔레옵</b>을 병행(실패가 허용 안 되는 실전용 백업). 고감속 팔 한계를 넘는 모터 제어(게인 오버라이드·비상보 스위칭·마찰 보상)와 <span class="mark">하차용 직교 하이브리드 위치/힘 제어</span>를 제시. 이 전략으로 DRC Finals 2015 운전+하차 과제를 완수(운전 최단)했다.</p></div>
           <div class="paper-section"><div class="paper-section-label">방법론 상세</div>
