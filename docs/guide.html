@@ -289,6 +289,8 @@
 
   .info{background:#fff;border:1px solid var(--line);border-left:4px solid var(--navy-600);border-radius:11px;padding:15px 19px;margin:14px 0;font-size:15.5px;color:#3a4756;line-height:1.62;}
   .info b{color:var(--navy-800);}
+  .info ul{margin:9px 0 0;padding-left:1.2em;}
+  .info li{margin:4px 0;}
   .note{border:1px solid #f3c9cd;background:var(--red-050);border-radius:11px;padding:15px 19px;margin:16px 0;font-size:15.5px;color:#7d2129;line-height:1.62;}
   .note b{color:var(--red-dark);}
 
@@ -615,6 +617,21 @@ claude --version</div>
             <p class="ptext"><span class="ko">전문 PDF를 다운로드해줘. arXiv와 무료 공개본(OA)을 먼저 시도하고, 안 되면 출판사 API, 그래도 안 되면 브라우저 자동화(Playwright)로 시도해줘. 다운로드하지 못한 논문은 목록으로 알려줘. 받을 논문 = 2단계에서 '선택 복사'한 DOI·arXiv id: <span class="ph">〈여기에 붙여넣기〉</span></span><span class="en">Download the full-text PDFs. Try arXiv and open access (OA) first, then publisher APIs, and if still blocked, browser automation (Playwright). List anything you couldn't get. Papers to fetch = the DOIs/arXiv ids you "선택 복사"-ed in step 2: <span class="ph">〈paste here〉</span></span></p>
           </div>
           <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ 다운로드한 PDF는 <code>papers/</code> 폴더에 저장된다. <b>직접 보유한 논문 PDF</b>도 <code>papers/</code>에 넣어두면 같은 방식으로 ingest할 수 있다.</span><span class="en">→ Downloaded PDFs are saved in <code>papers/</code>. <b>Your own PDFs</b> can also go in <code>papers/</code> and be ingested the same way.</span></p>
+          <div class="info"><span class="ko"><b>출판사마다 받는 길이 다르다</b> — 스크립트가 위 순서(OA → PMC → API → 브라우저)대로 자동으로 시도하니 보통 신경 쓸 필요 없다. <b>API 키가 우선</b>이고, 브라우저 자동화는 API가 없는 곳을 보조한다(전체 표: <code>AGENTS §3</code>).
+            <ul>
+              <li><b>arXiv · 무료 공개본(OA)</b> — 키 없이 바로</li>
+              <li><b>IEEE · Springer</b> — <b>브라우저 자동화(Playwright)</b>로 받힌다 (캠퍼스망/KAIST VPN)</li>
+              <li><b>Elsevier · Wiley</b> — <b>API 키</b>로 받는다 (브라우저는 로그인 벽이라 막힘)</li>
+              <li><b>MDPI</b> — <b>PMC</b>(Europe PMC) 우회로</li>
+              <li><b>그 외 페이월</b>(ACS·RSC·SAGE 등) — 막히면 직접 내려받아 <code>papers/</code>에</li>
+            </ul></span><span class="en"><b>Each publisher resolves through a different route</b> — the script tries the order above (OA → PMC → API → browser) automatically, so you rarely think about it. <b>API keys come first</b>; browser automation backs up sources without an API (full table: <code>AGENTS §3</code>).
+            <ul>
+              <li><b>arXiv · open access (OA)</b> — no key needed</li>
+              <li><b>IEEE · Springer</b> — via <b>browser automation (Playwright)</b> (campus / KAIST VPN)</li>
+              <li><b>Elsevier · Wiley</b> — via <b>API key</b> (the browser hits a login wall)</li>
+              <li><b>MDPI</b> — via <b>PMC</b> (Europe PMC)</li>
+              <li><b>Other paywalled</b> (ACS, RSC, SAGE, …) — if blocked, download manually into <code>papers/</code></li>
+            </ul></span></div>
           <div class="eg"><span class="eglabel"><span class="ko">결과 예시</span><span class="en">Example</span></span>
             <div class="code"><pre>▶ 2406.09246
   ✅ saved: papers/kim2024-openvla.pdf
