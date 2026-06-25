@@ -159,6 +159,8 @@
   .prompt .plabel::before{content:"";display:inline-block;width:40px;height:10px;margin-right:10px;vertical-align:middle;background:radial-gradient(circle 5px at 5px 5px,#ef4d5a 98%,transparent 100%),radial-gradient(circle 5px at 20px 5px,#f5b945 98%,transparent 100%),radial-gradient(circle 5px at 35px 5px,#3fcf73 98%,transparent 100%);background-repeat:no-repeat;}
   .prompt .ptext{margin:0;font-size:16px;line-height:1.66;color:#e7edf6;}
   .prompt .ptext::before{content:"\276F  ";color:#5ed6a0;font-weight:800;}
+  /* 검정 프롬프트 안의 굵은 글씨는 밝게 ( .steps .st .b b 의 어두운 색을 덮어씀 ) */
+  .steps .st .b .prompt .ptext b, .prompt .ptext b{color:#fff;font-weight:700;}
   .prompt .ph{color:#fca5a5;font-weight:700;}
   .prompt code{background:rgba(255,255,255,.12);color:#eaf0f8;padding:.05em .35em;border-radius:4px;}
   .prompt .pcopy{position:absolute;top:12px;right:12px;border:1px solid rgba(255,255,255,.20);background:rgba(255,255,255,.10);color:#cdd8e8;font-family:inherit;font-size:12px;font-weight:600;padding:5px 11px;border-radius:7px;cursor:pointer;transition:background .15s,color .15s,border-color .15s;}
