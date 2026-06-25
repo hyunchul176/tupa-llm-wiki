@@ -201,6 +201,10 @@
   .eg{position:relative;margin:14px 0 4px;padding:2px 0 2px 20px;border:none;border-left:3px solid #b9c6d8;border-radius:0;background:transparent;}
   .eg .eglabel{display:inline-flex;align-items:center;gap:5px;position:static;font-size:11.5px;font-weight:700;letter-spacing:.03em;text-transform:none;color:var(--navy-600);background:none;padding:0;margin:0 0 8px;border-radius:0;}
   .eg .eglabel::before{content:"↳";color:#8aa0bd;font-weight:800;font-size:13px;}
+  .eg ul.exq{margin:6px 0 0;padding-left:1.15em;font-size:14px;line-height:1.6;color:#39434f;}
+  .eg ul.exq li{margin:6px 0;}
+  .eg ul.exq li b{color:var(--navy-800);}
+  .eg ul.exq .ph{color:var(--red-dark);font-weight:700;}
   .egtbl{width:100%;border-collapse:collapse;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;}
   .egtbl th,.egtbl td{text-align:left;padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top;}
   .egtbl tr:last-child td{border-bottom:none;}
@@ -603,10 +607,19 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
           </div>
         </div></div>
 
+        <div class="flownote"><span class="fi">🌱</span><div><span class="ko"><b>5~6단계는 위키가 충분히 쌓였을 때 빛난다.</b> 실습에선 논문이 몇 편뿐이라 답이 빈약할 수 있다. 지금은 <b>흐름만</b> 익히고, 논문을 계속 쌓아 위키가 커진 뒤 다시 하면 훨씬 풍부해진다.</span><span class="en"><b>Steps 5–6 shine once your wiki has grown.</b> With only a few papers in the workshop, answers may be thin. For now just <b>get the feel</b>; they get much richer as you keep adding papers.</span></div></div>
+
         <div class="st"><div class="n">5</div><div class="b"><b><span class="ko">내 위키에 질문하기</span><span class="en">Ask your wiki</span></b>
           <div class="stepgoal"><span class="ko">구축한 위키만 근거로 질문에 답하게 한다. <span class="mark">웹이 아니라 내 자료로</span>(근거 인용 포함). <span class="nx">다음 → 종합</span></span><span class="en">Answer questions grounded only in the wiki you built: <span class="mark">your material, not the web</span> (with citations). <span class="nx">Next → Synthesize</span></span></div>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
-            <p class="ptext"><span class="ko">지금까지 구축한 위키만 근거로 답해줘(웹검색 금지): "<span class="ph">〈궁금한 점〉</span>?" 어느 노트·논문에서 나온 근거인지도 같이.</span><span class="en">Answer using only the wiki built so far (no web search): "<span class="ph">〈your question〉</span>?" Cite which note/paper each point comes from.</span></p>
+            <p class="ptext"><span class="ko">지금까지 쌓은 위키만 근거로(웹검색 금지) literature review 원고를 써줘. 주장마다 <b>근거(노트·논문 citation)</b>를 꼭 달아서. 주제: <span class="ph">〈내 연구 주제〉</span></span><span class="en">Using only the wiki built so far (no web search), write a literature-review draft. Cite the <b>source note/paper</b> for every claim. Topic: <span class="ph">〈your topic〉</span></span></p>
+          </div>
+          <div class="eg"><span class="eglabel"><span class="ko">예시 질문 3가지 (이렇게 물어보세요)</span><span class="en">3 example questions</span></span>
+            <ul class="exq">
+              <li><span class="ko"><span class="ph">〈주제〉</span>에 대한 <b>literature review 원고</b>를 써줘. 주장마다 <b>citation</b>을 꼭 달아서.</span><span class="en">Write a <b>literature-review draft</b> on <span class="ph">〈topic〉</span>, with a <b>citation</b> for every claim.</span></li>
+              <li><span class="ko"><span class="ph">〈방법 A〉</span>와 <span class="ph">〈방법 B〉</span>를 비교해줘. 각 주장의 <b>근거 노트</b>와 함께.</span><span class="en">Compare <span class="ph">〈method A〉</span> and <span class="ph">〈method B〉</span>, with the <b>source note</b> for each point.</span></li>
+              <li><span class="ko"><span class="ph">〈개념 X〉</span>를 내 위키 기준으로 설명해줘. 어느 논문에서 나온 건지도 함께.</span><span class="en">Explain <span class="ph">〈concept X〉</span> from my wiki, noting which paper each point comes from.</span></li>
+            </ul>
           </div>
           <div class="eg"><span class="eglabel"><span class="ko">결과 예시</span><span class="en">Example</span></span>
             <div class="eganswer"><span class="ko">OpenVLA는 7B 범용 정책으로 베이스라인을 제시하지만 실시간성이 약하고, TinyVLA가 작은 백본으로 이를 보완합니다.</span><span class="en">OpenVLA sets a 7B general-policy baseline but is weak on real-time use; TinyVLA addresses this with a smaller backbone.</span><span class="src">근거 / source: [[kim2024-openvla]] · [[wen2025-tinyvla]]</span></div>

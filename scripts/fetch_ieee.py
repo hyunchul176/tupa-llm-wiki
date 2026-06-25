@@ -99,12 +99,16 @@ def _find_pdf_url(page) -> str:
         u = (el.get_attribute("content") or "").strip()
         if u:
             return u if u.startswith("http") else urllib.parse.urljoin(page.url, u)
-    for sel in ['a[href$=".pdf"]', 'a[href*="/pdf"]', 'a[data-track-action*="pdf" i]']:
+    # 링크 fallback은 같은 호스트로만 제한 — 본문 참고문헌의 외부 PDF(예: 다른 기관 링크) 오인 방지
+    host = urllib.parse.urlparse(page.url).netloc
+    for sel in ['a[href$=".pdf"]', 'a[href*="/pdf"]']:
         el = page.query_selector(sel)
         if el:
             href = (el.get_attribute("href") or "").strip()
             if href:
-                return href if href.startswith("http") else urllib.parse.urljoin(page.url, href)
+                full = href if href.startswith("http") else urllib.parse.urljoin(page.url, href)
+                if urllib.parse.urlparse(full).netloc == host:
+                    return full
     return ""
 
 
