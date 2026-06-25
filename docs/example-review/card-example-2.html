@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>리뷰카드 예시 — Jeong 2015</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  body { word-break: keep-all; overflow-wrap: break-word; padding: 16px 18px; background:#fff; }
+  .paper-section ul.method { margin: .4em 0 0; padding-left: 1.15em; }
+  .paper-section ul.method li { margin: .35em 0; line-height: 1.62; }
+  .paper-section ul.method li b { font-weight: 700; }
+  .paper-section ul.method li .key { color: var(--accent, #b91c1c); font-weight: 700; }
+</style>
+</head>
+<body>
+<article class="paper line-b anchor-offset" id="paper-jeong2015">
+      <div class="tag-row">
+        <span class="tag tag-line-b">Line B</span>
+        <span class="tag tag-conf">Conference</span>
+        <span class="tag tag-year">2015</span>
+      </div>
+      <h4>Control Strategies for a Humanoid Robot to Drive and then Egress a Utility Vehicle</h4>
+      <div class="citation">H. Jeong, J. Oh, M. Kim, K. Joo, I. S. Kweon, J.-H. Oh (KAIST). <em>IEEE-RAS Humanoids</em>, 2015. <a href="https://doi.org/10.1109/HUMANOIDS.2015.7363447">10.1109/HUMANOIDS.2015.7363447</a></div>
+      <div class="paper-body">
+        <div class="paper-figs">
+          <figure class="paper-figure" id="fig-jeong2015-1">
+            <div class="fig-label">Fig 8 — Wagon Model 자율 주행</div>
+            <img src="images/jeong2015-drive-egress_fig8.png" alt="Wagon Model 기반 자율 주행 블록도">
+            <div class="paper-figure-caption">Wagon Model 블록도 — 한 라이다·IMU로 조향·속도를 결합 제어, 급조향 시 가속 페달에서 발을 뗀다. <em>(클릭 시 확대)</em></div>
+          </figure>
+          <figure class="paper-figure" id="fig-jeong2015-2">
+            <div class="fig-label">Fig 11 — 수동 운전 UI</div>
+            <img src="images/jeong2015-drive-egress_fig11.png" alt="DRC Finals 실전 운전 화면의 레인 투영">
+            <div class="paper-figure-caption">DRC Finals 실전 운전 UI — 조향각으로 만든 궤적을 영상에 투영(레인 투영)해 거리감을 보완. <em>(클릭 시 확대)</em></div>
+          </figure>
+        </div>
+        <div>
+          <div class="tldr"><span class="tldr-label">TL;DR</span>DRC Finals 2015 <strong>1위</strong> KAIST의 DRC-HUBO+가 비개조 차량을 운전하고 직후 스스로 <span class="mark">하차(egress)</span>한 제어 전략. 핵심은 정교함이 아니라 <span class="mark">최소 센서 + 단순·강건한 고전 제어</span>.</div>
+          <div class="attrs">
+            <div class="attr"><div class="attr-label">로봇</div><div class="attr-value">DRC-HUBO+ (DRC Finals 2015 우승, 1.70 m, 30 DoF)</div></div>
+            <div class="attr"><div class="attr-label">차량</div><div class="attr-value">Polaris Ranger XP900 (비개조)</div></div>
+            <div class="attr"><div class="attr-label">센서</div><div class="attr-value">카메라 2대 + 라이다 1대 + IMU</div></div>
+            <div class="attr"><div class="attr-label">학습 여부</div><div class="attr-value">없음 (고전 제어)</div></div>
+          </div>
+          <div class="paper-section"><div class="paper-section-label">연구 배경</div><p>재난 지역 접근은 로봇이 걷는 것보다 차를 모는 편이 에너지·시간을 크게 아낀다 → DRC 2015 운전 과제. 그런데 자율주행차(Velodyne·GPS 다수)와 달리 DRC 로봇은 다른 조작 과제도 해야 해 <span class="mark">센서·연산·대역폭이 빈약</span>하고 통신 지연으로 클라우드 연산도 못 쓴다. 게다가 하차(egress)는 차체와 큰 힘 상호작용인데, 고감속·고강성 관절은 역구동성이 낮아 외력에 잘 적응하지 못한다.</p></div>
+          <div class="paper-section"><div class="paper-section-label">무엇을 했는가</div><p>최소 센서 운전 알고리즘(<b>Wagon Model</b>)과 자율 오판 대비 <b>레인 투영 텔레옵</b>을 병행(실패가 허용 안 되는 실전용 백업). 고감속 팔 한계를 넘는 모터 제어(게인 오버라이드·비상보 스위칭·마찰 보상)와 <span class="mark">하차용 직교 하이브리드 위치/힘 제어</span>를 제시. 이 전략으로 DRC Finals 2015 운전+하차 과제를 완수(운전 최단)했다.</p></div>
+          <div class="paper-section"><div class="paper-section-label">방법론 상세</div>
+            <ul class="method">
+              <li><b>장애물 검출(운전).</b> 장애물을 직선으로 가정, 라이다 점에 RANSAC으로 선분을 얻고, IMU 차량 방향각과의 차이로 목표 방향·위치를 정한다.</li>
+              <li><span class="key">★ Wagon Model 자율 조향.</span> cross-track·비례오차 제어의 한계를 피해, '사람이 수레를 끌면 수레가 따라 방향을 잡는' 발상으로 목표에서 3차 스플라인 궤적·일정 반지름 원을 써 조향각을 산출. 급조향이 포화되면 페달에서 발을 떼게 한다. 한 라이다·IMU만으로 조향·속도를 결합 제어.</li>
+              <li><b>수동 운전(레인 투영).</b> 조향각으로 만든 Ackerman 궤적을 영상에 겹쳐, 좁은 화각·렌즈 왜곡으로 부족한 거리감을 보완.</li>
+              <li><b>고감속 매니퓰레이터 제어.</b> 게인 오버라이드(PD 게인을 행렬로 가변), 비상보 스위칭(제동 효과 제거로 유연성 확보), 모델 기반 마찰 보상.</li>
+              <li><span class="key">★ 하차 하이브리드 위치/힘 제어.</span> 손끝 위치·속도와 목표 힘으로 직교 힘을 산출, Jacobian 전치로 관절 토크화(마찰·중력 보상). 수평면은 컴플라이언스로, 위 방향은 힘으로 롤케이지를 당겨 착지 충격 완화. <b>옆으로 앉아(sit sideways)</b> 운전해 하차 시 다리를 빼낼 필요를 없앴다.</li>
+            </ul>
+          </div>
+          <div class="paper-section"><div class="paper-section-label">결과 / 시연</div><p>DRC Final 운전 <span class="mark">47초(IHMC 81·MIT 91 대비 전 팀 최단)</span>, 하차 약 2분 10초. 최소 센서·단순 제어로 실전 운전+하차를 완수하며 종합 1위.</p></div>
+          <div class="paper-section"><div class="paper-section-label">한계</div><p>안정용 보조 장치(스티어링 그립·페달 와이어 링크)를 일부 장착. 정밀 주행보다 <span class="mark">실전 완수·강건성에 초점</span>을 둔 단순 제어이며, 고감속 관절의 낮은 역구동성을 제어로 우회한 것이지 본질적 컴플라이언스는 아니다.</p></div>
+          <div class="paper-section relevance"><div class="paper-section-label">본 연구와의 관계</div><p>실전 검증된 <span class="mark">최소-센서 운전 + 하차 파이프라인</span>. 강건성 baseline이자, egress까지 포함한 과제 범위의 참고점.</p></div>
+        </div>
+      </div>
+    </article>
+<div id="lightbox" aria-hidden="true">
+  <span class="lb-close" role="button" aria-label="닫기" tabindex="0">✕</span>
+  <img alt="">
+  <div class="lb-hint">클릭하거나 Esc 키로 닫기</div>
+</div>
+<script>
+(function () {
+  var lb = document.getElementById('lightbox'), lbimg = lb.querySelector('img');
+  function open(s, a){ lbimg.src=s; lbimg.alt=a||''; lb.classList.add('active'); lb.setAttribute('aria-hidden','false'); }
+  function close(){ lb.classList.remove('active'); lb.setAttribute('aria-hidden','true'); lbimg.removeAttribute('src'); }
+  document.querySelectorAll('.paper-figure img').forEach(function(img){ img.addEventListener('click', function(){ open(img.src, img.alt); }); });
+  lb.addEventListener('click', close);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+})();
+</script>
+</body>
+</html>

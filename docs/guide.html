@@ -153,13 +153,17 @@
   .steps .st .b .hint{font-size:14px;color:var(--muted);}
 
   /* practice prompts */
-  .prompt{position:relative;background:#fff;border:1px solid var(--line);border-left:4px solid var(--red);border-radius:11px;padding:14px 64px 14px 18px;margin:18px 0 4px;}
-  .prompt .plabel{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--red-dark);margin-bottom:5px;}
-  .prompt .ptext{margin:0;font-size:16px;line-height:1.66;color:#2a3744;}
-  .prompt .ph{color:var(--red-dark);font-weight:700;}
-  .prompt .pcopy{position:absolute;top:12px;right:12px;border:1px solid var(--line);background:var(--navy-050);color:var(--navy-700);font-family:inherit;font-size:12px;font-weight:600;padding:5px 11px;border-radius:7px;cursor:pointer;transition:background .15s,color .15s,border-color .15s;}
-  .prompt .pcopy:hover{background:var(--navy-100);}
-  .prompt .pcopy.done{background:var(--navy-800);color:#fff;border-color:var(--navy-800);}
+  /* 프롬프트 = 터미널 입력 느낌 (검정 배경) */
+  .prompt{position:relative;background:#0f172a;border:1px solid #1e293b;border-left:4px solid var(--red);border-radius:11px;padding:13px 64px 14px 18px;margin:18px 0 4px;color:#e7edf6;}
+  .prompt .plabel{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#8595ad;margin-bottom:8px;}
+  .prompt .plabel::before{content:"";display:inline-block;width:40px;height:10px;margin-right:10px;vertical-align:middle;background:radial-gradient(circle 5px at 5px 5px,#ef4d5a 98%,transparent 100%),radial-gradient(circle 5px at 20px 5px,#f5b945 98%,transparent 100%),radial-gradient(circle 5px at 35px 5px,#3fcf73 98%,transparent 100%);background-repeat:no-repeat;}
+  .prompt .ptext{margin:0;font-size:16px;line-height:1.66;color:#e7edf6;}
+  .prompt .ptext::before{content:"\276F  ";color:#5ed6a0;font-weight:800;}
+  .prompt .ph{color:#fca5a5;font-weight:700;}
+  .prompt code{background:rgba(255,255,255,.12);color:#eaf0f8;padding:.05em .35em;border-radius:4px;}
+  .prompt .pcopy{position:absolute;top:12px;right:12px;border:1px solid rgba(255,255,255,.20);background:rgba(255,255,255,.10);color:#cdd8e8;font-family:inherit;font-size:12px;font-weight:600;padding:5px 11px;border-radius:7px;cursor:pointer;transition:background .15s,color .15s,border-color .15s;}
+  .prompt .pcopy:hover{background:rgba(255,255,255,.20);}
+  .prompt .pcopy.done{background:#16a34a;color:#fff;border-color:#16a34a;}
   .adv{background:var(--navy-050);border:1px dashed #c4d3e6;border-left:3px solid var(--navy-600);border-radius:12px;padding:16px 20px;margin:18px 0 4px;}
   .adv .advbadge{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.04em;color:#fff;background:var(--navy-600);padding:2px 11px;border-radius:999px;margin-bottom:9px;}
   .adv h4{margin:0 0 6px;font-size:18px;color:var(--navy-800);font-weight:750;}
@@ -220,6 +224,14 @@
   .thumb-img{display:block;width:100%;max-width:300px;border:1px solid var(--line);border-radius:9px;cursor:zoom-in;transition:box-shadow .15s;margin-top:2px;}
   .cardthumb-img{display:block;width:100%;max-width:300px;border:1px solid var(--line);border-radius:12px;cursor:zoom-in;transition:box-shadow .15s;margin-top:2px;}
   .thumb-img:hover,.cardthumb-img:hover{box-shadow:0 8px 26px rgba(15,23,42,.18);}
+  /* 여러 섬네일 묶어 가운데정렬 */
+  .thumb-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:4px;}
+  .thumb-row.shots{align-items:flex-end;}
+  .thumb-row.cards{align-items:flex-start;}
+  .thumb-row .shot{height:185px;width:auto;max-width:100%;border:1px solid var(--line);border-radius:9px;cursor:zoom-in;transition:box-shadow .15s;}
+  .thumb-row .shot:hover{box-shadow:0 8px 26px rgba(15,23,42,.18);}
+  .thumb-row .cardthumb-img{width:248px;max-width:46%;}
+  @media(max-width:560px){.thumb-row .shot{height:130px;}.thumb-row .cardthumb-img{max-width:100%;}}
   .popup{position:fixed;inset:0;background:rgba(15,23,42,.82);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding:28px;overflow:auto;}
   .popup.active{display:flex;}
   .popup-x{position:fixed;top:16px;right:18px;background:rgba(255,255,255,.16);border:0;color:#fff;font-size:16px;width:34px;height:34px;border-radius:9px;cursor:pointer;z-index:1001;line-height:1;}
@@ -506,6 +518,7 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
         <span class="advbadge"><span class="ko">심화 · 선택</span><span class="en">Advanced · optional</span></span>
         <h4 style="display:flex;align-items:center;gap:10px;"><img src="assets/leapspace.webp" alt="LeapSpace" style="height:26px;width:auto;border:1px solid var(--line);border-radius:6px;background:#fff;padding:3px 7px;"><span><span class="ko">LeapSpace로 더 찾기</span><span class="en">Find more with LeapSpace</span></span></h4>
         <div class="stepnote"><span class="ko"><b>LeapSpace</b>는 Elsevier가 만든 <b>ChatGPT 같은 LLM</b>이다 — 단, 웹을 검색하지 않고 <b>ScienceDirect 등 주요 학술 DB만 근거</b>로 답하고 문장마다 citation을 단다. 논문 <b>초록</b>을 바탕으로 답하고, 일부 논문은 <b>full-text</b>까지 읽어 답한다. 키워드가 어긋나 OpenAlex·arXiv가 놓치는 논문을 찾을 때 유용하다. API가 없어 사람이 사이트에서 한 번 직접 돌려야 하므로, 1단계 검색으로 부족할 때만 쓰는 선택 단계다.</span><span class="en"><b>LeapSpace</b> (by Elsevier) is a <b>ChatGPT-like LLM</b> — but it doesn't browse the web; it answers <b>only from major scholarly DBs like ScienceDirect</b> and cites every sentence. It answers from paper <b>abstracts</b>, and for some papers from <b>full text</b>. Handy for papers that keyword search on OpenAlex/arXiv misses. No API, so you run it on the site by hand once — optional, for when step-1 search isn't enough.</span></div>
+        <div class="stepnote"><span class="ko"><b>왜 OpenAlex로 안 되나?</b> OpenAlex 검색은 제목·초록 <b>키워드 매칭</b>이고 초록이 다 있지도 않다. LeapSpace는 <b>본문까지 의미로 뒤져</b> 키워드로 안 잡히는 논문을 회수하고, 질문에 <b>근거가 인용된 답</b>을 준다. 즉 OpenAlex의 <b>대체재가 아니라 보완재</b> — 1단계 찾기로 부족할 때만 쓴다.</span><span class="en"><b>Why not just OpenAlex?</b> OpenAlex search is title/abstract <b>keyword matching</b> (and abstracts aren't always present). LeapSpace searches <b>full text semantically</b> to recover papers keyword search misses, and answers with <b>cited evidence</b>. It's a <b>complement, not a replacement</b> — only when step-1 search isn't enough.</span></div>
         <div class="stepnote"><span class="ko"><b>이용</b>: 기관 구독이 되면(예: <b>KAIST는 구독 중</b>) 무료로 쓸 수 있고, 아니면 <b>월 $32</b> 유료. → <a href="https://researcher.elsevier.com/" target="_blank" rel="noopener">researcher.elsevier.com ↗</a></span><span class="en"><b>Access</b>: free with an institutional subscription (e.g., <b>KAIST has one</b>), otherwise <b>$32/month</b>. → <a href="https://researcher.elsevier.com/" target="_blank" rel="noopener">researcher.elsevier.com ↗</a></span></div>
         <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">① 질문 만들기</span><span class="en">① Draft a query</span></div>
           <p class="ptext"><span class="ko">OpenAlex로 부족한 것 같아. 이 주제로 LeapSpace에 넣을 500자 이내 영어 질문을 만들어줘.</span><span class="en">OpenAlex doesn't seem enough. Draft an English query (under 500 characters) for this topic to run on LeapSpace.</span></p>
@@ -513,9 +526,12 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
         <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">② 결과 붙여넣은 뒤</span><span class="en">② After pasting the results</span></div>
           <p class="ptext"><span class="ko">이 결과에서 DOI를 뽑아 PDF를 받아줘.</span><span class="en">Extract the DOIs from these results and download the PDFs.</span></p>
         </div>
-        <div class="eg"><span class="eglabel"><span class="ko">답변 예시 — citation을 클릭하면 근거 문장까지</span><span class="en">Answer example — click a citation to see the source sentence</span></span>
-          <img class="thumb-img" src="assets/leapspace-example.png" data-popup-img="assets/leapspace-example.png" role="button" tabindex="0" alt="LeapSpace 답변 예시: 왼쪽은 citation이 달린 문헌 리뷰 답변, citation을 클릭하면 오른쪽에 해당 논문 상세와 근거 문장 하이라이트가 뜬다 (클릭하면 확대)">
-          <p style="font-size:12px;color:var(--muted);margin:7px 0 0;"><span class="ko">왼쪽처럼 답변의 문장마다 citation이 붙는다. <b>citation([1]·[2]…)을 클릭하면</b> 오른쪽에 어떤 논문인지 뜨고, 그 논문의 <b>어느 섹션·어느 문장에서 가져왔는지</b>까지 하이라이트로 보여준다. <b>(섬네일을 클릭하면 팝업으로 확대)</b></span><span class="en">Each sentence in the answer carries a citation. <b>Click a citation ([1], [2]…)</b> and the right panel shows which paper it is — and highlights <b>the exact section and sentence</b> it came from. <b>(Click the thumbnail to enlarge in a popup.)</b></span></p>
+        <div class="eg"><span class="eglabel"><span class="ko">화면 예시 — 첫 화면과 답변</span><span class="en">Screens — home & an answer</span></span>
+          <div class="thumb-row shots">
+            <img class="shot" src="assets/leapspace-home.png" data-popup-img="assets/leapspace-home.png" role="button" tabindex="0" alt="LeapSpace 첫 화면 — 'Discover deeper insights · Based on peer-reviewed abstracts and full text'와 질문 입력창 (클릭하면 확대)">
+            <img class="shot" src="assets/leapspace-example.png" data-popup-img="assets/leapspace-example.png" role="button" tabindex="0" alt="LeapSpace 답변 예시 — citation이 달린 문헌 리뷰 답변, citation 클릭 시 논문 상세와 근거 문장 하이라이트 (클릭하면 확대)">
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin:9px 0 0;text-align:center;"><span class="ko"><b>왼쪽</b> 첫 화면 — 초록·full-text 기반 질의응답(ChatGPT처럼 물어본다). <b>오른쪽</b> 답변 예시 — 문장마다 citation이 붙고, <b>citation을 클릭하면</b> 어떤 논문의 <b>어느 섹션·문장에서 왔는지</b>까지 하이라이트. (각 이미지를 클릭하면 팝업 확대)</span><span class="en"><b>Left</b>: home — ask it like ChatGPT, grounded in abstracts &amp; full text. <b>Right</b>: an answer — each sentence cited; <b>click a citation</b> to see which paper and <b>which section/sentence</b> it came from. (Click either image to enlarge.)</span></p>
         </div>
       </div>
 
@@ -546,9 +562,12 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
           <p class="ptext"><span class="ko">이 <b>2편</b>으로 HTML 리뷰카드를 만들어줘: <span class="ph">〈논문 1 — 제목 또는 DOI〉</span>, <span class="ph">〈논문 2 — 제목 또는 DOI〉</span>. <code>review/<span class="ph">〈주제〉</span>/index.html</code>로.</span><span class="en">Build HTML review cards from these <b>2 papers</b>: <span class="ph">〈paper 1 — title or DOI〉</span>, <span class="ph">〈paper 2 — title or DOI〉</span>. Output to <code>review/<span class="ph">〈topic〉</span>/index.html</code>.</span></p>
         </div>
         <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ 깊은 카드·핵심 figure·그림 클릭 확대는 <b>규칙(AGENTS §8)대로 자동 포함</b>되니 프롬프트에 따로 적지 않아도 된다. 시연이라 <b>2편만</b> 지정한다(많으면 오래 걸림). 비교 매트릭스·공백 분석은 <b>옵션</b>("매트릭스도 넣어줘").</span><span class="en">→ Deep cards, key figures, and click-to-zoom are <b>included automatically per the rules (AGENTS §8)</b> — no need to spell them out. For the demo, pick just <b>2 papers</b> (more takes a while). A comparison matrix &amp; gap analysis are <b>optional</b>.</span></p>
-        <div class="eg"><span class="eglabel"><span class="ko">결과 예시 — 리뷰카드 1장</span><span class="en">Example — one review card</span></span>
-          <img class="cardthumb-img" src="assets/reviewcard-thumb.png" data-popup-iframe="example-review/card-example.html" role="button" tabindex="0" alt="리뷰카드 예시 — Paolillo 2014 (클릭하면 팝업으로 확대)">
-          <p style="font-size:12px;color:var(--muted);margin:7px 0 0;"><span class="ko">실제 리뷰는 이런 카드가 <b>논문마다</b> 쌓인다(여기선 1장만). <b>섬네일을 클릭하면 팝업으로 크게</b> 열려 스크롤하며 볼 수 있고, 그 안에서 <b>그림도 클릭하면 확대</b>된다.</span><span class="en">A real review stacks one such card <b>per paper</b> (one shown here). <b>Click the thumbnail to open it large in a popup</b> and scroll; inside, <b>figures enlarge on click</b> too.</span></p>
+        <div class="eg"><span class="eglabel"><span class="ko">결과 예시 — 리뷰카드 2장</span><span class="en">Example — two review cards</span></span>
+          <div class="thumb-row cards">
+            <img class="cardthumb-img" src="assets/reviewcard-thumb.png" data-popup-iframe="example-review/card-example.html" role="button" tabindex="0" alt="리뷰카드 예시 — Paolillo 2014 (클릭하면 팝업으로 확대)">
+            <img class="cardthumb-img" src="assets/reviewcard-thumb-2.png" data-popup-iframe="example-review/card-example-2.html" role="button" tabindex="0" alt="리뷰카드 예시 — Jeong 2015 (클릭하면 팝업으로 확대)">
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin:9px 0 0;text-align:center;"><span class="ko">실제 리뷰는 이런 카드가 <b>논문마다</b> 쌓인다(여기선 2장). <b>섬네일을 클릭하면 팝업으로 크게</b> 열려 스크롤하며 볼 수 있고, 그 안에서 <b>그림도 클릭하면 확대</b>된다.</span><span class="en">A real review stacks one such card <b>per paper</b> (two shown here). <b>Click a thumbnail to open it large in a popup</b> and scroll; inside, <b>figures enlarge on click</b> too.</span></p>
         </div>
       </div>
     </section>

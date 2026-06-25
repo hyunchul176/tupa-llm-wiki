@@ -57,7 +57,7 @@ my-wiki/                           ← 위키 루트
 > **연구 아이디어는 사용자가 들고 온다.** 에이전트는 아이디어를 만들지 않는다. 사용자가 *"X에 대해 lit review 해줘"* 라고 주제를 주면, 그 주제의 문헌을 **① 찾고(discovery) → ② 받는다(fetch).** 둘은 다른 일이다. 받은 PDF는 모두 `papers/`에 stem 이름으로 저장된다. 어느 출처·스크립트를 쓸지 판단, 실패 처리, 중복 확인은 에이전트가 한다.
 
 **① 찾기 (discovery) — 어떤 논문이 있나**
-- **arXiv · OpenAlex** — `python scripts/search.py "<영어 키워드>"` (기본). 무료·자동. OpenAlex는 거의 전 출판사 메타데이터 + 인용 그래프를 훑는다. search.py는 각 후보의 **초록**도 함께 출력한다.
+- **arXiv · OpenAlex · Semantic Scholar** — `python scripts/search.py "<영어 키워드>"` (기본 `--source all`). 무료·자동. 세 출처는 커버리지가 달라 보완적이다(arXiv=프리프린트, OpenAlex=넓은 메타데이터+인용, Semantic Scholar=TL;DR 요약·다른 랭킹). search.py는 각 후보의 **초록/TL;DR**도 함께 출력한다. (Semantic Scholar는 키 없으면 rate limit으로 가끔 건너뛴다 — 안정적으로 쓰려면 `secrets/api-keys.json`에 `semantic_scholar` 키.)
   - 후보를 사용자에게 보여줄 때는 그 **초록을 근거로 각 논문을 1~2줄로 요약**해, 제목·저자·연도·식별자(DOI/arXiv id)·무료본 여부와 함께 **표로** 제시한다. 추측으로 요약하지 말고 초록에 있는 내용만 쓴다.
 - **LeapSpace (선택, 사람 손 필요)** — OpenAlex/arXiv로 부족할 때만. ScienceDirect 본문 기반 의미검색. 에이전트가 **영어 질문**을 만들어 주면(★ **반드시 500자 이하**: 만든 뒤 글자 수를 세어 초과하면 줄여서 다시 준다), 사용자가 https://www.sciencedirect.com/leapspace 에서 돌려 답(인용·DOI 포함)을 붙여넣는다 → 거기서 **DOI를 추출**해 ②로 넘긴다. (LeapSpace도 LLM이므로 답은 '검증할 단서'로 다룬다.)
 
