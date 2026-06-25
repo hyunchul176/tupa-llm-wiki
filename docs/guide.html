@@ -266,6 +266,10 @@
   .thumb-row .shot:hover{box-shadow:0 8px 26px rgba(15,23,42,.18);}
   .thumb-row .cardthumb-img{width:calc(50% - 8px);max-width:100%;}
   @media(max-width:560px){.thumb-row .shot,.thumb-row .cardthumb-img{width:100%;}}
+  .thumb-row.obs{align-items:flex-start;}
+  .thumb-row.obs .shot.og{width:calc(72% - 8px);}
+  .thumb-row.obs .shot.on{width:calc(25% - 8px);}
+  @media(max-width:560px){.thumb-row.obs .shot.og,.thumb-row.obs .shot.on{width:100%;}}
   /* 흐름 안내: 프롬프트가 '아님'. 밝은 callout으로, 복사 대상으로 오인하지 않게. */
   .flownote{display:flex;gap:11px;align-items:flex-start;background:var(--navy-050);border:1px solid var(--navy-100);border-left:4px solid var(--navy-600);border-radius:11px;padding:13px 16px;margin:16px 0 4px;font-size:15px;line-height:1.6;color:#39434f;}
   .flownote .fi{font-size:18px;line-height:1.35;flex:none;}
@@ -695,6 +699,13 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
           <li><span class="ko"><b>역할 분리</b> — 에이전트는 노트를 만들고, Obsidian은 사람이 읽고 탐색하는 화면이다. 평범한 <code>.md</code>라 락인(lock-in)이 없다.</span><span class="en"><b>Roles split</b> — the agent writes the notes; Obsidian is the human's reading/navigation layer. Plain <code>.md</code>, so no lock-in.</span></li>
           <li><span class="ko"><b>무료</b> — 개인·학술용은 무료다(동기화·웹공개만 유료인데, 우리는 Git으로 동기화한다).</span><span class="en"><b>Free</b> — for personal/academic use (only Sync/Publish are paid; we use Git instead).</span></li>
         </ul>
+        <div class="eg"><span class="eglabel"><span class="ko">화면 예시: 그래프 뷰와 노트</span><span class="en">Screens: graph view & a note</span></span>
+          <div class="thumb-row obs">
+            <img class="shot og" src="assets/obsidian-graph.png" data-popup-img="assets/obsidian-graph.png" role="button" tabindex="0" alt="Obsidian 그래프 뷰: 논문·주제·개념 노트가 [[링크]]로 이어진 지식 지도 (클릭하면 확대)">
+            <img class="shot on" src="assets/obsidian-note.png" data-popup-img="assets/obsidian-note.png" role="button" tabindex="0" alt="Obsidian 노트 한 편: Markdown과 백링크로 작성된 구조화 노트 (클릭하면 확대)">
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin:9px 0 0;text-align:center;"><span class="ko"><b>왼쪽</b> 그래프 뷰 — 논문·주제·개념이 <code>[[링크]]</code>로 이어진 지식 지도. <b>오른쪽</b> 노트 한 편 — Markdown + 백링크. (각 이미지를 클릭하면 팝업 확대)</span><span class="en"><b>Left</b>: graph view — a knowledge map linking papers, topics, and concepts via <code>[[links]]</code>. <b>Right</b>: a single note — Markdown + backlinks. (Click either image to enlarge.)</span></p>
+        </div>
         <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ 여는 법: <a href="https://obsidian.md" target="_blank" rel="noopener">obsidian.md</a>에서 설치 → <b>Open folder as vault</b> → 내 위키 폴더를 고른다.</span><span class="en">→ How: install from <a href="https://obsidian.md" target="_blank" rel="noopener">obsidian.md</a> → <b>Open folder as vault</b> → pick your wiki folder.</span></p>
       </div>
 
