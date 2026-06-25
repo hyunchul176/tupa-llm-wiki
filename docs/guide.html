@@ -195,6 +195,9 @@
   .adv .advbadge{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.04em;color:#fff;background:var(--navy-600);padding:2px 11px;border-radius:999px;margin-bottom:9px;}
   .adv h4{margin:0 0 6px;font-size:18px;color:var(--navy-800);font-weight:750;}
   .adv .stepnote{font-size:14.5px;color:var(--muted);margin-bottom:4px;}
+  .adv .advlist{margin:8px 0 4px;padding-left:1.15em;font-size:14.5px;color:#39434f;line-height:1.6;}
+  .adv .advlist li{margin:5px 0;}
+  .adv .advlist b{color:var(--navy-800);}
 
   /* practice flow + result mockups */
   .pflow{display:flex;gap:8px;margin:18px 0 28px;flex-wrap:wrap;}
@@ -424,7 +427,7 @@
         <div class="ch-head"><span class="ch-name">Scopus</span><span class="ch-tag key"><span class="ko">Elsevier 키</span><span class="en">Elsevier key</span></span></div>
         <p><span class="ko"><code>search.py</code>로 함께 검색한다(키 있을 때 자동 포함). Elsevier의 <b>큐레이션·인용 중심</b> 학술 DB다. <span class="lbl">받기용으로 이미 넣은 Elsevier 키로 그대로 동작한다</span>(같은 키, KAIST 기관망).</span><span class="en">Also searched via <code>search.py</code> (auto-included when a key exists). Elsevier's <b>curated, citation-rich</b> database. <span class="lbl">Runs on the same Elsevier key you already added for fetching</span> (institutional network).</span></p>
       </div>
-      <p style="font-size:13.5px;color:var(--muted);margin:4px 0 0;"><span class="ko">※ <b>LeapSpace</b>(ScienceDirect 등 본문 의미검색)도 <span class="mark">언제든 함께</span> 쓸 수 있다. 아래 <b>심화·선택</b>에서 설명한다.</span><span class="en">※ <b>LeapSpace</b> (full-text semantic search over ScienceDirect, etc.) can be used <span class="mark">anytime</span> too. Explained in <b>Advanced</b> below.</span></p>
+      <p style="font-size:13.5px;color:var(--muted);margin:4px 0 0;"><span class="ko">※ <b>LeapSpace</b>(ScienceDirect 등 본문 의미검색)도 <b>언제든 함께</b> 쓸 수 있다. 아래 <b>심화·선택</b>에서 설명한다.</span><span class="en">※ <b>LeapSpace</b> (full-text semantic search over ScienceDirect, etc.) can be used <b>anytime</b> too. Explained in <b>Advanced</b> below.</span></p>
 
       <h3><span class="ko">② 다운로드 (fetch): 찾은 논문 PDF 확보</span><span class="en">② Download (fetch): get the PDFs you found</span></h3>
       <div class="chan nologo">
@@ -535,11 +538,11 @@ https://github.com/hyunchul176/tupa-llm-wiki</span></div></div>
           <li><b>받기</b>(유료 본문): Elsevier · Wiley · Springer 키.</li>
           <li><b>찾기(선택)</b>: Semantic Scholar 키(rate limit 완화). <b>Scopus</b>는 위 Elsevier 키로 함께 동작(같은 키, KAIST 기관망).</li>
           <li><code>contact_email</code>: OpenAlex 예의용.</li>
-        </ul><b>키가 없어도 arXiv·무료 공개본(OA)·기본 검색은 된다.</b></span><span class="en">Put keys in <code>secrets/api-keys.json</code> (copy <code>api-keys.example.json</code>).<ul>
+        </ul><span class="mark">키가 없어도 arXiv·무료 공개본(OA)·기본 검색은 된다.</span></span><span class="en">Put keys in <code>secrets/api-keys.json</code> (copy <code>api-keys.example.json</code>).<ul>
           <li><b>Fetch</b> (paywalled text): Elsevier · Wiley · Springer.</li>
           <li><b>Search (optional)</b>: a Semantic Scholar key (eases rate limits). <b>Scopus</b> uses the same Elsevier key (institutional network).</li>
           <li><code>contact_email</code>: courtesy for OpenAlex.</li>
-        </ul><b>Without keys, arXiv, OA &amp; basic search still work.</b></span></span></div>
+        </ul><span class="mark">Without keys, arXiv, OA &amp; basic search still work.</span></span></span></div>
       </div>
 
       <details class="howto">
@@ -607,7 +610,7 @@ claude --version</div>
         </div></div>
 
         <div class="st" id="s6-r3"><div class="n">3</div><div class="b"><b><span class="ko">PDF 받기</span><span class="en">Fetch PDFs</span></b>
-          <div class="stepgoal"><span class="ko">2단계에서 확정한 DOI·arXiv id의 <span class="mark">전문 PDF</span>를 받는다. arXiv·무료 공개본 먼저, 안 되면 출판사 API·브라우저 자동화(Playwright). <span class="nx">다음 → 위키 정리</span></span><span class="en">Fetch the <span class="mark">full-text PDFs</span> for the DOIs/arXiv ids confirmed in step 2: arXiv·OA first, then publisher APIs·browser automation. <span class="nx">Next → Ingest</span></span></div>
+          <div class="stepgoal"><span class="ko">2단계에서 확정한 DOI·arXiv id의 <b>전문 PDF</b>를 받는다. arXiv·무료 공개본 먼저, 안 되면 출판사 API·브라우저 자동화(Playwright). <span class="nx">다음 → 위키 정리</span></span><span class="en">Fetch the <b>full-text PDFs</b> for the DOIs/arXiv ids confirmed in step 2: arXiv·OA first, then publisher APIs·browser automation. <span class="nx">Next → Ingest</span></span></div>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
             <p class="ptext"><span class="ko">전문 PDF를 다운로드해줘. arXiv와 무료 공개본(OA)을 먼저 시도하고, 안 되면 출판사 API, 그래도 안 되면 브라우저 자동화(Playwright)로 시도해줘. 다운로드하지 못한 논문은 목록으로 알려줘. 받을 논문 = 2단계에서 '선택 복사'한 DOI·arXiv id: <span class="ph">〈여기에 붙여넣기〉</span></span><span class="en">Download the full-text PDFs. Try arXiv and open access (OA) first, then publisher APIs, and if still blocked, browser automation (Playwright). List anything you couldn't get. Papers to fetch = the DOIs/arXiv ids you "선택 복사"-ed in step 2: <span class="ph">〈paste here〉</span></span></p>
           </div>
@@ -622,7 +625,7 @@ claude --version</div>
         </div></div>
 
         <div class="st" id="s6-r4"><div class="n">4</div><div class="b"><b><span class="ko">위키로 정리하기</span><span class="en">Ingest</span></b>
-          <div class="stepgoal"><span class="ko">받은 PDF를 요약·구조화 노트로 정리해 <span class="mark">위키에 누적</span>한다 (sources·wiki). <span class="nx">다음 → 질문</span></span><span class="en">Turn the PDFs into summaries and structured notes, <span class="mark">accumulated in the wiki</span> (sources·wiki). <span class="nx">Next → Ask</span></span></div>
+          <div class="stepgoal"><span class="ko">받은 PDF를 요약·구조화 노트로 정리해 <b>위키에 누적</b>한다 (sources·wiki). <span class="nx">다음 → 질문</span></span><span class="en">Turn the PDFs into summaries and structured notes, <b>accumulated in the wiki</b> (sources·wiki). <span class="nx">Next → Ask</span></span></div>
           <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
             <p class="ptext"><span class="ko">다운로드한 PDF들을 ingest해줘. 각 논문에 대해 sources/ 요약, wiki/ 구조화 노트, overviews/ 종합 문서까지 만들어줘.</span><span class="en">Ingest the downloaded PDFs. For each paper, create the sources/ summary → wiki/ structured note → overviews/ overview.</span></p>
           </div>
@@ -636,7 +639,7 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
         </div></div>
 
         <div class="stepdiv"><span class="ph-eyebrow"><span class="ko">5~6단계 · 활용 (위키가 쌓인 뒤)</span><span class="en">Steps 5–6 · Use it (once the wiki has grown)</span></span></div>
-        <div class="flownote"><span class="fi">🌱</span><div><span class="ko"><b>5~6단계는 위키가 충분히 쌓여야 제대로 효과가 난다.</b> 실습에선 논문이 몇 편뿐이라 답이 빈약할 수 있다. 지금은 <b>흐름만</b> 익히고, 논문을 계속 쌓아 위키가 커진 뒤 다시 하면 훨씬 풍부해진다.</span><span class="en"><b>Steps 5–6 only pay off once your wiki has grown.</b> With only a few papers in the workshop, answers may be thin. For now just <b>get the feel</b>; they get much richer as you keep adding papers.</span></div></div>
+        <div class="flownote"><span class="fi">🌱</span><div><span class="ko"><span class="mark">5~6단계는 위키가 충분히 쌓여야 제대로 효과가 난다.</span> 실습에선 논문이 몇 편뿐이라 답이 빈약할 수 있다. 지금은 <b>흐름만</b> 익히고, 논문을 계속 쌓아 위키가 커진 뒤 다시 하면 훨씬 풍부해진다.</span><span class="en"><span class="mark">Steps 5–6 only pay off once your wiki has grown.</span> With only a few papers in the workshop, answers may be thin. For now just <b>get the feel</b>; they get much richer as you keep adding papers.</span></div></div>
 
         <div class="st" id="s6-r5"><div class="n">5</div><div class="b"><b><span class="ko">내 위키에 질문하기</span><span class="en">Ask your wiki</span></b>
           <div class="stepgoal"><span class="ko">구축한 위키만 근거로 질문에 답하게 한다. <span class="mark">웹이 아니라 내 자료로</span>(근거 인용 포함). <span class="nx">다음 → 종합</span></span><span class="en">Answer questions grounded only in the wiki you built: <span class="mark">your material, not the web</span> (with citations). <span class="nx">Next → Synthesize</span></span></div>
@@ -668,9 +671,13 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
       <div class="adv">
         <span class="advbadge"><span class="ko">보기 도구</span><span class="en">Viewer</span></span>
         <h4 style="display:flex;align-items:center;gap:9px;"><img src="assets/obsidian.png" alt="Obsidian" style="height:26px;width:26px;border-radius:6px;"><span><span class="ko">Obsidian으로 위키 보기</span><span class="en">View your wiki in Obsidian</span></span></h4>
-        <div class="stepnote"><span class="ko"><b>Obsidian이란?</b> 로컬 Markdown 파일을 <code>[[링크]]</code>로 잇는 <span class="mark">무료 노트 앱</span>이다. 흩어진 메모·지식을 서로 연결해 <b>그래프로 보여주는</b> '제2의 뇌' 도구로 연구자들이 많이 쓴다.</span><span class="en"><b>What is Obsidian?</b> A <span class="mark">free note app</span> that links local Markdown files with <code>[[links]]</code>. A popular "second brain" tool that connects scattered notes and <b>shows them as a graph</b>.</span></div>
-        <div class="stepnote"><span class="ko">우리 <code>wiki/</code>는 이미 Markdown + <code>[[백링크]]</code>라, 변환 없이 <span class="mark">Obsidian으로 그 폴더를 열기만</span> 하면 된다. 개인·학술 사용은 <span class="mark">무료</span>다(동기화·웹공개 부가서비스만 유료인데, 우리는 Git으로 동기화하니 필요 없다).</span><span class="en">Our <code>wiki/</code> is already Markdown with <code>[[backlinks]]</code>, so with no conversion you just <span class="mark">open that folder in Obsidian</span>. It's <span class="mark">free</span> for personal/academic use (only Sync/Publish are paid, and we use Git instead).</span></div>
-        <div class="stepnote"><span class="ko">얻는 것: <span class="mark">그래프 뷰</span>(논문·주제·개념이 이어진 지식 지도), 백링크 패널, <code>[[링크]]</code> 클릭 이동, 빠른 검색. 에이전트는 노트를 만들고, <span class="mark">Obsidian은 사람이 읽고 탐색하는 화면</span>이다. 평범한 <code>.md</code>라 락인(lock-in)은 없다.</span><span class="en">What you get: a <span class="mark">graph view</span> (a knowledge map of papers, topics, concepts), a backlinks panel, click-through <code>[[links]]</code>, and fast search. The agent writes the notes; <span class="mark">Obsidian is the human's reading and navigation layer</span>. It's plain <code>.md</code>, so there's no lock-in.</span></div>
+        <div class="stepnote"><span class="ko"><b>Obsidian이란?</b> 로컬 Markdown 파일을 <code>[[링크]]</code>로 잇는 무료 노트 앱이다. 흩어진 노트를 서로 연결해 그래프로 보여주는 '제2의 뇌' 도구로 연구자들이 많이 쓴다.</span><span class="en"><b>What is Obsidian?</b> A free note app that links local Markdown files with <code>[[links]]</code> — a popular "second brain" that connects notes and shows them as a graph.</span></div>
+        <ul class="advlist">
+          <li><span class="ko"><b>그대로 열기</b> — <code>wiki/</code>는 이미 Markdown + <code>[[백링크]]</code>라, <span class="mark">변환 없이 폴더만 열면 바로 동작</span>한다.</span><span class="en"><b>Open as-is</b> — <code>wiki/</code> is already Markdown + <code>[[backlinks]]</code>, so it <span class="mark">just works the moment you open the folder</span> — no conversion.</span></li>
+          <li><span class="ko"><b>얻는 것</b> — 그래프 뷰(논문·주제·개념이 이어진 지식 지도), 백링크 패널, <code>[[링크]]</code> 클릭 이동, 빠른 검색.</span><span class="en"><b>What you get</b> — a graph view (a map of papers, topics, concepts), a backlinks panel, click-through <code>[[links]]</code>, and fast search.</span></li>
+          <li><span class="ko"><b>역할 분리</b> — 에이전트는 노트를 만들고, Obsidian은 사람이 읽고 탐색하는 화면이다. 평범한 <code>.md</code>라 락인(lock-in)이 없다.</span><span class="en"><b>Roles split</b> — the agent writes the notes; Obsidian is the human's reading/navigation layer. Plain <code>.md</code>, so no lock-in.</span></li>
+          <li><span class="ko"><b>무료</b> — 개인·학술용은 무료다(동기화·웹공개만 유료인데, 우리는 Git으로 동기화한다).</span><span class="en"><b>Free</b> — for personal/academic use (only Sync/Publish are paid; we use Git instead).</span></li>
+        </ul>
         <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ 여는 법: <a href="https://obsidian.md" target="_blank" rel="noopener">obsidian.md</a>에서 설치 → <b>Open folder as vault</b> → 내 위키 폴더를 고른다.</span><span class="en">→ How: install from <a href="https://obsidian.md" target="_blank" rel="noopener">obsidian.md</a> → <b>Open folder as vault</b> → pick your wiki folder.</span></p>
       </div>
 
