@@ -10,8 +10,8 @@ Everyone uses the **same prompts — only the research topic differs**. Just rep
 
 ## 0. 준비 / Setup
 
-빈 폴더에서 **Claude Code**를 열고(Codex도 동작), 깃헙 링크를 주며 설치를 맡긴다 — 클론·의존성(IEEE용 Playwright 포함)까지 알아서 한다.
-Open **Claude Code** in an empty folder (Codex works too) and hand it the link — it clones and installs deps (incl. Playwright for IEEE).
+**VS Code**(code.visualstudio.com)를 설치하고 빈 폴더를 VS Code로 연 뒤, 그 안에서 **Claude Code** 또는 **Codex CLI**를 실행한다. 깃헙 링크를 주면 클론·의존성(IEEE용 Playwright 포함)까지 알아서 설치한다.
+Install **VS Code** (code.visualstudio.com), open an empty folder in it, then run **Claude Code** or **Codex CLI** inside. Give it the GitHub link and it clones + installs deps (incl. Playwright for IEEE).
 
 > 이 깃헙 받아서 설치까지 해줘: https://github.com/hyunchul176/tupa-llm-wiki
 > Clone and set this up for me: https://github.com/hyunchul176/tupa-llm-wiki
