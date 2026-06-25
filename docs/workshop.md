@@ -76,11 +76,20 @@ For paywalled full text, add keys to `secrets/api-keys.json`. **Without keys, ar
 
 **하는 일 / Goal:** “웹이 아니라 내 위키가 답한다”를 직접 체험. / Experience answering from your wiki, not the web.
 
-**KO**
-> 지금까지 쌓은 위키만 근거로 답해줘(웹검색 금지): "〈궁금한 점〉?" 어느 노트·논문에서 나온 근거인지도 같이.
+아래는 모두 **같은 수준의 예시 프롬프트**다(전부 위키만 근거·웹검색 금지). 골라서 그대로 쓴다.
+All **equal example prompts** (each grounded only in your wiki, no web search). Pick one and use as-is.
 
-**EN**
-> Answer using only the wiki built so far (no web search): "〈your question〉?" Cite which note/paper each point comes from.
+**예시 · 리뷰 원고 / Review draft**
+> KO — 지금까지 쌓은 위키만 근거로(웹검색 금지) 〈주제〉에 대한 literature review 원고를 써줘. 주장마다 근거(노트·논문 citation)를 꼭 달아서.
+> EN — Using only my wiki (no web search), write a literature-review draft on 〈topic〉. Cite the source note/paper for every claim.
+
+**예시 · 비교 / Compare**
+> KO — 내 위키만 근거로 〈방법 A〉와 〈방법 B〉를 비교해줘. 각 주장의 근거 노트도 함께.
+> EN — Using only my wiki, compare 〈method A〉 and 〈method B〉, with the source note for each point.
+
+**예시 · 개념 설명 / Explain**
+> KO — 내 위키만 근거로 〈개념 X〉를 설명해줘. 어느 논문에서 나온 건지도 함께.
+> EN — Using only my wiki, explain 〈concept X〉, noting which paper each point comes from.
 
 ---
 
@@ -93,6 +102,35 @@ For paywalled full text, add keys to `secrets/api-keys.json`. **Without keys, ar
 
 **EN**
 > Synthesize the papers on this topic. Lay out common approaches, differences, and open gaps, citing the supporting papers. Ground it only in my wiki.
+
+---
+
+## 심화 (선택) — Obsidian으로 위키 보기 / Advanced (optional) — view your wiki in Obsidian
+
+**무엇 / What:** `wiki/`는 이미 Markdown + `[[백링크]]`라 변환 없이 **Obsidian으로 그 폴더를 열기만** 하면 그래프 뷰·백링크·빠른 검색으로 읽고 탐색할 수 있다. 에이전트는 노트를 쓰고, Obsidian은 사람이 읽는 화면이다. 개인·학술용 무료.
+Our `wiki/` is already Markdown with `[[backlinks]]`, so just **open that folder in Obsidian** (no conversion) for a graph view, backlinks, and fast search. The agent writes the notes; Obsidian is the human's reading layer. Free for personal/academic use.
+
+→ 여는 법: [obsidian.md](https://obsidian.md) 설치 → **Open folder as vault** → 내 위키 폴더 선택.
+→ How: install from [obsidian.md](https://obsidian.md) → **Open folder as vault** → pick your wiki folder.
+
+---
+
+## 심화 (선택) — HTML 기반 리뷰카드 만들기 / Advanced (optional) — build review cards (HTML)
+
+**핵심 / Key:** 위키와 **역할이 다르다** — 위키는 여러 주제를 누적·질의응답하는 지식베이스, 리뷰카드는 **한 주제를 깊게**(주제당 1편, 다른 주제 섞지 않기) 정리하고 figure까지 담아 읽고 비교하는 문서.
+A different role from the wiki — the wiki accumulates many topics for Q&A; review cards go **deep on one topic** (one per topic, no mixing), figures and all.
+
+시연이라 **내가 고른 2편만** 지정한다(wiki 전체는 오래 걸림). 깊은 카드·핵심 figure·그림 클릭 확대는 규칙(AGENTS §8)대로 **자동 포함**되니 프롬프트에 적지 않아도 된다.
+For the demo, pick **just 2 papers** (the whole wiki takes a while). Deep cards, key figures, and click-to-zoom are **automatic** per the rules (AGENTS §8) — no need to spell them out.
+
+**KO**
+> 이 2편으로 리뷰카드 만들어줘: 〈논문 1 — 제목 또는 DOI〉, 〈논문 2 — 제목 또는 DOI〉.
+
+**EN**
+> Make review cards from these 2 papers: 〈paper 1 — title or DOI〉, 〈paper 2 — title or DOI〉.
+
+→ 출력 위치(`review/〈주제〉/`)·템플릿·깊은 카드·figure는 규칙(AGENTS §8)대로 자동이니 프롬프트엔 논문만 적는다. 생성된 결과를 브라우저로 열어 본다. 비교 매트릭스·공백 분석은 옵션.
+→ Output location, template, deep cards, and figures are automatic per the rules (AGENTS §8) — just name the papers. Open the generated result in a browser. Matrix & gap analysis are optional.
 
 ---
 
@@ -122,25 +160,6 @@ EN
 
 → LeapSpace 답은 에이전트의 후보 리스트와 형식이 다르다. 받기로 바로 가지 말고 — 새 논문을 후보에 더하거나 에이전트와 더 논의한 뒤, **2단계(받을 논문 고르기)부터 다시 반복**한다.
 → A LeapSpace answer has a different shape than the agent's candidate list. Don't jump to fetching — add the new papers (or discuss with the agent), then **loop back to step 2 (pick papers)**.
-
----
-
-## 심화 (선택) — HTML 기반 리뷰카드 만들기 / Advanced (optional) — build review cards (HTML)
-
-**핵심 / Key:** 위키와 **역할이 다르다** — 위키는 여러 주제를 누적·질의응답하는 지식베이스, 리뷰카드는 **한 주제를 깊게**(주제당 1편, 다른 주제 섞지 않기) 정리하고 figure까지 담아 읽고 비교하는 문서.
-A different role from the wiki — the wiki accumulates many topics for Q&A; review cards go **deep on one topic** (one per topic, no mixing), figures and all.
-
-시연이라 **내가 고른 2편만** 지정한다(wiki 전체는 오래 걸림). 깊은 카드·핵심 figure·그림 클릭 확대는 규칙(AGENTS §8)대로 **자동 포함**되니 프롬프트에 적지 않아도 된다.
-For the demo, pick **just 2 papers** (the whole wiki takes a while). Deep cards, key figures, and click-to-zoom are **automatic** per the rules (AGENTS §8) — no need to spell them out.
-
-**KO**
-> 이 2편으로 리뷰카드 만들어줘: 〈논문 1 — 제목 또는 DOI〉, 〈논문 2 — 제목 또는 DOI〉.
-
-**EN**
-> Make review cards from these 2 papers: 〈paper 1 — title or DOI〉, 〈paper 2 — title or DOI〉.
-
-→ 출력 위치(`review/〈주제〉/`)·템플릿·깊은 카드·figure는 규칙(AGENTS §8)대로 자동이니 프롬프트엔 논문만 적는다. 생성된 결과를 브라우저로 열어 본다. 비교 매트릭스·공백 분석은 옵션.
-→ Output location, template, deep cards, and figures are automatic per the rules (AGENTS §8) — just name the papers. Open the generated result in a browser. Matrix & gap analysis are optional.
 
 ---
 

@@ -30,8 +30,8 @@ git clone https://github.com/hyunchul176/tupa-llm-wiki.git my-wiki
 cd my-wiki
 
 # (recommended) uv — no anaconda needed
-uv sync                               # installs Playwright (for IEEE)
-uv run playwright install chromium    # browser for IEEE
+uv sync                               # installs Playwright (browser automation)
+uv run playwright install chromium    # browser fetch (IEEE / Springer, etc.)
 
 # or pip
 pip install -r requirements.txt && python -m playwright install chromium
@@ -84,7 +84,7 @@ cp secrets/api-keys.example.json secrets/api-keys.json
 
 > **Search keys (optional)** go in the same file — `semantic_scholar` (free, eases rate limits) and `scopus` (search; **runs on the Elsevier key above**, institutional network required). Without them, those sources are simply skipped and the rest still search. Details in `secrets/api-keys.example.json`.
 
-> **IEEE full text**: Playwright is already installed in step 1. On the campus network / KAIST VPN it downloads without login; otherwise run `python scripts/fetch_ieee.py login` once.
+> **Browser automation (Playwright)**: installed in step 1, for sources without a usable API. It reliably unlocks **IEEE** (dedicated stamp.jsp bypass) and **Springer** (via `citation_pdf_url`, no key). **Elsevier/Wiley** sit behind a login/bot wall, so those use the **API key** instead, and **MDPI** is bot-blocked so it routes through **PMC** — `fetch_paper.py` tries these in order automatically. On campus / KAIST VPN it works without login; otherwise run `python scripts/fetch_ieee.py login` once. (Full route table: `AGENTS.md §3`.)
 
 ### 4. Add your first paper — get the PDF first
 ```bash
@@ -95,7 +95,7 @@ python scripts/search.py "vision language action humanoid"
 python scripts/fetch_paper.py 10.1016/j.trf.2025.103482   # DOI
 python scripts/fetch_paper.py 2406.09246                  # arXiv id
 
-# C — browser automation (Playwright) for sources without an API, e.g. IEEE (campus/VPN recommended)
+# C — browser automation (Playwright) for API-less sources, e.g. IEEE / Springer (campus/VPN recommended)
 python scripts/fetch_ieee.py fetch 10.1109/JSEN.2022.3156971
 
 # D — just copy a PDF into papers/ (no key needed)
@@ -105,7 +105,7 @@ Then tell the agent:
 
 → The agent renames it by the stem rule → `sources/` summary → `wiki/` structured note → `overviews/` synthesis.
 
-> Collection scripts use **only the standard library** (no install). Only IEEE (`fetch_ieee.py`) and figure extraction (`extract_figures.py`) need extra packages (Playwright / pymupdf).
+> Collection scripts use **only the standard library** (no install). Only browser automation (`fetch_ieee.py`, Playwright) and figure extraction (`extract_figures.py`, pymupdf) need extra packages.
 
 ---
 
