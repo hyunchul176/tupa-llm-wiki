@@ -216,9 +216,17 @@
   .rolecompare li b{color:var(--navy-800);}
   .rolecompare .rc-review li b{color:var(--red-dark);}
   @media(max-width:640px){.rolecompare{grid-template-columns:1fr;}}
-  /* 실제 리뷰 인라인 예시 (iframe) */
-  .exframe{display:block;width:100%;height:560px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 6px 22px rgba(15,23,42,.10);margin-top:4px;}
-  @media(max-width:640px){.exframe{height:420px;}}
+  /* 예시 섬네일 + 클릭 확대 팝업 */
+  .thumb-img{display:block;width:100%;max-width:300px;border:1px solid var(--line);border-radius:9px;cursor:zoom-in;transition:box-shadow .15s;margin-top:2px;}
+  .cardthumb-img{display:block;width:100%;max-width:300px;border:1px solid var(--line);border-radius:12px;cursor:zoom-in;transition:box-shadow .15s;margin-top:2px;}
+  .thumb-img:hover,.cardthumb-img:hover{box-shadow:0 8px 26px rgba(15,23,42,.18);}
+  .popup{position:fixed;inset:0;background:rgba(15,23,42,.82);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding:28px;overflow:auto;}
+  .popup.active{display:flex;}
+  .popup-x{position:fixed;top:16px;right:18px;background:rgba(255,255,255,.16);border:0;color:#fff;font-size:16px;width:34px;height:34px;border-radius:9px;cursor:pointer;z-index:1001;line-height:1;}
+  .popup-x:hover{background:rgba(255,255,255,.3);}
+  .popup-stage{margin:auto;}
+  .popup-stage img{display:block;max-width:min(1100px,100%);height:auto;border-radius:10px;box-shadow:0 24px 70px rgba(0,0,0,.45);}
+  .popup-stage iframe{width:min(900px,92vw);height:84vh;border:0;border-radius:12px;background:#fff;box-shadow:0 24px 70px rgba(0,0,0,.45);}
 
   /* code */
   .code{background:var(--navy-900);color:#d2ddee;border-radius:12px;padding:18px 20px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.7;margin:12px 0 2px;}
@@ -506,10 +514,8 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
           <p class="ptext"><span class="ko">이 결과에서 DOI를 뽑아 PDF를 받아줘.</span><span class="en">Extract the DOIs from these results and download the PDFs.</span></p>
         </div>
         <div class="eg"><span class="eglabel"><span class="ko">답변 예시 — citation을 클릭하면 근거 문장까지</span><span class="en">Answer example — click a citation to see the source sentence</span></span>
-          <a href="assets/leapspace-example.png" target="_blank" rel="noopener">
-            <img src="assets/leapspace-example.png" alt="LeapSpace 답변 예시: 왼쪽은 citation이 달린 문헌 리뷰 답변, citation을 클릭하면 오른쪽에 해당 논문 상세와 근거 문장 하이라이트가 뜬다" style="display:block;width:100%;border:1px solid var(--line);border-radius:10px;">
-          </a>
-          <p style="font-size:12px;color:var(--muted);margin:7px 0 0;"><span class="ko">왼쪽처럼 답변의 문장마다 citation이 붙는다. <b>citation([1]·[2]…)을 클릭하면</b> 오른쪽에 어떤 논문인지 뜨고, 그 논문의 <b>어느 섹션·어느 문장에서 가져왔는지</b>까지 하이라이트로 보여준다. (이미지를 클릭하면 원본 크기)</span><span class="en">Each sentence in the answer carries a citation. <b>Click a citation ([1], [2]…)</b> and the right panel shows which paper it is — and highlights <b>the exact section and sentence</b> it came from. (Click the image for full size.)</span></p>
+          <img class="thumb-img" src="assets/leapspace-example.png" data-popup-img="assets/leapspace-example.png" role="button" tabindex="0" alt="LeapSpace 답변 예시: 왼쪽은 citation이 달린 문헌 리뷰 답변, citation을 클릭하면 오른쪽에 해당 논문 상세와 근거 문장 하이라이트가 뜬다 (클릭하면 확대)">
+          <p style="font-size:12px;color:var(--muted);margin:7px 0 0;"><span class="ko">왼쪽처럼 답변의 문장마다 citation이 붙는다. <b>citation([1]·[2]…)을 클릭하면</b> 오른쪽에 어떤 논문인지 뜨고, 그 논문의 <b>어느 섹션·어느 문장에서 가져왔는지</b>까지 하이라이트로 보여준다. <b>(섬네일을 클릭하면 팝업으로 확대)</b></span><span class="en">Each sentence in the answer carries a citation. <b>Click a citation ([1], [2]…)</b> and the right panel shows which paper it is — and highlights <b>the exact section and sentence</b> it came from. <b>(Click the thumbnail to enlarge in a popup.)</b></span></p>
         </div>
       </div>
 
@@ -540,14 +546,20 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
           <p class="ptext"><span class="ko">이 <b>2편</b>으로 HTML 리뷰카드를 만들어줘: <span class="ph">〈논문 1 — 제목 또는 DOI〉</span>, <span class="ph">〈논문 2 — 제목 또는 DOI〉</span>. <code>review/<span class="ph">〈주제〉</span>/index.html</code>로.</span><span class="en">Build HTML review cards from these <b>2 papers</b>: <span class="ph">〈paper 1 — title or DOI〉</span>, <span class="ph">〈paper 2 — title or DOI〉</span>. Output to <code>review/<span class="ph">〈topic〉</span>/index.html</code>.</span></p>
         </div>
         <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ 깊은 카드·핵심 figure·그림 클릭 확대는 <b>규칙(AGENTS §8)대로 자동 포함</b>되니 프롬프트에 따로 적지 않아도 된다. 시연이라 <b>2편만</b> 지정한다(많으면 오래 걸림). 비교 매트릭스·공백 분석은 <b>옵션</b>("매트릭스도 넣어줘").</span><span class="en">→ Deep cards, key figures, and click-to-zoom are <b>included automatically per the rules (AGENTS §8)</b> — no need to spell them out. For the demo, pick just <b>2 papers</b> (more takes a while). A comparison matrix &amp; gap analysis are <b>optional</b>.</span></p>
-        <div class="eg"><span class="eglabel"><span class="ko">결과 예시 — 리뷰카드 1장 (실제 생성물에서 발췌)</span><span class="en">Example — one review card (from a real output)</span></span>
-          <iframe class="exframe" src="example-review/card-example.html" title="리뷰카드 예시 — Paolillo 2014" loading="lazy"></iframe>
-          <p style="font-size:12px;color:var(--muted);margin:7px 0 0;"><span class="ko">실제 리뷰는 이런 카드가 <b>논문마다</b> 쌓인다(여기선 1장만). Pretendard·lit-review 템플릿(<code>shared.css</code>)으로 렌더되고, 핵심 구절은 형광펜, <b>그림은 클릭하면 확대</b>된다.</span><span class="en">A real review stacks one such card <b>per paper</b> (just one shown here). Rendered in Pretendard with the lit-review template (<code>shared.css</code>); key phrases highlighter-marked, <b>figures enlarge on click</b>.</span></p>
+        <div class="eg"><span class="eglabel"><span class="ko">결과 예시 — 리뷰카드 1장</span><span class="en">Example — one review card</span></span>
+          <img class="cardthumb-img" src="assets/reviewcard-thumb.png" data-popup-iframe="example-review/card-example.html" role="button" tabindex="0" alt="리뷰카드 예시 — Paolillo 2014 (클릭하면 팝업으로 확대)">
+          <p style="font-size:12px;color:var(--muted);margin:7px 0 0;"><span class="ko">실제 리뷰는 이런 카드가 <b>논문마다</b> 쌓인다(여기선 1장만). <b>섬네일을 클릭하면 팝업으로 크게</b> 열려 스크롤하며 볼 수 있고, 그 안에서 <b>그림도 클릭하면 확대</b>된다.</span><span class="en">A real review stacks one such card <b>per paper</b> (one shown here). <b>Click the thumbnail to open it large in a popup</b> and scroll; inside, <b>figures enlarge on click</b> too.</span></p>
         </div>
       </div>
     </section>
 
   </main>
+</div>
+
+<!-- 예시 확대 팝업 -->
+<div id="popup" class="popup" aria-hidden="true">
+  <button class="popup-x" type="button" aria-label="닫기">✕</button>
+  <div class="popup-stage"></div>
 </div>
 
 <footer>
@@ -604,6 +616,27 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
       }).catch(function(){});
     });
   });
+})();
+
+// 예시 확대 팝업 (이미지 / iframe)
+(function(){
+  var pop = document.getElementById('popup');
+  if(!pop) return;
+  var stage = pop.querySelector('.popup-stage');
+  function show(){ pop.classList.add('active'); pop.setAttribute('aria-hidden','false'); }
+  function close(){ pop.classList.remove('active'); pop.setAttribute('aria-hidden','true'); stage.innerHTML=''; }
+  function openImg(src, alt){ stage.innerHTML=''; var i=document.createElement('img'); i.src=src; i.alt=alt||''; stage.appendChild(i); show(); }
+  function openFrame(src){ stage.innerHTML=''; var f=document.createElement('iframe'); f.src=src; f.title='리뷰카드 예시'; stage.appendChild(f); show(); }
+  function bind(sel, fn){ document.querySelectorAll(sel).forEach(function(el){
+    var h=function(){ fn(el); };
+    el.addEventListener('click', h);
+    el.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); h(); } });
+  }); }
+  bind('[data-popup-img]', function(el){ openImg(el.getAttribute('data-popup-img'), el.getAttribute('alt')); });
+  bind('[data-popup-iframe]', function(el){ openFrame(el.getAttribute('data-popup-iframe')); });
+  pop.querySelector('.popup-x').addEventListener('click', close);
+  pop.addEventListener('click', function(e){ if(e.target === pop){ close(); } });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ close(); } });
 })();
 </script>
 </body>
