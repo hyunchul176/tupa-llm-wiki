@@ -71,7 +71,7 @@ my-wiki/                           ← 위키 루트
 
 **② 받기 (fetch) — 그 PDF를 다운로드**
 - `python scripts/fetch_paper.py <DOI 또는 arXiv id> [...]`
-  - DOI: **무료 공개본(OA) 우선** → 없으면 출판사 API(Elsevier·Wiley·Springer, `secrets/api-keys.json` 키, 보통 KAIST 망 필요). *LeapSpace가 찾아준 Elsevier DOI도 여기서 받는다.*
+  - DOI: **무료 공개본(OA) 우선 → PMC(Europe PMC) 우회 → 출판사 API**(Elsevier·Wiley·Springer, `secrets/api-keys.json` 키, 보통 KAIST 망 필요). PMC 단계는 PMCID가 있으면 Europe PMC가 PDF를 서빙하므로 **MDPI처럼 출판사가 봇을 막는 OA 논문도 받힌다**(실측). *LeapSpace가 찾아준 Elsevier DOI도 여기서 받는다.*
   - arXiv id: 키 없이 바로.
 - **브라우저 자동화(Playwright) — API 없는 곳(대표: IEEE)** — `python scripts/fetch_ieee.py fetch <DOI>`. **출판사 무관**: 페이지를 열어 `application/pdf`를 가로채거나, `citation_pdf_url`/PDF 링크를 찾아 브라우저로 받는다(키 없는 **Springer** 등도 이 경로로 받힘 — 실측 확인). IEEE는 전용 우회(stamp.jsp)도 둔다. Playwright는 셋업 시 설치됨. 캠퍼스망/KAIST VPN이면 로그인 없이도 받힘.
   - 단 **MDPI처럼 봇 차단(Akamai 'Access Denied')이 강한 곳**은 urllib·자동 브라우저 모두 막힐 수 있다. OA면 사용자가 브라우저에서 직접 'Download PDF' 해 `papers/`에 넣게 안내한다.

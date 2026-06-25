@@ -42,6 +42,21 @@ def openalex_oa_pdf(doi: str) -> str:
     return best.get("pdf_url") or (w.get("open_access") or {}).get("oa_url") or ""
 
 
+# ---------- PubMed Central (Europe PMC) — OA 우회 ----------
+def pmc_pdf_url(doi: str) -> str:
+    """DOI에 PMCID가 있으면 Europe PMC의 PDF render URL, 없으면 ''. (키 불필요)
+    MDPI처럼 출판사가 봇을 막아도, 같은 OA 논문을 PMC가 서빙하므로 우회된다."""
+    try:
+        u = ("https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?tool=tupa-llm-wiki&email="
+             + urllib.parse.quote(_wiki.CONTACT) + "&ids=" + urllib.parse.quote(norm_doi(doi))
+             + "&format=json")
+        rec = (http_json(u, timeout=30).get("records") or [{}])[0]
+        pmcid = (rec.get("pmcid") or "").strip()
+        return f"https://europepmc.org/articles/{pmcid}?pdf=render" if pmcid else ""
+    except Exception:
+        return ""
+
+
 # ---------- arXiv ----------
 def arxiv_meta(arxiv_id: str):
     """arXiv id → (family, year, title, pdf_url). 실패 시 None."""
@@ -126,7 +141,17 @@ def fetch_doi(doi: str) -> str:
             print("  · 경로  : 무료 공개본(OA)")
             return stem
         except Exception as e:
-            print(f"  · OA 시도 실패({e}) → 출판사 API로 폴백")
+            print(f"  · OA 시도 실패({e}) → 다음 경로로 폴백")
+
+    # 1.5) PubMed Central (Europe PMC) — OA지만 출판사가 봇을 막을 때(MDPI 등) 우회
+    pmc = pmc_pdf_url(doi)
+    if pmc:
+        try:
+            save_pdf(http_bytes(pmc, timeout=120), stem)
+            print("  · 경로  : PubMed Central (Europe PMC)")
+            return stem
+        except Exception as e:
+            print(f"  · PMC 시도 실패({e}) → 출판사 API로 폴백")
 
     # 2) 출판사 API
     url, headers = publisher_url_headers(doi, publisher)
@@ -140,7 +165,8 @@ def fetch_doi(doi: str) -> str:
         raise RuntimeError(
             "IEEE는 키가 없어 브라우저 로그인이 필요합니다 → "
             f"python scripts/fetch_ieee.py fetch {doi}  (캠퍼스망/VPN이면 로그인 없이도 받힘)")
-    raise RuntimeError(f"미지원 출판사: {publisher!r} — 무료본 없음. PDF를 직접 papers/에 넣어주세요.")
+    raise RuntimeError(f"미지원 출판사: {publisher!r} — 무료본·키 없음. 브라우저 자동화로 시도: "
+                       f"python scripts/fetch_ieee.py fetch {doi}  (캠퍼스망/VPN). 그래도 안 되면 PDF를 직접 papers/에 넣어주세요.")
 
 
 # ---------- 라우팅 ----------
