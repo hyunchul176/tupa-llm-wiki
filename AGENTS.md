@@ -46,6 +46,8 @@ my-wiki/                           ← 위키 루트
 ### 지식 체인 (각 단계는 아래 단계 없이 존재 불가)
 `PDF` → `요약(sources/)` → `위키(wiki/)` → `종합(overviews/)` → `내 연구(분석·발표·코드)`
 
+> **Obsidian 호환**: `wiki/`·`sources/`는 그대로 Obsidian 볼트로 열린다(사람이 그래프·백링크로 탐색). `[[stem]]` 위키링크(확장자 없이 파일명)와 YAML frontmatter 형식을 유지해 Obsidian이 자동 해석하게 한다.
+
 ---
 
 ## 3. 논문 수집 → 인제스트 워크플로

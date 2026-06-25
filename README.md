@@ -115,7 +115,18 @@ Knowledge chain: `PDF → sources/ summary → wiki/ structured note → overvie
 - **Cross-agent by design.** `AGENTS.md` follows the emerging `agents.md` convention that AI coding agents read on their own. **Codex** reads it natively; **Claude Code** reads `CLAUDE.md`, which simply points to `AGENTS.md`. So one file drives **both** agents identically — no Claude-only "skills" that Codex can't see.
 - **What's inside.** A start-of-session checklist, the folder structure and stem rule, the collection workflow (**find → pick → fetch**), topic-classification principles, note frontmatter, the **4 core rules**, the language policy, transferable operating principles, and the **HTML review-card recipe (§8)**.
 - **Why one file.** Behavior stays consistent across sessions and across agents, and there's exactly one place to change it. To make the agent behave differently (a different output path, deeper cards, a new search source), you **edit `AGENTS.md`** instead of repeating instructions in every prompt.
-- **You rarely touch it.** Day to day you just give short prompts ("find papers on X", "ingest this", "make review cards from these two") — the agent fills in the rest from `AGENTS.md`.
+- **You rarely touch it.** Day to day you just give short prompts ("find papers on X", "ingest this", "make review cards from these two") and the agent fills in the rest from `AGENTS.md`.
+
+---
+
+## View it in Obsidian (optional)
+
+Your `wiki/` is already plain Markdown with `[[backlinks]]`, so it **is an Obsidian vault** — no conversion needed.
+
+- **Free** for personal/academic use. (Only Obsidian Sync/Publish are paid, and we sync via Git instead.)
+- **How**: install from [obsidian.md](https://obsidian.md) → *Open folder as vault* → pick your wiki folder.
+- **What you get**: a **graph view** (a knowledge map of papers, topics, and concepts), a backlinks panel, click-through `[[links]]`, and fast search.
+- **Roles don't overlap**: the agent (Claude/Codex) *writes and edits* the notes; Obsidian is the human's *reading and navigation* layer over the same folder. It's plain `.md`, so there's no lock-in.
 
 ---
 
