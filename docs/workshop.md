@@ -121,16 +121,16 @@ EN
 
 ---
 
-## 심화 (선택) — 리뷰 HTML 만들기 / Advanced (optional) — build a review HTML
+## 심화 (선택) — HTML 기반 리뷰카드 만들기 / Advanced (optional) — build review cards (HTML)
 
-**핵심 / Key:** 위키와 달리 **주제 1개당 리뷰 1개** — 다른 주제 논문을 한 리뷰에 섞지 않는다. PDF에서 핵심 그림도 자동 추출(`extract_figures.py`, pymupdf 필요).
-Unlike the wiki, **one topic per review** — never mix topics. Key figures are auto-extracted from the PDFs (`extract_figures.py`, needs pymupdf).
+**핵심 / Key:** 위키와 **역할이 다르다** — 위키는 여러 주제를 누적·질의응답하는 지식베이스, 리뷰카드는 **한 주제를 깊게**(주제당 1편, 다른 주제 섞지 않기) 정리하고 figure까지 담아 읽고 비교하는 문서.
+A different role from the wiki — the wiki accumulates many topics for Q&A; review cards go **deep on one topic** (one per topic, no mixing), figures and all.
 
 **KO**
-> `wiki/〈주제〉`의 논문들로 리뷰 HTML을 만들어줘 — 이 주제만. 논문마다 카드(무엇·방법·결과·본 연구와의 관계 + 핵심 그림)와 섹션 한 줄 요약까지(1차). `review/〈주제〉/index.html`로.
+> `wiki/〈주제〉`의 논문들로 HTML 리뷰카드를 만들어줘 — 이 주제만. 논문마다 깊은 카드(연구배경·무엇·방법론 상세·결과·한계·본 연구와의 관계)와 핵심 figure(클릭하면 확대)까지. `review/〈주제〉/index.html`로.
 
 **EN**
-> Build a review HTML from the papers in `wiki/〈topic〉` — this topic only. One card per paper (what · method · results · relevance + key figures) plus a one-line section summary (first pass). Output to `review/〈topic〉/index.html`.
+> Build HTML review cards from the papers in `wiki/〈topic〉` — this topic only. A deep card per paper (background · what · method detail · results · limits · relevance) with key figures (click to enlarge). Output to `review/〈topic〉/index.html`.
 
 → 생성된 `review/〈주제〉/index.html`을 브라우저로 연다. 비교 매트릭스·공백 분석은 옵션("매트릭스도 넣어줘").
 → Open the generated `review/〈topic〉/index.html`. A comparison matrix & gap analysis are optional ("add a matrix too").

@@ -153,23 +153,25 @@ ingested: 2026-06-11
 
 ---
 
-## 8. 리뷰 HTML 만들기 (심화·선택)
+## 8. HTML 기반 리뷰카드 만들기 (심화·선택)
 
-> 위키(ingest)와 **다르다**: 위키는 주제가 섞여도 되지만, 리뷰 HTML은 **주제 1개당 1개** — 서로 다른 주제 논문을 한 리뷰에 섞지 않는다.
+> 위키(ingest)와 **역할이 다른 산출물**이다. 위키는 여러 주제를 누적·질의응답하는 지식베이스이고, 리뷰카드는 **한 주제를 깊게** 정리하고 figure까지 담아 **읽고 비교**하는 리뷰 문서다. 그래서 **주제 1개당 1편** — 서로 다른 주제 논문을 한 리뷰에 섞지 않는다.
 
-사용자가 *"〈주제〉 논문들로 리뷰 HTML 만들어줘"* 라고 하면:
+사용자가 *"〈주제〉 논문들로 HTML 리뷰카드 만들어줘"* 라고 하면:
 
 1. **대상 논문 모으기 (주제 격리)** — 그 주제 논문만 고른다. `wiki/<category>/`의 같은 카테고리, 또는 사용자가 지정한 PDF 묶음. 주제가 어긋나는 논문은 **빼고**, 애매하면 사용자에게 확인한다.
 2. **figure 추출** — 논문마다 `python scripts/extract_figures.py papers/<stem>.pdf --prefix <stem> --out review/<주제>/images` (caption 모드). 출력 목록에서 **핵심 그림 1~3장**(아키텍처·결과 위주)만 고른다. 캡션 못 찾으면 `--mode embedded`/`pages`.
-3. **리뷰 생성** — `review/<주제>/index.html` **한 파일**로, `<head>`에 `<link rel="stylesheet" href="../assets/shared.css">`만 건다(폰트 Pretendard는 shared.css가 `@import`로 불러온다). 기존 lit-review 템플릿 클래스를 그대로 쓴다:
+3. **리뷰 생성** — `review/<주제>/index.html` **한 파일**로, `<head>`에 `<link rel="stylesheet" href="../assets/shared.css">`만 건다(폰트 Pretendard는 shared.css가 `@import`로 불러온다). 방법론 불릿용 작은 `<style>`(`.paper-section ul.method` 여백 정도)만 head에 얹는다. 기존 lit-review 템플릿 클래스를 그대로 쓴다:
    - `<header class="landing-hero">`: `<h1>` 제목 · `.subtitle` · `.meta`(작성자·논문 수·버전·날짜)
    - `<div class="page-grid">` 안에 `<aside class="toc-sidebar">`(`.toc-title` + 섹션/논문 링크, 라인별 `<details class="toc-line">`) + `<main>`
-   - `<main>`: `.lede`(주제·왜 보는지 2~4줄) → 섹션마다 `<h2 id="sN">§N. 제목 <span class="section-status">v1차 — Drafted</span></h2>` → 그 아래 `.paper` 카드들
-   - **`.paper` 카드 1장** = `<article class="paper line-a anchor-offset" id="paper-...">` 안에:
-     `.tag-row`(`.tag.tag-line-a` + `.tag.tag-conf`/`.tag-journal` + `.tag.tag-year`) · `<h4>`제목 · `.citation`(저자·venue·연도·DOI) · `.paper-body`[ `.paper-figs`>`.paper-figure`(`.fig-label` + img + `.paper-figure-caption`) + `<div>`( `.tldr`(`.tldr-label`+요약) · `.attrs`>`.attr`(로봇·차량·센서·학습여부) · `.paper-section`(`.paper-section-label` 무엇을 했는가/방법/결과) · `.paper-section.relevance`(본 연구와의 관계) ) ]
+   - `<main>`: `.lede`(주제·왜 보는지 2~4줄) → 섹션마다 `<h2 id="sN">§N. 제목 <span class="section-status">…</span></h2>` → 그 아래 `.paper` 카드들
+   - **`.paper` 카드 1장(깊게)** = `<article class="paper line-a anchor-offset" id="paper-...">` 안에:
+     `.tag-row`(`.tag.tag-line-a` + `.tag.tag-conf`/`.tag-journal` + `.tag.tag-year`) · `<h4>`제목 · `.citation`(저자·venue·연도·DOI) · `.paper-body`[ `.paper-figs`>`.paper-figure`(`.fig-label` + img + `.paper-figure-caption`, 캡션 끝에 `<em>(클릭 시 확대)</em>`) + `<div>`( `.tldr`(`.tldr-label`+요약) · `.attrs`>`.attr`(로봇·차량·센서·학습여부) · `.paper-section`(`.paper-section-label`) **연구 배경 · 무엇을 했는가 · 방법론 상세 · 결과/시연 · 한계** · `.paper-section.relevance`(본 연구와의 관계) ) ]
+   - **방법론 상세**는 `<ul class="method">`로 핵심 포인트 3~6개, 각 `<li>`는 `<b>소제목.</b> 설명` 형태. 가장 중요한 1~2개는 `<span class="key">★ …</span>`로.
    - 라인(클러스터) 색: line-a/line-b/… (toc 점 색과 tag-line-* 일치).
-4. **핵심 구절 형광펜** — 각 파트(lede·TL;DR·무엇/방법/결과/관계)의 가장 중요한 구절 1개를 `<span class="mark">…</span>`로 감싼다(투명 형광펜). 과하게 칠하지 말 것 — 파트당 1개 정도.
-5. **깊이 — 1차(기본)**: 카드 + 섹션 요약까지. **옵션**(요청 시만): 비교 매트릭스(`.matrix-wrap`>table) · 공백 분석(`.gap-card`).
+4. **그림 클릭 확대(lightbox)** — `</body>` 앞에 `<div id="lightbox" aria-hidden="true"><span class="lb-close">✕</span><img alt=""><div class="lb-hint">…</div></div>`와 작은 `<script>`(`.paper-figure img` 클릭 시 라이트박스 img.src 설정 + `.active` 토글, 클릭/Esc로 닫기)를 넣는다. CSS(`#lightbox`, `.paper-figure img{cursor:zoom-in}`)는 shared.css에 이미 있다.
+5. **핵심 구절 형광펜** — 각 파트(lede·TL;DR·연구배경·무엇·방법론·결과·한계·관계)의 가장 중요한 구절 1개를 `<span class="mark">…</span>`로 감싼다(투명 형광펜). 파트당 1개 정도, 과하게 칠하지 말 것.
+6. **깊이 — 기본은 위 깊은 카드**(연구배경~한계 + figure 클릭확대). **옵션**(요청 시만): 비교 매트릭스(`.matrix-wrap`>table) · 공백 분석(`.gap-card`).
 
 규칙:
 - 내용은 **`sources/`·`wiki/` 노트와 원문 PDF에 근거**. 추측·잡지식 금지(모르면 unknown). '본 연구와의 관계'는 사용자 주제 맥락에서 쓴다.

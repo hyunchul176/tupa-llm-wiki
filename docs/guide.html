@@ -202,6 +202,28 @@
   .stepgoal{font-size:15.5px;color:#39434f;line-height:1.62;margin:7px 0 6px;}
   .stepgoal b{color:var(--navy-800);font-weight:700;}
   .stepgoal .nx{color:var(--red-dark);font-weight:600;white-space:nowrap;margin-left:4px;}
+  /* 역할 구분 (LLM 위키 vs 리뷰카드) */
+  .rolecompare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:4px 0 14px;}
+  .rolecompare .rc{border:1px solid var(--line);border-radius:11px;padding:13px 15px;background:#fff;}
+  .rolecompare .rc-wiki{border-top:3px solid var(--navy-600);}
+  .rolecompare .rc-review{border-top:3px solid var(--red);}
+  .rolecompare .rc-h{font-weight:800;color:var(--navy-800);margin-bottom:7px;font-size:15px;}
+  .rolecompare .rc-h span{font-weight:600;font-size:11.5px;color:var(--muted);}
+  .rolecompare ul{margin:0;padding-left:1.05em;font-size:13.5px;line-height:1.5;color:#39434f;}
+  .rolecompare li{margin:4px 0;}
+  .rolecompare li b{color:var(--navy-800);}
+  .rolecompare .rc-review li b{color:var(--red-dark);}
+  @media(max-width:640px){.rolecompare{grid-template-columns:1fr;}}
+  /* 진짜 예시 팝업 (리뷰카드) */
+  .expreview{cursor:zoom-in;transition:box-shadow .15s;}
+  .expreview:hover{box-shadow:0 8px 26px rgba(15,23,42,.17);}
+  .exopen-hint{display:inline-flex;align-items:center;gap:6px;margin-top:9px;font-size:13px;font-weight:700;color:var(--red-dark);cursor:zoom-in;}
+  .exmodal{position:fixed;inset:0;background:rgba(15,23,42,.80);z-index:1000;display:none;flex-direction:column;padding:22px;}
+  .exmodal.active{display:flex;}
+  .exmodal-bar{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:13.5px;padding:0 4px 10px;}
+  .exmodal-x{margin-left:auto;background:rgba(255,255,255,.16);border:0;color:#fff;font-size:15px;width:32px;height:32px;border-radius:8px;cursor:pointer;line-height:1;}
+  .exmodal-x:hover{background:rgba(255,255,255,.3);}
+  .exmodal iframe{flex:1;width:100%;border:0;border-radius:12px;background:#fff;box-shadow:0 24px 70px rgba(0,0,0,.45);}
 
   /* code */
   .code{background:var(--navy-900);color:#d2ddee;border-radius:12px;padding:18px 20px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.7;margin:12px 0 2px;}
@@ -491,14 +513,33 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
 
       <div class="adv">
         <span class="advbadge"><span class="ko">심화 · 선택</span><span class="en">Advanced · optional</span></span>
-        <h4><span class="ko">리뷰 HTML 만들기</span><span class="en">Build a review HTML</span></h4>
-        <div class="stepnote"><span class="ko">모은 논문을 <b>한 편의 리뷰 HTML</b>로 묶는다 — 위키와 달리 <b>주제 1개당 1개</b>(다른 주제 섞지 않기). PDF에서 핵심 그림도 자동 추출한다(<code>extract_figures.py</code>, pymupdf 필요).</span><span class="en">Bundle the collected papers into <b>one review HTML</b> — unlike the wiki, <b>one topic per review</b> (no mixing). It also auto-extracts key figures from the PDFs (<code>extract_figures.py</code>, needs pymupdf).</span></div>
+        <h4><span class="ko">HTML 기반 리뷰카드 만들기</span><span class="en">Build review cards (HTML)</span></h4>
+        <div class="stepnote"><span class="ko">위키와 <b>역할이 다른 산출물</b>이다. 같은 PDF로 만들지만, 한 주제를 깊게 정리하고 핵심 그림까지 담는다.</span><span class="en">A deliverable with a <b>different role</b> from the wiki. Built from the same PDFs, but it organizes one topic deeply — figures and all.</span></div>
+        <div class="rolecompare">
+          <div class="rc rc-wiki">
+            <div class="rc-h">📚 LLM 위키 <span class="ko">(메인)</span><span class="en">(main)</span></div>
+            <ul>
+              <li><span class="ko">여러 주제·논문을 <b>누적</b>하는 지식베이스</span><span class="en">A knowledge base that <b>accumulates</b> many topics</span></li>
+              <li><span class="ko">짧은 요약 + 구조화 노트 + 종합</span><span class="en">Short summaries + structured notes + overviews</span></li>
+              <li><span class="ko">활용: <b>질문하면 내 자료로 답한다</b></span><span class="en">Use: <b>ask, and it answers from your material</b></span></li>
+            </ul>
+          </div>
+          <div class="rc rc-review">
+            <div class="rc-h">🗂️ 리뷰카드 <span class="ko">(심화 · 이 단계)</span><span class="en">(advanced · here)</span></div>
+            <ul>
+              <li><span class="ko"><b>한 주제</b>를 깊게 정리한 산출물(주제당 1편)</span><span class="en">A deliverable that goes <b>deep on one topic</b> (one per topic)</span></li>
+              <li><span class="ko">논문마다 깊은 카드 + <b>핵심 figure</b>까지</span><span class="en">A deep card per paper + <b>key figures</b></span></li>
+              <li><span class="ko">활용: <b>읽고 비교하는</b> 리뷰 문서</span><span class="en">Use: a review document to <b>read and compare</b></span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="stepnote"><span class="ko"><b>주제 1개당 리뷰카드 1편</b> — 다른 주제 논문을 섞지 않는다. PDF에서 핵심 그림도 자동 추출한다(<code>extract_figures.py</code>, pymupdf 필요).</span><span class="en"><b>One review per topic</b> — never mix topics. Key figures are auto-extracted from the PDFs (<code>extract_figures.py</code>, needs pymupdf).</span></div>
         <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">프롬프트</span><span class="en">Prompt</span></div>
-          <p class="ptext"><span class="ko"><code>wiki/<span class="ph">〈주제〉</span></code>의 논문들로 리뷰 HTML을 만들어줘 — <b>이 주제만</b>. 논문마다 카드(무엇·방법·결과·본 연구와의 관계 + 핵심 그림)와 섹션 한 줄 요약까지(1차). <code>review/<span class="ph">〈주제〉</span>/index.html</code>로.</span><span class="en">Build a review HTML from the papers in <code>wiki/<span class="ph">〈topic〉</span></code> — <b>this topic only</b>. One card per paper (what · method · results · relevance + key figures) plus a one-line section summary (first pass). Output to <code>review/<span class="ph">〈topic〉</span>/index.html</code>.</span></p>
+          <p class="ptext"><span class="ko"><code>wiki/<span class="ph">〈주제〉</span></code>의 논문들로 HTML 리뷰카드를 만들어줘 — <b>이 주제만</b>. 논문마다 깊은 카드(연구배경·무엇·방법론 상세·결과·한계·본 연구와의 관계)와 <b>핵심 figure(클릭하면 확대)</b>까지. <code>review/<span class="ph">〈주제〉</span>/index.html</code>로.</span><span class="en">Build HTML review cards from the papers in <code>wiki/<span class="ph">〈topic〉</span></code> — <b>this topic only</b>. A deep card per paper (background · what · method detail · results · limits · relevance) with <b>key figures (click to enlarge)</b>. Output to <code>review/<span class="ph">〈topic〉</span>/index.html</code>.</span></p>
         </div>
         <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ 생성된 <code>review/〈주제〉/index.html</code>을 브라우저로 연다. 비교 매트릭스·공백 분석은 <b>옵션</b>("매트릭스도 넣어줘").</span><span class="en">→ Open <code>review/〈topic〉/index.html</code>. A comparison matrix &amp; gap analysis are <b>optional</b> ("add a matrix too").</span></p>
-        <div class="eg"><span class="eglabel"><span class="ko">결과 예시 — 리뷰 HTML 카드</span><span class="en">Example — review HTML card</span></span>
-          <div style="background:#fff;border:1px solid var(--line);border-left:3px solid #0891b2;border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.6;color:#2a3744;">
+        <div class="eg"><span class="eglabel"><span class="ko">결과 예시 — 클릭하면 실제 리뷰가 팝업으로 열립니다</span><span class="en">Example — click to open the real review</span></span>
+          <div class="expreview" data-exopen role="button" tabindex="0" aria-label="실제 리뷰 예시 열기" style="background:#fff;border:1px solid var(--line);border-left:3px solid #0891b2;border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.6;color:#2a3744;">
             <div style="display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap;">
               <span style="font-size:10px;font-weight:700;background:#0891b2;color:#fff;padding:1px 8px;border-radius:999px;">Line A</span>
               <span style="font-size:10px;font-weight:700;background:var(--navy-100);color:var(--navy-800);padding:1px 8px;border-radius:999px;">Conference</span>
@@ -515,12 +556,19 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
               </div>
             </div>
           </div>
-          <p style="font-size:12px;color:var(--muted);margin:7px 0 0;"><span class="ko">실제 출력은 Pretendard·기존 lit-review 템플릿(<code>shared.css</code>)으로 렌더되고, 각 파트의 핵심 구절은 형광펜으로 강조된다. 섹션(§1·§2…)마다 이런 카드가 쌓인다.</span><span class="en">Real output renders in Pretendard with the existing lit-review template (<code>shared.css</code>); key phrases are highlighter-marked, and cards like this stack under each section (§1, §2…).</span></p>
+          <span class="exopen-hint" data-exopen role="button" tabindex="0">▶ <span class="ko">실제 예시 열기 (휴머노이드 차량 운전 리뷰)</span><span class="en">Open the live example (humanoid driving review)</span></span>
+          <p style="font-size:12px;color:var(--muted);margin:7px 0 0;"><span class="ko">실제 출력은 Pretendard·기존 lit-review 템플릿(<code>shared.css</code>)으로 렌더되고, 각 파트의 핵심 구절은 형광펜으로 강조되며 <b>그림은 클릭하면 확대</b>된다. 섹션(§1·§2…)마다 이런 카드가 쌓인다.</span><span class="en">Real output renders in Pretendard with the existing lit-review template (<code>shared.css</code>); key phrases are highlighter-marked, <b>figures enlarge on click</b>, and cards like this stack under each section (§1, §2…).</span></p>
         </div>
       </div>
     </section>
 
   </main>
+</div>
+
+<!-- 리뷰카드 실제 예시 팝업 -->
+<div id="exmodal" class="exmodal" aria-hidden="true">
+  <div class="exmodal-bar"><span class="ko">실제 예시 — 휴머노이드 차량 운전 리뷰 (HTML 리뷰카드)</span><span class="en">Live example — humanoid driving review (HTML cards)</span><button class="exmodal-x" type="button" aria-label="닫기">✕</button></div>
+  <iframe title="example review" src=""></iframe>
 </div>
 
 <footer>
@@ -577,6 +625,22 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
       }).catch(function(){});
     });
   });
+})();
+
+// 리뷰카드 실제 예시 팝업 (iframe)
+(function(){
+  var m = document.getElementById('exmodal');
+  if(!m) return;
+  var fr = m.querySelector('iframe'), src = 'example-review/index.html';
+  function open(){ if(fr.getAttribute('src') !== src){ fr.setAttribute('src', src); } m.classList.add('active'); m.setAttribute('aria-hidden','false'); }
+  function close(){ m.classList.remove('active'); m.setAttribute('aria-hidden','true'); }
+  document.querySelectorAll('[data-exopen]').forEach(function(el){
+    el.addEventListener('click', open);
+    el.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(); } });
+  });
+  m.querySelector('.exmodal-x').addEventListener('click', close);
+  m.addEventListener('click', function(e){ if(e.target === m){ close(); } });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ close(); } });
 })();
 </script>
 </body>
