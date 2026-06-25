@@ -161,14 +161,17 @@ ingested: 2026-06-11
 
 1. **대상 논문 모으기 (주제 격리)** — 그 주제 논문만 고른다. `wiki/<category>/`의 같은 카테고리, 또는 사용자가 지정한 PDF 묶음. 주제가 어긋나는 논문은 **빼고**, 애매하면 사용자에게 확인한다.
 2. **figure 추출** — 논문마다 `python scripts/extract_figures.py papers/<stem>.pdf --prefix <stem> --out review/<주제>/images` (caption 모드). 출력 목록에서 **핵심 그림 1~3장**(아키텍처·결과 위주)만 고른다. 캡션 못 찾으면 `--mode embedded`/`pages`.
-3. **리뷰 생성** — `review/<주제>/index.html` **한 파일**로. `../assets/review.css`·`../assets/review.js`를 링크. 클래스는 review.css 기준:
-   - `header.hero`(h1 제목 · `.subtitle` · `.meta`: 작성자·날짜·논문 수)
-   - `.intro`(이 주제가 뭐고 왜 보는지 2~4줄)
-   - `.section` 1개+ (= 연구 라인/클러스터): `<h2><span class="sn">§1</span>제목</h2>` + `.sec-sum`(한 줄 요약) + `.pcard`들
-   - **`.pcard` 1장** = `h3`(제목) · `.cite`(저자·연도·venue·DOI) · `.tags` · `.field`(라벨 무엇/방법/결과) + **`.field.rel`(본 연구와의 관계 — 빨강 강조)** · `.figs`>`.fig`(img + `.cap`)
-4. **깊이 — 1차(기본)**: 카드 + 섹션 한 줄 요약까지. **옵션**(요청 시만): `.matrix`(비교 매트릭스) · `.gap`(공백 분석).
+3. **리뷰 생성** — `review/<주제>/index.html` **한 파일**로, `<head>`에 `<link rel="stylesheet" href="../assets/shared.css">`만 건다(폰트 Pretendard는 shared.css가 `@import`로 불러온다). 기존 lit-review 템플릿 클래스를 그대로 쓴다:
+   - `<header class="landing-hero">`: `<h1>` 제목 · `.subtitle` · `.meta`(작성자·논문 수·버전·날짜)
+   - `<div class="page-grid">` 안에 `<aside class="toc-sidebar">`(`.toc-title` + 섹션/논문 링크, 라인별 `<details class="toc-line">`) + `<main>`
+   - `<main>`: `.lede`(주제·왜 보는지 2~4줄) → 섹션마다 `<h2 id="sN">§N. 제목 <span class="section-status">v1차 — Drafted</span></h2>` → 그 아래 `.paper` 카드들
+   - **`.paper` 카드 1장** = `<article class="paper line-a anchor-offset" id="paper-...">` 안에:
+     `.tag-row`(`.tag.tag-line-a` + `.tag.tag-conf`/`.tag-journal` + `.tag.tag-year`) · `<h4>`제목 · `.citation`(저자·venue·연도·DOI) · `.paper-body`[ `.paper-figs`>`.paper-figure`(`.fig-label` + img + `.paper-figure-caption`) + `<div>`( `.tldr`(`.tldr-label`+요약) · `.attrs`>`.attr`(로봇·차량·센서·학습여부) · `.paper-section`(`.paper-section-label` 무엇을 했는가/방법/결과) · `.paper-section.relevance`(본 연구와의 관계) ) ]
+   - 라인(클러스터) 색: line-a/line-b/… (toc 점 색과 tag-line-* 일치).
+4. **핵심 구절 형광펜** — 각 파트(lede·TL;DR·무엇/방법/결과/관계)의 가장 중요한 구절 1개를 `<span class="mark">…</span>`로 감싼다(투명 형광펜). 과하게 칠하지 말 것 — 파트당 1개 정도.
+5. **깊이 — 1차(기본)**: 카드 + 섹션 요약까지. **옵션**(요청 시만): 비교 매트릭스(`.matrix-wrap`>table) · 공백 분석(`.gap-card`).
 
 규칙:
 - 내용은 **`sources/`·`wiki/` 노트와 원문 PDF에 근거**. 추측·잡지식 금지(모르면 unknown). '본 연구와의 관계'는 사용자 주제 맥락에서 쓴다.
-- figure는 `review/<주제>/images/`에 두고 카드에서 상대경로로 참조, 캡션에 출처(Fig. N) 표기.
-- 생성물 `review/<주제>/`는 gitignore된다. `review/assets/`만 공용 템플릿으로 커밋.
+- figure는 `review/<주제>/images/`에 두고 카드에서 상대경로(`images/...`)로 참조, 캡션에 출처(Fig. N) 표기.
+- 생성물 `review/<주제>/`는 gitignore된다. 공용 템플릿 `review/assets/shared.css`만 커밋.

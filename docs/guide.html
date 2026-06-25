@@ -55,7 +55,7 @@
   .qs-title{font-size:20px;font-weight:800;color:var(--navy-800);letter-spacing:-.01em;}
   .qs-sub{font-size:14px;color:var(--muted);margin:4px 0 18px;}
   .qs-steps{display:flex;gap:14px;flex-wrap:wrap;align-items:stretch;}
-  .qs-step{flex:1 1 0;min-width:220px;background:var(--navy-050);border:1px solid var(--line);border-top:3px solid var(--red);border-radius:13px;padding:15px 18px 16px;display:flex;flex-direction:column;gap:7px;}
+  .qs-step{flex:1 1 0;min-width:220px;background:#fff;border:1px solid var(--line);border-top:3px solid var(--red);border-radius:13px;padding:15px 18px 16px;display:flex;flex-direction:column;gap:7px;box-shadow:0 10px 28px -22px rgba(12,31,61,.55);}
   .qs-step .qsn{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--red);letter-spacing:.06em;}
   .qs-step .qst{font-size:16px;font-weight:750;color:var(--navy-800);}
   .qs-step .qsd{font-size:13.5px;color:var(--muted);line-height:1.5;}
@@ -389,7 +389,7 @@
       <h2><span class="num">5</span><span class="ko">실습: 설치부터 활용까지</span><span class="en">Practice: from setup to finish</span></h2>
       <p><span class="ko">실습에서는 <strong>연구 주제만 바꾸고</strong> 나머지 절차는 그대로 따라 하면 된다. 프롬프트에서 <span class="ph">〈내 연구 주제〉</span> 부분만 본인 주제로 바꿔 사용한다.</span><span class="en">Everyone uses the <strong>same prompts, changing only the research topic</strong>. Just replace <span class="ph">〈your topic〉</span> and copy.</span></p>
 
-      <h3><span class="ko">먼저 설치: 새 프로젝트 폴더 준비</span><span class="en">First, set up: prepare a new project folder</span></h3>
+      <h3><span class="ko">새 프로젝트 폴더 준비 — 3단계</span><span class="en">Prepare a new project folder — 3 steps</span></h3>
       <div class="qs-steps">
         <div class="qs-step"><span class="qsn">01</span><span class="qst"><span class="ko">에디터 + 에이전트</span><span class="en">Editor + agent</span></span><span class="qsd"><span class="ko"><b>VS Code</b>를 설치(code.visualstudio.com)한 뒤 새 프로젝트 폴더를 만들고, 그 폴더를 VS Code에서 연다. 이어서 VS Code 터미널에서 <b>Claude Code</b> 또는 <b>Codex CLI</b>를 실행한다. <span style="font-size:12px;">둘 다 같은 규칙(<code>AGENTS.md</code>)을 읽어 동일하게 동작한다.</span></span><span class="en">Install <b>VS Code</b> (code.visualstudio.com), create a new project folder, open it in VS Code, then run <b>Claude Code</b> or <b>Codex CLI</b> in the VS Code terminal. <span style="font-size:12px;">Both read the same rules (<code>AGENTS.md</code>) and behave identically.</span></span></span></div>
         <div class="qs-step"><span class="qsn">02</span><span class="qst"><span class="ko">저장소 복제 및 설치</span><span class="en">Paste the link and set up</span></span><span class="qsd"><span class="ko">아래 문장을 입력하면 저장소 복제와 필요한 패키지 설치(IEEE용 Playwright 포함)를 진행한다.</span><span class="en">One line sets up the repository and required dependencies, including Playwright for IEEE.</span></span><div class="qscode"><span class="ko">다음 GitHub 저장소를 복제하고 설치까지 진행해줘:
@@ -482,7 +482,7 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
       <div class="adv">
         <span class="advbadge"><span class="ko">심화 · 선택</span><span class="en">Advanced · optional</span></span>
         <h4><span class="ko">LeapSpace로 더 찾기</span><span class="en">Find more with LeapSpace</span></h4>
-        <div class="stepnote"><span class="ko">1단계(OpenAlex·arXiv) 검색만으로 부족할 때 선택적으로 사용한다. ScienceDirect 본문 기반 의미 검색이므로 사용자가 한 번 직접 실행해야 한다.</span><span class="en">Use only when step 1 (OpenAlex·arXiv) is not enough. It is a full-text semantic search over ScienceDirect and requires one manual step.</span></div>
+        <div class="stepnote"><span class="ko"><b>LeapSpace</b>는 Elsevier(ScienceDirect)의 AI 검색 도구다 — 키워드가 아니라 논문 <b>본문까지 의미 기반으로</b> 뒤져, 던진 질문에 답하고 근거 논문(인용·DOI)을 달아준다. 키워드가 어긋나 OpenAlex·arXiv가 놓치는 논문을 찾을 때 유용하다. <b>API가 없어</b> 에이전트가 만든 질문을 사람이 사이트에서 한 번 직접 돌려야 하므로, 1단계 검색으로 부족할 때만 쓰는 선택 단계다.</span><span class="en"><b>LeapSpace</b> is Elsevier's (ScienceDirect) AI search — it searches paper <b>full text semantically</b> (not just keywords), answering your question with cited sources (DOIs). Handy for papers that keyword search on OpenAlex/arXiv misses. It has <b>no API</b>, so you run the agent's query on the site by hand — an optional step for when step-1 search isn't enough.</span></div>
         <div class="prompt"><button class="pcopy" type="button"><span class="ko">복사</span><span class="en">Copy</span></button><div class="plabel"><span class="ko">① 질문 만들기</span><span class="en">① Draft a query</span></div>
           <p class="ptext"><span class="ko">OpenAlex로 부족한 것 같아. 이 주제로 LeapSpace에 넣을 500자 이내 영어 질문을 만들어줘.</span><span class="en">OpenAlex doesn't seem enough. Draft an English query (under 500 characters) for this topic to run on LeapSpace.</span></p>
         </div>
@@ -499,6 +499,26 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
           <p class="ptext"><span class="ko"><code>wiki/<span class="ph">〈주제〉</span></code>의 논문들로 리뷰 HTML을 만들어줘 — <b>이 주제만</b>. 논문마다 카드(무엇·방법·결과·본 연구와의 관계 + 핵심 그림)와 섹션 한 줄 요약까지(1차). <code>review/<span class="ph">〈주제〉</span>/index.html</code>로.</span><span class="en">Build a review HTML from the papers in <code>wiki/<span class="ph">〈topic〉</span></code> — <b>this topic only</b>. One card per paper (what · method · results · relevance + key figures) plus a one-line section summary (first pass). Output to <code>review/<span class="ph">〈topic〉</span>/index.html</code>.</span></p>
         </div>
         <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ 생성된 <code>review/〈주제〉/index.html</code>을 브라우저로 연다. 비교 매트릭스·공백 분석은 <b>옵션</b>("매트릭스도 넣어줘").</span><span class="en">→ Open <code>review/〈topic〉/index.html</code>. A comparison matrix &amp; gap analysis are <b>optional</b> ("add a matrix too").</span></p>
+        <div class="eg"><span class="eglabel"><span class="ko">결과 예시 — 리뷰 HTML 카드</span><span class="en">Example — review HTML card</span></span>
+          <div style="background:#fff;border:1px solid var(--line);border-left:3px solid #0891b2;border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.6;color:#2a3744;">
+            <div style="display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap;">
+              <span style="font-size:10px;font-weight:700;background:#0891b2;color:#fff;padding:1px 8px;border-radius:999px;">Line A</span>
+              <span style="font-size:10px;font-weight:700;background:var(--navy-100);color:var(--navy-800);padding:1px 8px;border-radius:999px;">Conference</span>
+              <span style="font-size:10px;font-weight:700;background:var(--navy-100);color:var(--navy-800);padding:1px 8px;border-radius:999px;">2014</span>
+            </div>
+            <div style="font-weight:750;color:var(--navy-800);font-size:14.5px;">Toward Autonomous Car Driving by a Humanoid Robot</div>
+            <div style="font-size:11.5px;color:var(--muted);margin:2px 0 9px;">A. Paolillo et al. · IEEE Humanoids 2014 · 10.1109/HUMANOIDS.2014.7041400</div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+              <div style="flex:0 0 140px;border:1px solid var(--line);border-radius:7px;background:var(--navy-050);min-height:84px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:11px;text-align:center;">Fig 6 ·<br>실험 셋업 그림</div>
+              <div style="flex:1;min-width:210px;">
+                <div style="background:var(--navy-050);border-radius:7px;padding:7px 10px;font-size:12.5px;"><b style="color:var(--red-dark);font-size:10px;letter-spacing:.04em;">TL;DR</b> HRP-4가 <span style="background:linear-gradient(transparent 58%,rgba(250,204,21,.5) 58%);">차량을 개조하지 않고 핸들을 직접 돌려</span> 운전한 첫 시연.</div>
+                <div style="margin-top:8px;"><b style="font-size:10px;color:#fff;background:var(--navy-700);border-radius:3px;padding:1px 6px;">무엇을 했는가</b> <span style="background:linear-gradient(transparent 58%,rgba(250,204,21,.5) 58%);">운전 과제를 비전·제어 모듈로 분해</span>해 핸들을 직접 돌려 추종.</div>
+                <div style="margin-top:6px;"><b style="font-size:10px;color:#fff;background:var(--red);border-radius:3px;padding:1px 6px;">본 연구와의 관계</b> problem framing의 <span style="background:linear-gradient(transparent 58%,rgba(250,204,21,.5) 58%);">학술적 기원</span>.</div>
+              </div>
+            </div>
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin:7px 0 0;"><span class="ko">실제 출력은 Pretendard·기존 lit-review 템플릿(<code>shared.css</code>)으로 렌더되고, 각 파트의 핵심 구절은 형광펜으로 강조된다. 섹션(§1·§2…)마다 이런 카드가 쌓인다.</span><span class="en">Real output renders in Pretendard with the existing lit-review template (<code>shared.css</code>); key phrases are highlighter-marked, and cards like this stack under each section (§1, §2…).</span></p>
+        </div>
       </div>
     </section>
 
