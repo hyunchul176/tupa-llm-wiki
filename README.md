@@ -1,129 +1,140 @@
-# TUPA LLM-Wiki — 개인 위키 스타터
+# TUPA LLM-Wiki — personal wiki starter
 
-TUPA Lab 연구원이 **각자 자기 논문 지식베이스(LLM-Wiki)**를 만들기 위한 시작 키트.
-읽은 논문을 `PDF → 요약 → 구조화 노트 → 종합`으로 쌓아, 나중에 **웹이 아니라 내 위키를 근거로** 묻고 답하는 개인 지식 시스템이다.
-패턴 출처: [Karpathy LLM-Wiki](https://github.com/karpathy) 아이디어 / [joonan30/llm-wiki-labs](https://github.com/joonan30/llm-wiki-labs).
+A starter kit for TUPA Lab members to build **their own paper knowledge base (an LLM-Wiki)**.
+You accumulate the papers you read as `PDF → summary → structured note → synthesis`, so later you can ask questions and get answers grounded in **your own wiki, not the web**.
+Pattern sources: [Karpathy's LLM-Wiki](https://github.com/karpathy) idea / [joonan30/llm-wiki-labs](https://github.com/joonan30/llm-wiki-labs).
 
-> 📄 **시각 안내 (온라인)**: **https://hyunchul176.github.io/tupa-llm-wiki/** — 클론 없이 바로 보는 설명 페이지(지식 사슬·수집·실습 단계·4대 룰, 한/영 토글). 로컬에선 `docs/guide.html`.
-> 🧪 **실습**: 학생 워크숍용 단계별 프롬프트는 `docs/workshop.md` (가이드의 “실습 단계” 섹션에도 동일).
-> 🗂️ **심화(선택)**: 한 주제를 깊게 정리하는 **HTML 리뷰카드**(논문별 깊은 카드 + 핵심 figure, 클릭 확대)도 만들 수 있다 — 규칙은 `AGENTS.md §8`, 예시는 가이드 참고.
+> 📄 **Visual guide (online)**: **https://hyunchul176.github.io/tupa-llm-wiki/** — an explainer you can read without cloning (knowledge chain · collection · practice steps · the 4 core rules, with a KO/EN toggle). Locally it's `docs/guide.html`.
+> 🧪 **Workshop**: step-by-step prompts for the student workshop live in `docs/workshop.md` (also in the guide's "Practice" section).
+> 🗂️ **Advanced (optional)**: you can build **HTML review cards** that go deep on one topic — a deep card per paper plus key figures (click to enlarge). Rules in `AGENTS.md §8`, example in the guide.
 
 ---
 
-## 왜 "각자" 만드나 (운영 방침)
+## Why "each person" builds their own (operating policy)
 
-> **1단계 (최소 1개월) — 각자 구축·체득.**
-> 모두가 자기 위키를 직접 쌓으며 ingest 흐름·분류·백링크에 익숙해진다. 위키는 직접 굴려봐야 가치를 안다.
+> **Phase 1 (≥ 1 month) — build and internalize on your own.**
+> Everyone grows their own wiki and gets fluent with the ingest flow, classification, and backlinks. You only understand a wiki's value by running one yourself.
 >
-> **2단계 — 그룹별 통합 운영.**
-> 각자 충분히 체득한 뒤, 그룹 단위로 위키를 합쳐 공동 지식 지도로 키운다.
+> **Phase 2 — merge per group.**
+> Once everyone is fluent, groups merge their wikis into a shared knowledge map.
 
-그래서 이 repo는 **개인용 빈 스타터**다. 처음엔 너만의 위키로 채우고, 나중에 그룹 통합 방식은 따로 안내한다.
+So this repo is an **empty personal starter**. Fill it with your own wiki first; group integration is covered separately later.
 
 ---
 
-## 빠른 시작
+## Quick start
 
-### 1. 받기 + 설치
+### 1. Clone + install
 ```bash
 git clone https://github.com/hyunchul176/tupa-llm-wiki.git my-wiki
 cd my-wiki
 
-# (권장) uv — anaconda 불필요
-uv sync                              # IEEE용 Playwright 설치
-uv run playwright install chromium    # IEEE용 브라우저
+# (recommended) uv — no anaconda needed
+uv sync                               # installs Playwright (for IEEE)
+uv run playwright install chromium    # browser for IEEE
 
-# 또는 pip
+# or pip
 pip install -r requirements.txt && python -m playwright install chromium
 ```
-> 폴더 이름은 자유. 검색·arXiv/OA·Elsevier/Wiley/Springer 수집은 **표준 라이브러리만**이라 위 설치 없이도 되고, 위 설치는 **IEEE 본문**용이다(미리 깔아두면 데모 중 끊김이 없다). IEEE 스크립트는 `uv run python scripts/fetch_ieee.py …`, 나머지는 그냥 `python scripts/…`로 실행하면 된다.
+> The folder name is up to you. Search, arXiv/OA, and Elsevier/Wiley/Springer collection use **only the standard library**, so they work without the install above; the install is for **IEEE full text** (pre-installing avoids hiccups during a demo). Run the IEEE script with `uv run python scripts/fetch_ieee.py …`; everything else runs with plain `python scripts/…`.
 
-### 2. AI 에이전트 준비 (Claude Code · Codex 둘 다 지원)
-- **Claude Code** 또는 **Codex CLI** 중 하나를 이 폴더에서 연다.
-- 규칙은 `AGENTS.md` **한 곳**에 있다. **Codex**는 `AGENTS.md`를, **Claude Code**는 `CLAUDE.md`(→ `AGENTS.md`로 안내)를 세션 시작 시 자동으로 읽는다 — 둘 다 **동일하게 동작**한다.
+### 2. Set up an AI agent (works with both Claude Code and Codex)
+- Open this folder in **Claude Code** or **Codex CLI**.
+- The rules live in **one place**, `AGENTS.md`. **Codex** reads `AGENTS.md` and **Claude Code** reads `CLAUDE.md` (which points to `AGENTS.md`) at the start of each session — both behave **identically**. (See "The AGENTS.md manual" below.)
 
-### 3. (선택) 논문 자동 수집 키 설정
-유료 출판사(Elsevier / Wiley / Springer) 본문을 DOI로 받고 싶으면:
+### 3. (optional) Set up collection keys
+To fetch paywalled full text (Elsevier / Wiley / Springer) by DOI:
 ```bash
 cp secrets/api-keys.example.json secrets/api-keys.json
-# 파일을 열어 본인 키 입력. 이 파일은 git에 안 올라간다.
+# open the file and add your keys. This file is never committed (gitignored).
 ```
-> **키가 없어도** arXiv 논문과 무료 공개본(OA)은 받힌다. 그래도 안 되는 PDF는 직접 `papers/`에 넣으면 ingest는 똑같이 된다.
+> **Without keys**, arXiv papers and open-access (OA) copies still download. For anything you still can't get, drop the PDF into `papers/` and ingest works the same.
 
-> **찾기(검색)용 선택 키**도 같은 파일에 넣을 수 있다 — `semantic_scholar`(무료, rate limit 완화)와 `scopus`(검색; 위 **Elsevier 키로 그대로 동작**, 기관망 필요). 없으면 그 출처만 건너뛰고 나머지로 검색한다. 자세한 건 `secrets/api-keys.example.json`.
+> **Search keys (optional)** go in the same file — `semantic_scholar` (free, eases rate limits) and `scopus` (search; **runs on the Elsevier key above**, institutional network required). Without them, those sources are simply skipped and the rest still search. Details in `secrets/api-keys.example.json`.
 
-> **IEEE 본문**: Playwright는 1단계에서 이미 설치된다. 캠퍼스망/KAIST VPN이면 로그인 없이 바로 받히고, 그 외에는 `python scripts/fetch_ieee.py login` 으로 1회 로그인한다.
+> **IEEE full text**: Playwright is already installed in step 1. On the campus network / KAIST VPN it downloads without login; otherwise run `python scripts/fetch_ieee.py login` once.
 
-### 4. 첫 논문 넣기 — 먼저 PDF를 구한다
+### 4. Add your first paper — get the PDF first
 ```bash
-# 방법 A — 주제/키워드로 찾기 (arXiv·OpenAlex·Semantic Scholar·Scopus 후보 → 받을 것 고르기)
+# A — search by topic/keyword (arXiv·OpenAlex·Semantic Scholar·Scopus candidates → pick what to fetch)
 python scripts/search.py "vision language action humanoid"
 
-# 방법 B — 식별자로 바로 받기 (DOI는 무료 공개본 우선 → 없으면 출판사 API)
+# B — fetch directly by identifier (DOI tries OA first → then publisher APIs)
 python scripts/fetch_paper.py 10.1016/j.trf.2025.103482   # DOI
 python scripts/fetch_paper.py 2406.09246                  # arXiv id
 
-# 방법 C — IEEE 등 키 없는 곳 (브라우저. Playwright 선택 설치, 캠퍼스망/VPN 권장)
+# C — IEEE etc. that need no key (browser; Playwright optional, campus/VPN recommended)
 python scripts/fetch_ieee.py fetch 10.1109/JSEN.2022.3156971
 
-# 방법 D — PDF를 직접 papers/ 에 복사 (키 없어도 됨)
+# D — just copy a PDF into papers/ (no key needed)
 ```
-그다음 에이전트에게 한 마디:
-> **"이 PDF ingest해줘"**
+Then tell the agent:
+> **"Ingest this PDF"**
 
-→ 에이전트가 stem 규칙으로 이름 정리 → `sources/` 요약 → `wiki/` 구조화 노트 → `overviews/` 종합까지 만든다.
+→ The agent renames it by the stem rule → `sources/` summary → `wiki/` structured note → `overviews/` synthesis.
 
-> 수집 스크립트는 **표준 라이브러리만** 쓴다(설치 불필요). IEEE(`fetch_ieee.py`)만 예외로 `pip install playwright && python -m playwright install chromium` 가 필요하다.
+> Collection scripts use **only the standard library** (no install). Only IEEE (`fetch_ieee.py`) and figure extraction (`extract_figures.py`) need extra packages (Playwright / pymupdf).
 
 ---
 
-## 폴더 구조
+## Folder structure
 
 ```
 my-wiki/
-├── AGENTS.md          ← AI 운영 매뉴얼 (룰의 단일 소스). 매 세션 먼저 읽음
-├── CLAUDE.md          ← 진입점 포인터
-├── README.md          ← 이 파일
+├── AGENTS.md          ← AI operating manual (the single source of rules). Read first each session
+├── CLAUDE.md          ← entry-point pointer (→ AGENTS.md)
+├── README.md          ← this file
 │
-├── papers/            ← 원본 PDF (flat). 파일명 = stem 규칙
-├── sources/           ← 논문 1편 = 요약 .md 1개 (flat)
+├── papers/            ← original PDFs (flat). filename = stem rule
+├── sources/           ← one summary .md per paper (flat)
 ├── wiki/
-│   ├── <category>/    ← 주제 카테고리 (내용 보고 자동 부여, 쌓이면 세분화)
-│   ├── concepts/      ← 분야 횡단 개념 노트
-│   ├── methods/       ← 분야 횡단 방법론 노트
-│   └── overviews/     ← 카테고리 종합 허브 (백링크 모음)
+│   ├── <category>/    ← topic categories (assigned from content, split as they grow)
+│   ├── concepts/      ← cross-cutting concept notes
+│   ├── methods/       ← cross-cutting method notes
+│   └── overviews/     ← per-category synthesis hubs (backlink collections)
 │
-├── scripts/             ← 수집·선별 (표준 라이브러리만; IEEE/그림추출만 추가 패키지)
-│   ├── search.py        ← 주제/키워드 → arXiv·OpenAlex·Semantic Scholar·Scopus 후보 검색
-│   ├── make_shortlist.py← 후보 → 클릭형 선별 체크리스트 (shortlist.html)
-│   ├── fetch_paper.py   ← DOI·arXiv id → 전문 PDF (OA 우선 → 출판사 API)
-│   ├── fetch_ieee.py    ← IEEE 등 키 없는 곳 (브라우저, 선택)
-│   ├── extract_figures.py ← 리뷰카드용 PDF figure 추출 (심화, pymupdf)
-│   └── _wiki.py         ← 공용 헬퍼 (키 로드·Crossref·stem)
+├── scripts/             ← collection & curation (stdlib only; IEEE/figures need extra pkgs)
+│   ├── search.py        ← topic/keyword → arXiv·OpenAlex·Semantic Scholar·Scopus candidates
+│   ├── make_shortlist.py← candidates → clickable selection checklist (shortlist.html)
+│   ├── fetch_paper.py   ← DOI·arXiv id → full-text PDF (OA first → publisher APIs)
+│   ├── fetch_ieee.py    ← IEEE etc. that need no key (browser, optional)
+│   ├── extract_figures.py ← PDF figure extraction for review cards (advanced, pymupdf)
+│   └── _wiki.py         ← shared helpers (key loading · Crossref · stem)
 └── secrets/
-    └── api-keys.example.json  ← 키 템플릿 (실제 키는 api-keys.json, gitignore)
+    └── api-keys.example.json  ← key template (real keys go in api-keys.json, gitignored)
 ```
 
-지식 체인: `PDF → sources/ 요약 → wiki/ 구조화 → overviews/ 종합 → 내 연구`
+Knowledge chain: `PDF → sources/ summary → wiki/ structured note → overviews/ synthesis → my research`
 
 ---
 
-## 핵심 규칙 (자세한 건 `AGENTS.md`)
+## The AGENTS.md manual
 
-- **주제(topic)로 분류** — 연구 그룹이 아니라 논문 내용으로. 미리 카테고리를 정하지 않고, 쌓이면 세분화.
-- **stem 공유** — `papers/`·`sources/`·`wiki/` 세 곳에서 파일명(`{저자}{연도}-{키워드}`) 동일.
-- **웹검색 금지 (기본)** — 답변은 내 위키 근거로. 모르면 `unknown`, 없으면 "PDF 달라"고 요청.
-- **노트 끝에 "다음 작업"** — 후속 분석·질문을 항상 박아둔다.
+`AGENTS.md` is the **single source of truth** for how the AI agent operates this wiki — the agent's standing manual, not a doc humans need to read line by line.
 
----
-
-## 한 달 로드맵 (가이드)
-
-- **1주차** — 셋업 + 핵심 논문 3~5편 ingest. ingest 흐름·stem·백링크 감 잡기.
-- **2~3주차** — 주력 분야 논문 10~20편으로 카테고리 형성. concepts/methods 노트 시작.
-- **4주차** — `overviews/`로 분야 종합 1~2개. "내 위키만으로 묻고 답하기" 시도.
-- 이후 그룹 통합 운영으로 전환 (별도 안내).
+- **Cross-agent by design.** `AGENTS.md` follows the emerging `agents.md` convention that AI coding agents read on their own. **Codex** reads it natively; **Claude Code** reads `CLAUDE.md`, which simply points to `AGENTS.md`. So one file drives **both** agents identically — no Claude-only "skills" that Codex can't see.
+- **What's inside.** A start-of-session checklist, the folder structure and stem rule, the collection workflow (**find → pick → fetch**), topic-classification principles, note frontmatter, the **4 core rules**, the language policy, transferable operating principles, and the **HTML review-card recipe (§8)**.
+- **Why one file.** Behavior stays consistent across sessions and across agents, and there's exactly one place to change it. To make the agent behave differently (a different output path, deeper cards, a new search source), you **edit `AGENTS.md`** instead of repeating instructions in every prompt.
+- **You rarely touch it.** Day to day you just give short prompts ("find papers on X", "ingest this", "make review cards from these two") — the agent fills in the rest from `AGENTS.md`.
 
 ---
 
-*TUPA Lab · 시스템 안내: https://hyunchul176.github.io/tupa-system/*
+## Core rules (full details in `AGENTS.md`)
+
+- **Classify by topic** — by the paper's content, not by research group. Don't predefine categories; split as they accumulate.
+- **Shared stem** — the same filename (`{author}{year}-{keyword}`) across `papers/`, `sources/`, and `wiki/`.
+- **No web search by default** — answer from your own wiki. If unknown, say `unknown`; if material is missing, ask for the PDF.
+- **End each note with "next steps"** — always pin follow-up analysis/questions.
+
+---
+
+## One-month roadmap (guideline)
+
+- **Week 1** — set up + ingest 3–5 key papers. Get a feel for the ingest flow, stems, and backlinks.
+- **Weeks 2–3** — 10–20 papers in your main area to form categories. Start concepts/methods notes.
+- **Week 4** — 1–2 synthesis hubs in `overviews/`. Try "ask and answer from my wiki alone".
+- After that, switch to group integration (covered separately).
+
+---
+
+*TUPA Lab · System guide: https://hyunchul176.github.io/tupa-system/*
