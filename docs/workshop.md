@@ -109,15 +109,18 @@ KO
 EN
 > OpenAlex doesn't seem enough. Draft an English query (under 500 characters) for this topic to run on LeapSpace.
 
-→ [sciencedirect.com/leapspace](https://www.sciencedirect.com/leapspace) 에서 돌린 결과(인용·DOI 포함)를 복사한다. / Run it on LeapSpace and copy the results (with DOIs).
+→ [researcher.elsevier.com](https://researcher.elsevier.com/) 에서 돌린 답(인용·DOI 포함)을 복사한다. / Run it on LeapSpace and copy the answer (with citations/DOIs).
 
-**② 결과 붙여넣은 뒤 / After pasting the results**
+**② 결과를 후보에 더하기 / Fold results into your candidates**
 
 KO
-> 이 결과에서 DOI를 뽑아 PDF를 받아줘.
+> LeapSpace에서 이런 답을 받았어: 〈답변 붙여넣기〉. 여기 인용된 논문들을 내 후보 목록에 더해줘.
 
 EN
-> Extract the DOIs from these results and download the PDFs.
+> I got this from LeapSpace: 〈paste the answer〉. Add the papers it cites to my candidate list.
+
+→ LeapSpace 답은 에이전트의 후보 리스트와 형식이 다르다. 받기로 바로 가지 말고, 새 논문을 후보에 더해 **2단계(받을 논문 고르기)부터 다시 반복**한다.
+→ A LeapSpace answer has a different shape than the agent's candidate list. Don't jump to fetching — add the new papers and **loop back to step 2 (pick papers)**.
 
 ---
 
@@ -130,13 +133,13 @@ A different role from the wiki — the wiki accumulates many topics for Q&A; rev
 For the demo, pick **just 2 papers** (the whole wiki takes a while). Deep cards, key figures, and click-to-zoom are **automatic** per the rules (AGENTS §8) — no need to spell them out.
 
 **KO**
-> 이 2편으로 HTML 리뷰카드를 만들어줘: 〈논문 1 — 제목 또는 DOI〉, 〈논문 2 — 제목 또는 DOI〉. `review/〈주제〉/index.html`로.
+> 이 2편으로 리뷰카드 만들어줘: 〈논문 1 — 제목 또는 DOI〉, 〈논문 2 — 제목 또는 DOI〉.
 
 **EN**
-> Build HTML review cards from these 2 papers: 〈paper 1 — title or DOI〉, 〈paper 2 — title or DOI〉. Output to `review/〈topic〉/index.html`.
+> Make review cards from these 2 papers: 〈paper 1 — title or DOI〉, 〈paper 2 — title or DOI〉.
 
-→ 생성된 `review/〈주제〉/index.html`을 브라우저로 연다. 비교 매트릭스·공백 분석은 옵션("매트릭스도 넣어줘").
-→ Open the generated `review/〈topic〉/index.html`. A comparison matrix & gap analysis are optional ("add a matrix too").
+→ 출력 위치(`review/〈주제〉/`)·템플릿·깊은 카드·figure는 규칙(AGENTS §8)대로 자동이니 프롬프트엔 논문만 적는다. 생성된 결과를 브라우저로 열어 본다. 비교 매트릭스·공백 분석은 옵션.
+→ Output location, template, deep cards, and figures are automatic per the rules (AGENTS §8) — just name the papers. Open the generated result in a browser. Matrix & gap analysis are optional.
 
 ---
 
