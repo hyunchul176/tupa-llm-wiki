@@ -150,3 +150,25 @@ ingested: 2026-06-11
 1. 단일 운영 매뉴얼 (이 파일) · 2. 반복 교정은 즉시 룰로 박기 · 3. 덤프→분류→정리 순서 ·
 4. 출력 경로 사전 지정 · 5. 노트 끝에 "다음 작업" 박기 · 6. 웹검색 차단(unknown은 필드에) ·
 7. 매일 조금씩 ingest 하는 누적의 가치
+
+---
+
+## 8. 리뷰 HTML 만들기 (심화·선택)
+
+> 위키(ingest)와 **다르다**: 위키는 주제가 섞여도 되지만, 리뷰 HTML은 **주제 1개당 1개** — 서로 다른 주제 논문을 한 리뷰에 섞지 않는다.
+
+사용자가 *"〈주제〉 논문들로 리뷰 HTML 만들어줘"* 라고 하면:
+
+1. **대상 논문 모으기 (주제 격리)** — 그 주제 논문만 고른다. `wiki/<category>/`의 같은 카테고리, 또는 사용자가 지정한 PDF 묶음. 주제가 어긋나는 논문은 **빼고**, 애매하면 사용자에게 확인한다.
+2. **figure 추출** — 논문마다 `python scripts/extract_figures.py papers/<stem>.pdf --prefix <stem> --out review/<주제>/images` (caption 모드). 출력 목록에서 **핵심 그림 1~3장**(아키텍처·결과 위주)만 고른다. 캡션 못 찾으면 `--mode embedded`/`pages`.
+3. **리뷰 생성** — `review/<주제>/index.html` **한 파일**로. `../assets/review.css`·`../assets/review.js`를 링크. 클래스는 review.css 기준:
+   - `header.hero`(h1 제목 · `.subtitle` · `.meta`: 작성자·날짜·논문 수)
+   - `.intro`(이 주제가 뭐고 왜 보는지 2~4줄)
+   - `.section` 1개+ (= 연구 라인/클러스터): `<h2><span class="sn">§1</span>제목</h2>` + `.sec-sum`(한 줄 요약) + `.pcard`들
+   - **`.pcard` 1장** = `h3`(제목) · `.cite`(저자·연도·venue·DOI) · `.tags` · `.field`(라벨 무엇/방법/결과) + **`.field.rel`(본 연구와의 관계 — 빨강 강조)** · `.figs`>`.fig`(img + `.cap`)
+4. **깊이 — 1차(기본)**: 카드 + 섹션 한 줄 요약까지. **옵션**(요청 시만): `.matrix`(비교 매트릭스) · `.gap`(공백 분석).
+
+규칙:
+- 내용은 **`sources/`·`wiki/` 노트와 원문 PDF에 근거**. 추측·잡지식 금지(모르면 unknown). '본 연구와의 관계'는 사용자 주제 맥락에서 쓴다.
+- figure는 `review/<주제>/images/`에 두고 카드에서 상대경로로 참조, 캡션에 출처(Fig. N) 표기.
+- 생성물 `review/<주제>/`는 gitignore된다. `review/assets/`만 공용 템플릿으로 커밋.

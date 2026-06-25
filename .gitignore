@@ -17,6 +17,10 @@ __pycache__/
 *.pyc
 .venv/
 
+# 생성된 리뷰 HTML (주제별 산출물·추출 이미지는 각자 로컬; review/assets 템플릿은 유지)
+review/*
+!review/assets/
+
 # OS / 에디터
 .DS_Store
 Thumbs.db

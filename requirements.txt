@@ -6,3 +6,5 @@
 # Playwright: IEEE 본문을 브라우저로 받을 때만 필요.
 #   설치 후 한 번:  python -m playwright install chromium
 playwright>=1.40
+# (심화) 리뷰 HTML용 PDF figure 추출. 리뷰 안 만들면 불필요.
+pymupdf>=1.24
