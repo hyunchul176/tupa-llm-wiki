@@ -180,4 +180,4 @@ Your `wiki/` is already plain Markdown with `[[backlinks]]`, so it **is an Obsid
 
 ---
 
-*TUPA Lab · System guide: https://hyunchul176.github.io/tupa-system/*
+*TUPA Lab · System guide (hub, access key required): https://tupa-system.qkrguscjf176.workers.dev*
