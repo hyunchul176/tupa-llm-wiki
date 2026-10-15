@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Literature Review — 휴머노이드 차량 운전</title>
+<title>Literature Review: 휴머노이드 차량 운전</title>
 <link rel="stylesheet" href="shared.css">
 <style>
   /* 한글이 단어 중간에서 끊기지 않게 (PPT '한글 잘림 허용' 끄기와 같은 효과) */
@@ -18,7 +18,7 @@
 <body>
 
 <header class="landing-hero">
-  <h1>Literature Review — 휴머노이드 차량 운전</h1>
+  <h1>Literature Review: 휴머노이드 차량 운전</h1>
   <p class="subtitle">휴머노이드가 차량을 개조하지 않고 사람용 핸들·페달을 직접 조작해 운전하는 연구 계보 (DRC era, 2014–2018)</p>
   <div class="meta">박현철 (KAIST) · 4 paper cards · v2차 (심화 카드 · 그림 클릭 확대) · 2026-06-25</div>
 </header>
@@ -49,9 +49,9 @@
   </aside>
 
   <main>
-    <p class="lede">자율주행차는 <strong>drive-by-wire</strong>라 조향·가감속이 함수 호출처럼 쉽지만, 휴머노이드가 <strong>비개조 차량</strong>을 모는 것은 사람용 핸들·페달을 <span class="mark">물리적으로 다뤄야 하는 기계 시스템</span>이다 — 스스로 정렬·안정화하고 차량 상태를 센서로 추정해야 한다. 본 리뷰는 DARPA Robotics Challenge(DRC)를 전후한 4편으로, <span class="mark">학습·언어를 통합한 휴머노이드 운전</span>이라는 본 연구의 학술적 자리매김을 위한 선행을 정리한다.</p>
+    <p class="lede">자율주행차는 <strong>drive-by-wire</strong>라 조향·가감속이 함수 호출처럼 쉽지만, 휴머노이드가 <strong>비개조 차량</strong>을 모는 것은 사람용 핸들·페달을 <span class="mark">물리적으로 다뤄야 하는 기계 시스템</span>이다: 스스로 정렬·안정화하고 차량 상태를 센서로 추정해야 한다. 본 리뷰는 DARPA Robotics Challenge(DRC)를 전후한 4편으로, <span class="mark">학습·언어를 통합한 휴머노이드 운전</span>이라는 본 연구의 학술적 자리매김을 위한 선행을 정리한다.</p>
 
-    <h2 id="s1">§1. 비전·센서 기반 자율 운전 <span class="section-status">v2차 — 심화</span></h2>
+    <h2 id="s1">§1. 비전·센서 기반 자율 운전 <span class="section-status">v2차: 심화</span></h2>
 
     <article class="paper line-a anchor-offset" id="paper-paolillo2014">
       <div class="tag-row">
@@ -64,12 +64,12 @@
       <div class="paper-body">
         <div class="paper-figs">
           <figure class="paper-figure" id="fig-paolillo2014-1">
-            <div class="fig-label">Fig 6 — 실험 셋업</div>
+            <div class="fig-label">Fig 6. 실험 셋업</div>
             <img src="images/paolillo2014-sensor-based_fig6.png" alt="HRP-4가 핸들·페달로 City Car Driving 게임을 운전하는 셋업">
             <div class="paper-figure-caption">HRP-4가 의자에 앉아 Thrustmaster 핸들·페달로 City Car Driving 게임 도로를 운전. <em>(클릭 시 확대)</em></div>
           </figure>
           <figure class="paper-figure" id="fig-paolillo2014-2">
-            <div class="fig-label">Fig 3 — 제어 구조</div>
+            <div class="fig-label">Fig 3. 제어 구조</div>
             <img src="images/paolillo2014-sensor-based_fig3.png" alt="비전 컨트롤러 + 어드미턴스 제어 블록 다이어그램">
             <div class="paper-figure-caption">아래 점선(비전)이 기준 조향각 α를, 위 어드미턴스 블록이 손 힘 f를 받아 안전한 핸들 회전을 만든다. <em>(클릭 시 확대)</em></div>
           </figure>
@@ -104,12 +104,12 @@
       <div class="paper-body">
         <div class="paper-figs">
           <figure class="paper-figure" id="fig-paolillo2018-1">
-            <div class="fig-label">Fig 1 — 프레임워크</div>
+            <div class="fig-label">Fig 1. 프레임워크</div>
             <img src="images/paolillo2018-autonomous-car_fig1.png" alt="지각→차량제어→로봇제어 3단 프레임워크 블록도">
             <div class="paper-figure-caption">지각(도로검출+속도추정) → 차량제어(조향+속도) → 로봇제어(과제기반 QP) 3단 구조. <em>(클릭 시 확대)</em></div>
           </figure>
           <figure class="paper-figure" id="fig-paolillo2018-2">
-            <div class="fig-label">Fig 10 — 완전 자율 주행</div>
+            <div class="fig-label">Fig 10. 완전 자율 주행</div>
             <img src="images/paolillo2018-autonomous-car_fig10.png" alt="온보드 카메라로 검출된 도로 경계를 따라 자율 주행하는 스냅샷">
             <div class="paper-figure-caption">온보드 카메라로 검출된 도로 경계(빨간 선)를 따라 굽은 길 ~100m 자율 주행. <em>(클릭 시 확대)</em></div>
           </figure>
@@ -120,9 +120,9 @@
           <div class="paper-section"><div class="paper-section-label">무엇을 했는가</div><p><span class="mark">표준 휴머노이드 센서(단안·IMU·손목 F/T)만으로</span> 차량의 어떤 정보에도 의존하지 않는 순수 반응형(reactive) 자율 운전 구조를 제안. 기여는 ①조향 제어 ②속도 제어(광류+IMU 융합) ③어드미턴스 제어 ④세 운전 모드. 모듈식이라 켜고 끌 수 있고, 사전 지도가 없어 처음 보는 길도 달린다.</p></div>
           <div class="paper-section"><div class="paper-section-label">방법론 상세</div>
             <ul class="method">
-              <li><b>모델링.</b> 차량을 단륜차로 근사 — 핸들각 α와 차량 각속도 ω를 선형, 페달 기울기와 가속도를 선형으로 둔다.</li>
+              <li><b>모델링.</b> 차량을 단륜차로 근사: 핸들각 α와 차량 각속도 ω를 선형, 페달 기울기와 가속도를 선형으로 둔다.</li>
               <li><b>도로 검출.</b> HSV 색분할 → 형태학 연산 → 컨벡스 헐 → Canny → Hough로 도로 두 경계를 뽑고 소실점·중점을 정의. 검출 실패 대비 칼만 추적·복구.</li>
-              <li><span class="key">★ 속도 추정(단안의 핵심).</span> GPS·속도계 없이 dense 광류(Farneback)로 진행 속도를, 가슴 IMU로 가속도를 재서 칼만필터로 융합 — 광류의 스케일 문제·엔진 진동 노이즈를 안정화한다.</li>
+              <li><span class="key">★ 속도 추정(단안의 핵심).</span> GPS·속도계 없이 dense 광류(Farneback)로 진행 속도를, 가슴 IMU로 가속도를 재서 칼만필터로 융합한다. 광류의 스케일 문제·엔진 진동 노이즈를 안정화한다.</li>
               <li><b>조향·속도 제어.</b> 소실점·중점을 0으로 보내는 비주얼 서보잉으로 핸들각을, 목표 속도 오차에 PID(경사 보상용 적분 포함)로 페달각을 만든다.</li>
               <li><b>로봇 제어.</b> 어드미턴스로 안전 파지 + <b>과제기반 QP</b>가 관절 한계·자기충돌·접촉 제약 아래 전신 동작을 푼다.</li>
               <li><b>운전 모드.</b> 완전자율 / 부분자율(조향 자율·사람 보조) / 텔레옵을 조이스틱으로 즉시 전환.</li>
@@ -135,7 +135,7 @@
       </div>
     </article>
 
-    <h2 id="s2">§2. DRC 실전 통합 시스템 <span class="section-status">v2차 — 심화</span></h2>
+    <h2 id="s2">§2. DRC 실전 통합 시스템 <span class="section-status">v2차: 심화</span></h2>
 
     <article class="paper line-b anchor-offset" id="paper-rasmussen2014">
       <div class="tag-row">
@@ -148,23 +148,23 @@
       <div class="paper-body">
         <div class="paper-figs">
           <figure class="paper-figure" id="fig-rasmussen2014-1">
-            <div class="fig-label">Fig 7 — 조작 방식</div>
+            <div class="fig-label">Fig 7. 조작 방식</div>
             <img src="images/rasmussen2014-utility-vehicles_fig7.png" alt="peg-in-wheel 조향과 발목 피치 페달 조작">
             <div class="paper-figure-caption">(a) 손 peg를 휠 스포크에 끼워 도는 peg-in-wheel 조향, (b) 왼발 발목 피치로 페달 압력 조절. <em>(클릭 시 확대)</em></div>
           </figure>
         </div>
         <div>
           <div class="tldr"><span class="tldr-label">TL;DR</span>DRC용 휴머노이드(DRC-Hubo)가 골프카트형 유틸리티 차량 2종을 <span class="mark">drive-by-wire 없이 손·발로 직접 조작해 자율 주행한 최초급 실증</span> (<a class="figref" href="#fig-rasmussen2014-1">Fig 7</a>).</div>
-          <div class="paper-section"><div class="paper-section-label">연구 배경</div><p>DRC의 Vehicle 단계는 로봇이 골프카트형 차량을 몰아 장애물을 피해 목표 지점까지 가게 했다. 휴머노이드 운전은 자율주행차와 근본적으로 다르다 — ①무게·전력·균형 제약으로 센서·연산이 빠듯하고, ②차 안에 앉으면 <span class="mark">시야가 본질적으로 가려져</span> view planning이 필요하며, ③drive-by-wire가 아니라 휠·페달을 직접 다뤄 스스로 정렬·안정화하고 미끄러짐을 감시해야 한다(차량 상태값도 대시보드·센서로 추정).</p></div>
+          <div class="paper-section"><div class="paper-section-label">연구 배경</div><p>DRC의 Vehicle 단계는 로봇이 골프카트형 차량을 몰아 장애물을 피해 목표 지점까지 가게 했다. 휴머노이드 운전은 자율주행차와 근본적으로 다르다. ①무게·전력·균형 제약으로 센서·연산이 빠듯하고, ②차 안에 앉으면 <span class="mark">시야가 본질적으로 가려져</span> view planning이 필요하며, ③drive-by-wire가 아니라 휠·페달을 직접 다뤄 스스로 정렬·안정화하고 미끄러짐을 감시해야 한다(차량 상태값도 대시보드·센서로 추정).</p></div>
           <div class="paper-section"><div class="paper-section-label">무엇을 했는가</div><p><span class="mark">범용 휴머노이드가 비개조 차량을 운전할 수 있다는 실현 가능성</span>을 실증. 저자들이 찾은 선행(HRP-1)이 전부 영상 기반 원격조작이던 것과 달리, ①차량과 인터페이스해 명령대로 가감속·조향하는 지각·물리 방법과 ②가림 시야 속 센싱·동작 계획을 제시했다.</p></div>
           <div class="paper-section"><div class="paper-section-label">방법론 상세</div>
             <ul class="method">
               <li><b>자율 인터페이싱.</b> 중립 자세에서 라이다로 대시보드 포인트클라우드를 떠 어느 차량인지 인식(대시보드 폭 차이로 구분).</li>
               <li><b>차내 자기 위치추정.</b> 라이다 클라우드를 차량별 기준과 <b>RANSAC + FPFH + ICP</b>로 정합해(~5초) 운전석 기준 pose를 얻는다.</li>
               <li><b>운전자세 이동.</b> 중립→운전자세로 'scooting'이라는 정형화된 4족 보행으로 옮기고, 매 사이클 재스캔·재정합.</li>
-              <li><span class="key">★ 조향(peg-in-wheel).</span> 손 peg를 휠 스포크 사이에 끼워 원궤적으로 다이얼링 — 특이점이 없어 큰 각도에서도 재파지 불필요. IK를 룩업테이블화해 온라인 보간. 손각≠휠각이 되는 <b>백래시(60~90°)</b>가 핵심 한계.</li>
+              <li><span class="key">★ 조향(peg-in-wheel).</span> 손 peg를 휠 스포크 사이에 끼워 원궤적으로 다이얼링한다. 특이점이 없어 큰 각도에서도 재파지 불필요. IK를 룩업테이블화해 온라인 보간. 손각≠휠각이 되는 <b>백래시(60~90°)</b>가 핵심 한계.</li>
               <li><b>속도 제어.</b> 왼발 발목 피치로 페달 압력, 스테레오 비주얼 오도메트리(libviso2)로 속도 피드백. 능동 제동은 미구현.</li>
-              <li><b>모션 제어.</b> 'stop-to-steer' — 정지 상태에서만 휠을 돌려 Dubins 경로 주행. 상위는 OctoMap 점유격자 + Ackermann SBPL 플래너.</li>
+              <li><b>모션 제어.</b> 'stop-to-steer': 정지 상태에서만 휠을 돌려 Dubins 경로 주행. 상위는 OctoMap 점유격자 + Ackermann SBPL 플래너.</li>
             </ul>
           </div>
           <div class="paper-section"><div class="paper-section-label">결과 / 시연</div><p>대시보드 정합·pose 추정은 평균 ~5초(1회 빼고 양호). 조향·속도 작동은 두 차량서 광범위 시험, <span class="mark">stop-to-steer는 Polaris 실내외 시연</span>. 완전 자율 통합 주행·매핑·SBPL은 시뮬레이션 + 캠퍼스·골프장 5km+ 수동주행으로 오프라인 검증.</p></div>
@@ -185,14 +185,14 @@
       <div class="paper-body">
         <div class="paper-figs">
           <figure class="paper-figure" id="fig-jeong2015-1">
-            <div class="fig-label">Fig 8 — Wagon Model 자율 주행</div>
+            <div class="fig-label">Fig 8. Wagon Model 자율 주행</div>
             <img src="images/jeong2015-drive-egress_fig8.png" alt="Wagon Model 기반 자율 주행 블록도">
-            <div class="paper-figure-caption">Wagon Model 블록도 — 한 라이다·IMU로 조향·속도를 결합 제어, 급조향 시 가속 페달에서 발을 뗀다. <em>(클릭 시 확대)</em></div>
+            <div class="paper-figure-caption">Wagon Model 블록도: 한 라이다·IMU로 조향·속도를 결합 제어, 급조향 시 가속 페달에서 발을 뗀다. <em>(클릭 시 확대)</em></div>
           </figure>
           <figure class="paper-figure" id="fig-jeong2015-2">
-            <div class="fig-label">Fig 11 — 수동 운전 UI</div>
+            <div class="fig-label">Fig 11. 수동 운전 UI</div>
             <img src="images/jeong2015-drive-egress_fig11.png" alt="DRC Finals 실전 운전 화면의 레인 투영">
-            <div class="paper-figure-caption">DRC Finals 실전 운전 UI — 조향각으로 만든 궤적을 영상에 투영(레인 투영)해 거리감을 보완. <em>(클릭 시 확대)</em></div>
+            <div class="paper-figure-caption">DRC Finals 실전 운전 UI: 조향각으로 만든 궤적을 영상에 투영(레인 투영)해 거리감을 보완. <em>(클릭 시 확대)</em></div>
           </figure>
         </div>
         <div>

@@ -217,6 +217,8 @@
   .egtbl tr:last-child td{border-bottom:none;}
   .egtbl th{background:var(--navy-100);color:var(--navy-800);font-size:12px;font-weight:700;}
   .egtbl td .s{color:var(--muted);font-size:12.5px;display:block;margin-top:2px;}
+  /* 휴대폰에서 표가 화면 밖으로 21px 넘쳤다(arXiv 번호 같은 긴 낱말). 칸 안에서 줄을 바꾼다. */
+  @media (max-width:520px){.egtbl{font-size:12.5px}.egtbl th,.egtbl td{padding:7px 7px;overflow-wrap:anywhere}}
   .egtbl .oa{font-size:10.5px;font-weight:700;color:var(--navy-800);background:var(--navy-100);padding:1px 7px;border-radius:4px;white-space:nowrap;}
   .egtbl .oa.no{color:#fff;background:var(--navy-600);}
   .egshort{background:#fff;border:1px solid var(--line);border-radius:9px;padding:11px;}
@@ -619,20 +621,20 @@ claude --version</div>
             <p class="ptext"><span class="ko">전문 PDF를 다운로드해줘. arXiv와 무료 공개본(OA)을 먼저 시도하고, 안 되면 출판사 API, 그래도 안 되면 브라우저 자동화(Playwright)로 시도해줘. 다운로드하지 못한 논문은 목록으로 알려줘. 받을 논문 = 2단계에서 '선택 복사'한 DOI·arXiv id: <span class="ph">〈여기에 붙여넣기〉</span></span><span class="en">Download the full-text PDFs. Try arXiv and open access (OA) first, then publisher APIs, and if still blocked, browser automation (Playwright). List anything you couldn't get. Papers to fetch = the DOIs/arXiv ids you "선택 복사"-ed in step 2: <span class="ph">〈paste here〉</span></span></p>
           </div>
           <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ 다운로드한 PDF는 <code>papers/</code> 폴더에 저장된다. <b>직접 보유한 논문 PDF</b>도 <code>papers/</code>에 넣어두면 같은 방식으로 ingest할 수 있다.</span><span class="en">→ Downloaded PDFs are saved in <code>papers/</code>. <b>Your own PDFs</b> can also go in <code>papers/</code> and be ingested the same way.</span></p>
-          <div class="info"><span class="ko"><b>출판사마다 받는 길이 다르다</b> — 스크립트가 위 순서(OA → PMC → API → 브라우저)대로 자동으로 시도하니 보통 신경 쓸 필요 없다. <b>API 키가 우선</b>이고, 브라우저 자동화는 API가 없는 곳을 보조한다(전체 표: <code>AGENTS §3</code>).
+          <div class="info"><span class="ko"><b>출판사마다 받는 길이 다르다</b>: 스크립트가 위 순서(OA → PMC → API → 브라우저)대로 자동으로 시도하니 보통 신경 쓸 필요 없다. <b>API 키가 우선</b>이고, 브라우저 자동화는 API가 없는 곳을 보조한다(전체 표: <code>AGENTS §3</code>).
             <ul>
-              <li><b>arXiv · 무료 공개본(OA)</b> — 키 없이 바로</li>
-              <li><b>IEEE · Springer</b> — <b>브라우저 자동화(Playwright)</b>로 받힌다 (캠퍼스망/KAIST VPN)</li>
-              <li><b>Elsevier · Wiley</b> — <b>API 키</b>로 받는다 (브라우저는 로그인 벽이라 막힘)</li>
-              <li><b>MDPI</b> — <b>PMC</b>(Europe PMC) 우회로</li>
-              <li><b>그 외 페이월</b>(ACS·RSC·SAGE 등) — 막히면 직접 내려받아 <code>papers/</code>에</li>
-            </ul></span><span class="en"><b>Each publisher resolves through a different route</b> — the script tries the order above (OA → PMC → API → browser) automatically, so you rarely think about it. <b>API keys come first</b>; browser automation backs up sources without an API (full table: <code>AGENTS §3</code>).
+              <li><b>arXiv · 무료 공개본(OA)</b>: 키 없이 바로</li>
+              <li><b>IEEE · Springer</b>: <b>브라우저 자동화(Playwright)</b>로 받힌다 (캠퍼스망/KAIST VPN)</li>
+              <li><b>Elsevier · Wiley</b>: <b>API 키</b>로 받는다 (브라우저는 로그인 벽이라 막힘)</li>
+              <li><b>MDPI</b>: <b>PMC</b>(Europe PMC) 우회로</li>
+              <li><b>그 외 페이월</b>(ACS·RSC·SAGE 등): 막히면 직접 내려받아 <code>papers/</code>에</li>
+            </ul></span><span class="en"><b>Each publisher resolves through a different route</b>: the script tries the order above (OA → PMC → API → browser) automatically, so you rarely think about it. <b>API keys come first</b>; browser automation backs up sources without an API (full table: <code>AGENTS §3</code>).
             <ul>
-              <li><b>arXiv · open access (OA)</b> — no key needed</li>
-              <li><b>IEEE · Springer</b> — via <b>browser automation (Playwright)</b> (campus / KAIST VPN)</li>
-              <li><b>Elsevier · Wiley</b> — via <b>API key</b> (the browser hits a login wall)</li>
-              <li><b>MDPI</b> — via <b>PMC</b> (Europe PMC)</li>
-              <li><b>Other paywalled</b> (ACS, RSC, SAGE, …) — if blocked, download manually into <code>papers/</code></li>
+              <li><b>arXiv · open access (OA)</b>: no key needed</li>
+              <li><b>IEEE · Springer</b>: via <b>browser automation (Playwright)</b> (campus / KAIST VPN)</li>
+              <li><b>Elsevier · Wiley</b>: via <b>API key</b> (the browser hits a login wall)</li>
+              <li><b>MDPI</b>: via <b>PMC</b> (Europe PMC)</li>
+              <li><b>Other paywalled</b> (ACS, RSC, SAGE, …): if blocked, download manually into <code>papers/</code></li>
             </ul></span></div>
           <div class="eg"><span class="eglabel"><span class="ko">결과 예시</span><span class="en">Example</span></span>
             <div class="code"><pre>▶ 2406.09246
@@ -690,19 +692,19 @@ wiki/overviews/    <span class="new">vla-control.md</span>         <span class="
       <div class="adv">
         <span class="advbadge"><span class="ko">보기 도구</span><span class="en">Viewer</span></span>
         <h4 style="display:flex;align-items:center;gap:9px;"><img src="assets/obsidian.png" alt="Obsidian" style="height:26px;width:26px;border-radius:6px;"><span><span class="ko">Obsidian으로 위키 보기</span><span class="en">View your wiki in Obsidian</span></span></h4>
-        <div class="stepnote"><span class="ko"><b>Obsidian이란?</b> 로컬 Markdown 파일을 <code>[[링크]]</code>로 잇는 무료 노트 앱이다. 흩어진 노트를 서로 연결해 그래프로 보여주는 '제2의 뇌' 도구로 연구자들이 많이 쓴다.</span><span class="en"><b>What is Obsidian?</b> A free note app that links local Markdown files with <code>[[links]]</code> — a popular "second brain" that connects notes and shows them as a graph.</span></div>
+        <div class="stepnote"><span class="ko"><b>Obsidian이란?</b> 로컬 Markdown 파일을 <code>[[링크]]</code>로 잇는 무료 노트 앱이다. 흩어진 노트를 서로 연결해 그래프로 보여주는 '제2의 뇌' 도구로 연구자들이 많이 쓴다.</span><span class="en"><b>What is Obsidian?</b> A free note app that links local Markdown files with <code>[[links]]</code>, a popular "second brain" that connects notes and shows them as a graph.</span></div>
         <ul class="advlist">
-          <li><span class="ko"><b>그대로 열기</b> — <code>wiki/</code>는 이미 Markdown + <code>[[백링크]]</code>라, <span class="mark">변환 없이 폴더만 열면 바로 동작</span>한다.</span><span class="en"><b>Open as-is</b> — <code>wiki/</code> is already Markdown + <code>[[backlinks]]</code>, so it <span class="mark">just works the moment you open the folder</span> — no conversion.</span></li>
-          <li><span class="ko"><b>얻는 것</b> — 그래프 뷰(논문·주제·개념이 이어진 지식 지도), 백링크 패널, <code>[[링크]]</code> 클릭 이동, 빠른 검색.</span><span class="en"><b>What you get</b> — a graph view (a map of papers, topics, concepts), a backlinks panel, click-through <code>[[links]]</code>, and fast search.</span></li>
-          <li><span class="ko"><b>역할 분리</b> — 에이전트는 노트를 만들고, Obsidian은 사람이 읽고 탐색하는 화면이다. 평범한 <code>.md</code>라 락인(lock-in)이 없다.</span><span class="en"><b>Roles split</b> — the agent writes the notes; Obsidian is the human's reading/navigation layer. Plain <code>.md</code>, so no lock-in.</span></li>
-          <li><span class="ko"><b>무료</b> — 개인·학술용은 무료다(동기화·웹공개만 유료인데, 우리는 Git으로 동기화한다).</span><span class="en"><b>Free</b> — for personal/academic use (only Sync/Publish are paid; we use Git instead).</span></li>
+          <li><span class="ko"><b>그대로 열기</b>: <code>wiki/</code>는 이미 Markdown + <code>[[백링크]]</code>라, <span class="mark">변환 없이 폴더만 열면 바로 동작</span>한다.</span><span class="en"><b>Open as-is</b>: <code>wiki/</code> is already Markdown + <code>[[backlinks]]</code>, so it <span class="mark">just works the moment you open the folder</span>: no conversion.</span></li>
+          <li><span class="ko"><b>얻는 것</b>: 그래프 뷰(논문·주제·개념이 이어진 지식 지도), 백링크 패널, <code>[[링크]]</code> 클릭 이동, 빠른 검색.</span><span class="en"><b>What you get</b>: a graph view (a map of papers, topics, concepts), a backlinks panel, click-through <code>[[links]]</code>, and fast search.</span></li>
+          <li><span class="ko"><b>역할 분리</b>: 에이전트는 노트를 만들고, Obsidian은 사람이 읽고 탐색하는 화면이다. 평범한 <code>.md</code>라 락인(lock-in)이 없다.</span><span class="en"><b>Roles split</b>: the agent writes the notes; Obsidian is the human's reading/navigation layer. Plain <code>.md</code>, so no lock-in.</span></li>
+          <li><span class="ko"><b>무료</b>: 개인·학술용은 무료다(동기화·웹공개만 유료인데, 우리는 Git으로 동기화한다).</span><span class="en"><b>Free</b>: for personal/academic use (only Sync/Publish are paid; we use Git instead).</span></li>
         </ul>
         <div class="eg"><span class="eglabel"><span class="ko">화면 예시: 그래프 뷰와 노트</span><span class="en">Screens: graph view & a note</span></span>
           <div class="thumb-row obs">
             <img class="shot og" src="assets/obsidian-graph.webp" data-popup-img="assets/obsidian-graph.webp" role="button" tabindex="0" alt="Obsidian 그래프 뷰: 논문·주제·개념 노트가 [[링크]]로 이어진 지식 지도 (클릭하면 확대)">
             <img class="shot on" src="assets/obsidian-note.webp" data-popup-img="assets/obsidian-note.webp" role="button" tabindex="0" alt="Obsidian 노트 한 편: Markdown과 백링크로 작성된 구조화 노트 (클릭하면 확대)">
           </div>
-          <p style="font-size:12px;color:var(--muted);margin:9px 0 0;text-align:center;"><span class="ko"><b>왼쪽</b> 그래프 뷰 — 논문·주제·개념이 <code>[[링크]]</code>로 이어진 지식 지도. <b>오른쪽</b> 노트 한 편 — Markdown + 백링크. (각 이미지를 클릭하면 팝업 확대)</span><span class="en"><b>Left</b>: graph view — a knowledge map linking papers, topics, and concepts via <code>[[links]]</code>. <b>Right</b>: a single note — Markdown + backlinks. (Click either image to enlarge.)</span></p>
+          <p style="font-size:12px;color:var(--muted);margin:9px 0 0;text-align:center;"><span class="ko"><b>왼쪽</b> 그래프 뷰: 논문·주제·개념이 <code>[[링크]]</code>로 이어진 지식 지도. <b>오른쪽</b> 노트 한 편: Markdown + 백링크. (각 이미지를 클릭하면 팝업 확대)</span><span class="en"><b>Left</b>: graph view: a knowledge map linking papers, topics, and concepts via <code>[[links]]</code>. <b>Right</b>: a single note: Markdown + backlinks. (Click either image to enlarge.)</span></p>
         </div>
         <p style="font-size:14px;color:var(--muted);margin:8px 0 0;"><span class="ko">→ 여는 법: <a href="https://obsidian.md" target="_blank" rel="noopener">obsidian.md</a>에서 설치 → <b>Open folder as vault</b> → 내 위키 폴더를 고른다.</span><span class="en">→ How: install from <a href="https://obsidian.md" target="_blank" rel="noopener">obsidian.md</a> → <b>Open folder as vault</b> → pick your wiki folder.</span></p>
       </div>
